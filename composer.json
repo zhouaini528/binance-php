@@ -1,0 +1,20 @@
+{
+    "name": "linwj/huobi",
+    "type": "library",
+    "description": "Huobi API Like the official document interface, Support for arbitrary extension.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "linwenjun",
+            "email": "465382251@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Lin\\Huobi\\": "./src/"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
