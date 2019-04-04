@@ -1,0 +1,6 @@
+<?php
+$key='dJDpiqEYKfJUHdkOQUrdUWrQkhCDs6YzMPwiyT1ZQcSI6rhAS0Xs5pp7cgb7PEJy';
+$secret='1H0xUFt2GcqbDjxRziDKwrcV9fzs7Wi3GLnqPAuVKEkyjPrbeOG5NqtOA7uZwKRr';
+
+//dJDpiqEYKfJUHdkOQUrdUWrQkhCDs6YzMPwiyT1ZQcSI6rhAS0Xs5pp7cgb7PEJy
+//1H0xUFt2GcqbDjxRziDKwrcV9fzs7Wi3GLnqPAuVKEkyjPrbeOG5NqtOA7uZwKRr

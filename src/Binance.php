@@ -16,7 +16,7 @@ class Binance
     protected $secret;
     protected $host;
     
-    function __construct(string $key='',string $secret='',string $host='https://api.huobi.pro'){
+    function __construct(string $key='',string $secret='',string $host='https://api.binance.com'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;

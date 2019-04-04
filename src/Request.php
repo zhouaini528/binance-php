@@ -37,7 +37,7 @@ class Request
     {
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
-        $this->host=$data['host'] ?? 'https://api.huobi.pro';
+        $this->host=$data['host'] ?? 'https://api.binance.com';
     }
     
     /**
@@ -55,49 +55,17 @@ class Request
      * 过期时间
      * */
     protected function nonce(){
-        $this->nonce=gmdate('Y-m-d\TH:i:s');
+        $this->nonce='';
     }
     
     /**
      * 签名
      * */
     protected function signature(){
-        $param = [
-            'AccessKeyId' => $this->key,
-            'SignatureMethod' => 'HmacSHA256',
-            'SignatureVersion' => 2,
-            'Timestamp' => $this->nonce,
-        ];
-        
-        if(!empty($this->data)) {
-            $param=array_merge($param,$this->data);
+        if(!empty($this->data)){
+            $query=http_build_query($this->data,'', '&');
+            $this->signature = $query.'&signature='.hash_hmac('sha256', $query, $this->secret);
         }
-        
-        $param=$this->sort($param);
-        
-        $host_tmp=explode('https://', $this->host);
-        $temp=$this->type . "\n" . $host_tmp[1] . "\n" . $this->path . "\n" . implode('&', $param);
-        $signature=base64_encode(hash_hmac('sha256', $temp, $this->secret, true));
-        
-        $param[]="Signature=" . urlencode($signature);
-        
-        $this->signature=implode('&', $param);
-    }
-    
-    /**
-     * 根据huobi规则排序
-     * */
-    protected function sort($param)
-    {
-        $u = [];
-        $sort_rank = [];
-        foreach ($param as $k => $v) {
-            $u[] = $k . "=" . urlencode($v);
-            $sort_rank[] = ord($k);
-        }
-        asort($u);
-        
-        return $u;
     }
     
     /**
@@ -105,7 +73,7 @@ class Request
      * */
     protected function headers(){
         $this->headers=[
-            'Content-Type' => 'application/json',
+            'X-MBX-APIKEY'=>$this->key,
         ];
     }
     
@@ -120,12 +88,8 @@ class Request
             'timeout'=>$this->timeout
         ];
         
-        if(!empty($this->data)) {
-            $data['body']=json_encode($this->data);
-        }
-        
         $response = $client->request($this->type, $this->host.$this->path.'?'.$this->signature, $data);
-        
+
         return $response->getBody()->getContents();
     }
     
@@ -144,16 +108,16 @@ class Request
                 
                 $temp=json_decode($contents,true);
                 if(!empty($temp)) {
-                    $temp['method']=$this->type;
-                    $temp['url']=$this->host.$this->path;
+                    $temp['_method']=$this->type;
+                    $temp['_url']=$this->host.$this->path;
                 }else{
-                    $temp['message']=$e->getMessage();
+                    $temp['_message']=$e->getMessage();
                 }
             }else{
-                $temp['message']=$e->getMessage();
+                $temp['_message']=$e->getMessage();
             }
             
-            $temp['httpcode']=$e->getCode();
+            $temp['_httpcode']=$e->getCode();
             
             //TODO  该流程可以记录各种日志
             throw new Exception(json_encode($temp));

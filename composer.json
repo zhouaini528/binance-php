@@ -1,7 +1,7 @@
 {
-    "name": "linwj/huobi",
+    "name": "linwj/binance",
     "type": "library",
-    "description": "Huobi API Like the official document interface, Support for arbitrary extension.",
+    "description": "Binance API Like the official document interface, Support for arbitrary extension.",
     "license": "MIT",
     "authors": [
         {
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Lin\\Huobi\\": "./src/"
+            "Lin\\Binance\\": "./src/"
         }
     },
     "require": {
