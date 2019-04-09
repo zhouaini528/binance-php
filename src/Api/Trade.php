@@ -45,6 +45,13 @@ class Trade extends Request
         
         $data['timestamp']=time().'000';
         
+        switch (strtoupper($data['type'])){
+            case 'LIMIT':{
+                $data['timeInForce']=$data['timeInForce'] ?? 'GTC';
+                break;
+            }
+        }
+        
         $this->data=$data;
         return $this->exec();
     }
@@ -63,10 +70,20 @@ class Trade extends Request
     /**
      *撤销订单 (TRADE)
     DELETE /api/v3/order  (HMAC SHA256)
+    
+    symbol	STRING	YES	
+    orderId	LONG	NO	
+    origClientOrderId	STRING	NO	
+    newClientOrderId	STRING	NO	用户自定义的本次撤销操作的ID(注意不是被撤销的订单的自定义ID)。如无指定会自动赋值。
+    recvWindow	LONG	NO	
+    timestamp	LONG	YES	
      * */
     public function deleteOrder(array $data){
         $this->type='DELETE';
         $this->path='/api/v3/order';
+        
+        $data['timestamp']=time().'000';
+        
         $this->data=$data;
         return $this->exec();
     }

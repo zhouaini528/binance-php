@@ -11,43 +11,29 @@
  * */
 use Lin\Binance\Binance;
 
-require __DIR__ .'../../../vendor/autoload.php';
+require __DIR__ .'../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$huobi=new Binance($key,$secret);
+$binance=new Binance($key,$secret);
 
-//Place an Order
+//Get all account orders; active, canceled, or filled.
 try {
-    $result=$huobi->order()->postPlace([
-        'account-id'=>$account_id,
-        'symbol'=>'btcusdt',
-        'type'=>'buy-limit',
-        'amount'=>'0.001',
-        'price'=>'100',
+    $result=$binance->user()->getAllOrders([
+        'symbol'=>'BTCUSDT',
+        'limit'=>'20',
+        //'orderId'=>'',
+        //'startTime'=>'',
+        //'endTime'=>'',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
-sleep(1);
 
-//Get order details by order ID.
+//Get current account information.
 try {
-    $result=$huobi->order()->get([
-        'order-id'=>$result['data'],
-    ]);
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-sleep(1);
-
-//Cancelling an unfilled order.
-try {
-    $result=$huobi->order()->postSubmitCancel([
-        'order-id'=>$result['data']['id'],
-    ]);
+    $result=$binance->user()->getAccount();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));

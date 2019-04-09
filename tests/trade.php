@@ -17,31 +17,47 @@ include 'key_secret.php';
 
 $binance=new Binance($key,$secret);
 
-
-/*
- * Additional mandatory parameters based on type:
-    Type	Additional mandatory parameters
-    LIMIT	timeInForce, quantity, price
-    MARKET	quantity
-    STOP_LOSS	quantity, stopPrice
-    STOP_LOSS_LIMIT	timeInForce, quantity, price, stopPrice
-    TAKE_PROFIT	quantity, stopPrice
-    TAKE_PROFIT_LIMIT	timeInForce, quantity, price, stopPrice
-    LIMIT_MAKER	quantity, price
- * */
+//Send in a new order.
 try {
     $result=$binance->trade()->postOrder([
         'symbol'=>'BTCUSDT',
         'side'=>'BUY',
         'type'=>'LIMIT',
-        'timeInForce'=>'GTC',
         'quantity'=>'0.01',
-        'price'=>'2000'
+        'price'=>'2000',
+        'timeInForce'=>'GTC',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
+
+//Check an order's status.
+try {
+    $result=$binance->user()->getOrder([
+        'symbol'=>'BTCUSDT',
+        'orderId'=>$result['orderId'],
+        'origClientOrderId'=>$result['origClientOrderId'],
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Cancel an active order.
+try {
+    $result=$binance->trade()->deleteOrder([
+        'symbol'=>'BTCUSDT',
+        'orderId'=>$result['orderId'],
+        'origClientOrderId'=>$result['origClientOrderId'],
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+
+
 
 
 

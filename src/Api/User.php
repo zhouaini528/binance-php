@@ -23,10 +23,23 @@ class User extends Request
     /**
      *查询所有订单（包括历史订单） (USER_DATA)
     GET /api/v3/allOrders (HMAC SHA256)
+    
+    Name	Type	Mandatory	Description
+    symbol	STRING	YES	
+    orderId	LONG	NO	只返回此orderID之后的订单，缺省返回最近的订单
+    startTime	LONG	NO	
+    endTime	LONG	NO	
+    limit	INT	NO	Default 500; max 1000.
+    recvWindow	LONG	NO	
+    timestamp	LONG	YES	
      * */
     public function getAllOrders(array $data){
         $this->type='GET';
         $this->path='/api/v3/allOrders';
+        
+        $data['timestamp']=time().'000';
+        $data['limit']=$data['limit'] ?? 1000;
+        
         $this->data=$data;
         return $this->exec();
     }
@@ -34,10 +47,20 @@ class User extends Request
     /**
      *查询订单 (USER_DATA)
     GET /api/v3/order (HMAC SHA256)
+    
+    Name	Type	Mandatory	Description
+    symbol	STRING	YES	
+    orderId	LONG	NO	
+    origClientOrderId	STRING	NO	
+    recvWindow	LONG	NO	
+    timestamp	LONG	YES	
      * */
     public function getOrder(array $data){
         $this->type='GET';
         $this->path='/api/v3/order';
+        
+        $data['timestamp']=time().'000';
+        
         $this->data=$data;
         return $this->exec();
     }
@@ -45,10 +68,17 @@ class User extends Request
     /**
      *账户信息 (USER_DATA)
     GET /api/v3/account (HMAC SHA256)
+    
+    Name	Type	Mandatory	Description
+    recvWindow	LONG	NO	
+    timestamp	LONG	YES	
      * */
-    public function getAccount(array $data){
+    public function getAccount(array $data=[]){
         $this->type='GET';
         $this->path='/api/v3/account';
+        
+        $data['timestamp']=time().'000';
+        
         $this->data=$data;
         return $this->exec();
     }
