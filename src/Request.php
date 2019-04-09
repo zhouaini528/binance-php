@@ -19,7 +19,7 @@ class Request
     
     protected $nonce='';
     
-    protected $signature='';
+    protected $signature='';//bool | string
     
     protected $headers=[];
     
@@ -28,7 +28,6 @@ class Request
     protected $path='';
     
     protected $data=[];
-    
     
     
     protected $timeout=10;
@@ -64,7 +63,12 @@ class Request
     protected function signature(){
         if(!empty($this->data)){
             $query=http_build_query($this->data,'', '&');
-            $this->signature = $query.'&signature='.hash_hmac('sha256', $query, $this->secret);
+            
+            if($this->signature===true){
+                $this->signature = $query.'&signature='.hash_hmac('sha256', $query, $this->secret);
+            }else{
+                $this->signature = $query;
+            }
         }
     }
     
@@ -89,7 +93,9 @@ class Request
         ];
         
         $response = $client->request($this->type, $this->host.$this->path.'?'.$this->signature, $data);
-
+        
+        $this->signature='';
+        
         return $response->getBody()->getContents();
     }
     

@@ -9,6 +9,9 @@ use Lin\Binance\Request;
 
 class User extends Request
 {
+    //该接口默认需要HMAC SHA256
+    protected $signature=true;
+    
     /**
      * 查看账户当前挂单 (USER_DATA)
     GET /api/v3/openOrders  (HMAC SHA256)
@@ -96,35 +99,12 @@ class User extends Request
     }
     
     /**
-     *新建用户数据流 (USER_STREAM)
-    POST /api/v1/userDataStream
+     *充值历史 (USER_DATA)
+    GET /wapi/v3/depositHistory.html (HMAC SHA256)
      * */
-    public function postDataStream(array $data){
-        $this->type='POST';
-        $this->path='/api/v1/userDataStream';
-        $this->data=$data;
-        return $this->exec();
-    }
-    
-    /**
-     *Keepalive (USER_STREAM)
-    PUT /api/v1/userDataStream
-     * */
-    public function putDataStream(array $data){
+    public function getDepositHistory(array $data){
         $this->type='GET';
-        $this->path='/api/v1/userDataStream';
-        $this->data=$data;
-        return $this->exec();
-    }
-    
-    
-    /**
-     *关闭用户数据流 (USER_STREAM)
-    DELETE /api/v1/userDataStream
-     * */
-    public function deleteDataStream(array $data){
-        $this->type='DELETE';
-        $this->path='/api/v1/userDataStream';
+        $this->path='/wapi/v3/depositHistory.html';
         $this->data=$data;
         return $this->exec();
     }
@@ -157,6 +137,7 @@ class User extends Request
     GET /wapi/v3/accountStatus.html
      * */
     public function getAccountStatus(array $data){
+        $this->signature=false;
         $this->type='GET';
         $this->path='/wapi/v3/accountStatus.html';
         $this->data=$data;
@@ -181,16 +162,6 @@ class User extends Request
     public function getTradeFee(array $data){
         $this->type='GET';
         $this->path='/wapi/v3/tradeFee.html';
-        $this->data=$data;
-        return $this->exec();
-    }
-    
-    /**
-     *
-     * */
-    public function get(array $data){
-        $this->type='GET';
-        $this->path='/api/v3/account';
         $this->data=$data;
         return $this->exec();
     }

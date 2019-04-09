@@ -9,6 +9,9 @@ use Lin\Binance\Request;
 
 class Trade extends Request
 {
+    //该接口默认需要HMAC SHA256
+    protected $signature=true;
+    
     /**
      * 下单 (TRADE)
     POST /api/v3/order  (HMAC SHA256)

@@ -9,29 +9,42 @@
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/huobi-php.git
  * */
-use Lin\Huobi\HuobiSpot;
+use Lin\Binance\Binance;
 
-require __DIR__ .'../../../vendor/autoload.php';
+require __DIR__ .'../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$huobi=new HuobiSpot($key,$secret);
+$binance=new Binance();
 
-//get the status of an account
+//Order book
 try {
-    $result=$huobi->account()->get();
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-//Get the balance of an account
-try {
-    $result=$huobi->account()->getBalance([
-        'account-id'=>$result['data'][0]['id']
+    $result=$binance->system()->getDepth([
+        'symbol'=>'BTCUSDT',
+        'limit'=>'20',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
+//Recent trades list
+try {
+    $result=$binance->system()->getTrades([
+        'symbol'=>'BTCUSDT',
+        'limit'=>'20',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Current average price
+try {
+    $result=$binance->system()->getAvgPrice([
+        'symbol'=>'BTCUSDT'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}

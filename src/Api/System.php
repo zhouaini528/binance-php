@@ -9,6 +9,9 @@ use Lin\Binance\Request;
 
 class System extends Request
 {
+    //该接口默认不需要HMAC SHA256
+    protected $signature=false;
+    
     /**
      * 测试服务器连通性 PING
     GET /api/v1/ping
@@ -45,6 +48,9 @@ class System extends Request
     /**
      *深度信息
     GET /api/v1/depth
+    
+    symbol	STRING	YES	
+    limit	INT	NO	默认 100; 最大 1000. 可选值:[5, 10, 20, 50, 100, 500, 1000]
      * */
     public function getDepth(array $data){
         $this->type='GET';
@@ -56,20 +62,13 @@ class System extends Request
     /**
      *近期成交
     GET /api/v1/trades
+    
+    symbol	STRING	YES	
+    limit	INT	NO	Default 500; max 1000.
      * */
     public function getTrades(array $data){
         $this->type='GET';
         $this->path='/api/v1/trades';
-        $this->data=$data;
-        return $this->exec();
-    }
-    
-    /**
-     *
-     * */
-    public function get(array $data){
-        $this->type='GET';
-        $this->path='';
         $this->data=$data;
         return $this->exec();
     }
@@ -88,6 +87,12 @@ class System extends Request
     /**
      *近期成交(归集)
     GET /api/v1/aggTrades
+    
+    symbol	STRING	YES	
+    fromId	LONG	NO	从包含fromID的成交开始返回结果
+    startTime	LONG	NO	从该时刻之后的成交记录开始返回结果
+    endTime	LONG	NO	返回该时刻为止的成交记录
+    limit	INT	NO	默认 500; 最大 1000.
      * */
     public function getAggTrades(array $data){
         $this->type='GET';
@@ -110,6 +115,8 @@ class System extends Request
     /**
      *当前平均价格
     GET /api/v3/avgPrice
+    Name	Type	Mandatory	Description
+    symbol	STRING	YES	
      * */
     public function getAvgPrice(array $data){
         $this->type='GET';

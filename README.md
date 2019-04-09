@@ -1,80 +1,53 @@
 ### It is recommended that you read the official document first
 
-Huobi docs [https://github.com/huobiapi/API_Docs_en/wiki/REST_Reference](https://github.com/huobiapi/API_Docs_en/wiki/REST_Reference)
+Binance docs [https://github.com/binance-exchange/binance-official-api-docs](https://github.com/binance-exchange/binance-official-api-docs)
 
-All interface methods are initialized the same as those provided by huobi. See details [src/api](https://github.com/zhouaini528/huobi-php/tree/master/src/Api)
+All interface methods are initialized the same as those provided by binance. See details [src/api](https://github.com/zhouaini528/binance-php/tree/master/src/Api)
 
 Many interfaces are not yet complete, and users can continue to extend them based on my design. Feel free to iterate with me.
 
-[中文文档](https://github.com/zhouaini528/huobi-php/blob/master/README_CN.md)
+[中文文档](https://github.com/zhouaini528/binance-php/blob/master/README_CN.md)
 
 ### Other exchanges API
+
 [Bitmex](https://packagist.org/packages/linwj/bitmex)
 
 [Okex](https://packagist.org/packages/linwj/okex)
 
 [Huobi](https://packagist.org/packages/linwj/huobi)
 
-### Spot Trading API
+[Binance](https://packagist.org/packages/linwj/binance)
 
-Market related API [More](https://github.com/zhouaini528/huobi-php/blob/master/tests/spot/market.php)
+System related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/system.php)
 ```php
-$huobi=new HuobiSpot();
+$binance=new Binance();
 
-//Get market data. This endpoint provides the snapshots of market data and can be used without verifications.
+//Order book
 try {
-    $result=$huobi->market()->getDepth([
-        'symbol'=>'btcusdt',
-        //'type'=>'step3'   default step0
+    $result=$binance->system()->getDepth([
+        'symbol'=>'BTCUSDT',
+        'limit'=>'20',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//List trading pairs and get the trading limit, price, and more information of different trading pairs.
+//Recent trades list
 try {
-    $result=$huobi->market()->getTickers();
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-```
-
-Order related API [More](https://github.com/zhouaini528/huobi-php/blob/master/tests/spot/order.php)
-```php
-$huobi=new HuobiSpot($key,$secret);
-
-//Place an Order
-try {
-    $result=$huobi->order()->postPlace([
-        'account-id'=>$account_id,
-        'symbol'=>'btcusdt',
-        'type'=>'buy-limit',
-        'amount'=>'0.001',
-        'price'=>'100',
+    $result=$binance->system()->getTrades([
+        'symbol'=>'BTCUSDT',
+        'limit'=>'20',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
-sleep(1);
 
-//Get order details by order ID.
+//Current average price
 try {
-    $result=$huobi->order()->get([
-        'order-id'=>$result['data'],
-    ]);
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-sleep(1);
-
-//Cancelling an unfilled order.
-try {
-    $result=$huobi->order()->postSubmitCancel([
-        'order-id'=>$result['data']['id'],
+    $result=$binance->system()->getAvgPrice([
+        'symbol'=>'BTCUSDT'
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -82,33 +55,77 @@ try {
 }
 ```
 
-Accounts related API [More](https://github.com/zhouaini528/huobi-php/blob/master/tests/spot/account.php)
+Trade related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/trade.php)
 ```php
-$huobi=new HuobiSpot($key,$secret);
+$binance=new Binance($key,$secret);
 
-//get the status of an account
+//Send in a new order.
 try {
-    $result=$huobi->account()->get();
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-//Get the balance of an account
-try {
-    $result=$huobi->account()->getBalance([
-        'account-id'=>$result['data'][0]['id']
+    $result=$binance->trade()->postOrder([
+        'symbol'=>'BTCUSDT',
+        'side'=>'BUY',
+        'type'=>'LIMIT',
+        'quantity'=>'0.01',
+        'price'=>'2000',
+        'timeInForce'=>'GTC',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
+//Check an order's status.
+try {
+    $result=$binance->user()->getOrder([
+        'symbol'=>'BTCUSDT',
+        'orderId'=>$result['orderId'],
+        'origClientOrderId'=>$result['origClientOrderId'],
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Cancel an active order.
+try {
+    $result=$binance->trade()->deleteOrder([
+        'symbol'=>'BTCUSDT',
+        'orderId'=>$result['orderId'],
+        'origClientOrderId'=>$result['origClientOrderId'],
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
 ```
 
-[More use cases](https://github.com/zhouaini528/huobi-php/tree/master/tests/spot)
+User related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/user.php)
+```php
+$binance=new Binance($key,$secret);
 
-[More API](https://github.com/zhouaini528/huobi-php/tree/master/src/Api/Spot)
+//Get all account orders; active, canceled, or filled.
+try {
+    $result=$binance->user()->getAllOrders([
+        'symbol'=>'BTCUSDT',
+        'limit'=>'20',
+        //'orderId'=>'',
+        //'startTime'=>'',
+        //'endTime'=>'',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
 
-### Futures Trading API
-being developed
+//Get current account information.
+try {
+    $result=$binance->user()->getAccount();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+[More use cases](https://github.com/zhouaini528/binance-php/tree/master/tests)
+
+[More API](https://github.com/zhouaini528/binance-php/tree/master/src/Api)
