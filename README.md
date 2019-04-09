@@ -18,6 +18,11 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 [Binance](https://github.com/zhouaini528/binance-php)
 
+#### Installation
+```
+composer require "linwj/binance dev-master"
+```
+
 System related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/system.php)
 
 ```php

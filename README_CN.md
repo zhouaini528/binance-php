@@ -18,6 +18,11 @@ Binance 文档地址 [https://github.com/binance-exchange/binance-official-api-d
 
 [Binance](https://github.com/zhouaini528/binance-php)
 
+#### 安装方式
+```
+composer require "linwj/binance dev-master"
+```
+
 系统数据相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/system.php)
 
 ```php
