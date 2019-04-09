@@ -10,15 +10,16 @@ Binance 文档地址 [https://github.com/binance-exchange/binance-official-api-d
 
 ### 其他交易所API
 
-[Bitmex](https://packagist.org/packages/linwj/bitmex)
+[Bitmex](https://github.com/zhouaini528/bitmex-php)
 
-[Okex](https://packagist.org/packages/linwj/okex)
+[Okex](https://github.com/zhouaini528/okex-php)
 
-[Huobi](https://packagist.org/packages/linwj/huobi)
+[Huobi](https://github.com/zhouaini528/huobi-php)
 
-[Binance](https://packagist.org/packages/linwj/binance)
+[Binance](https://github.com/zhouaini528/binance-php)
 
 系统数据相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/system.php)
+
 ```php
 $binance=new Binance();
 
@@ -56,6 +57,7 @@ try {
 ```
 
 交易相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/trade.php)
+
 ```php
 $binance=new Binance($key,$secret);
 
@@ -100,6 +102,7 @@ try {
 ```
 
 用户相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/user.php)
+
 ```php
 $binance=new Binance($key,$secret);
 

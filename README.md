@@ -10,15 +10,16 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 ### Other exchanges API
 
-[Bitmex](https://packagist.org/packages/linwj/bitmex)
+[Bitmex](https://github.com/zhouaini528/bitmex-php)
 
-[Okex](https://packagist.org/packages/linwj/okex)
+[Okex](https://github.com/zhouaini528/okex-php)
 
-[Huobi](https://packagist.org/packages/linwj/huobi)
+[Huobi](https://github.com/zhouaini528/huobi-php)
 
-[Binance](https://packagist.org/packages/linwj/binance)
+[Binance](https://github.com/zhouaini528/binance-php)
 
 System related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/system.php)
+
 ```php
 $binance=new Binance();
 
@@ -56,6 +57,7 @@ try {
 ```
 
 Trade related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/trade.php)
+
 ```php
 $binance=new Binance($key,$secret);
 
@@ -100,6 +102,7 @@ try {
 ```
 
 User related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/user.php)
+
 ```php
 $binance=new Binance($key,$secret);
 
