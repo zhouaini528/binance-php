@@ -3,6 +3,7 @@
     "type": "library",
     "description": "Binance API Like the official document interface, Support for arbitrary extension.",
     "license": "MIT",
+    "keywords": ["bitmex", "binance", "okex", "huobi"],
     "authors": [
         {
             "name": "linwenjun",
