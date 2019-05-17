@@ -25,6 +25,20 @@ Binance 文档地址 [https://github.com/binance-exchange/binance-official-api-d
 composer require "linwj/binance dev-master"
 ```
 
+本地开发支持代理 [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)
+```php
+$binance=new Binance($key,$secret);
+
+//If you are developing locally and need an agent, you can set this
+$binance->setProxy();
+
+//More flexible Settings
+$binance->setProxy([
+    'http'  => 'http://127.0.0.1:12333',
+    'https' => 'http://127.0.0.1:12333',
+]);
+```
+
 系统数据相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/system.php)
 
 ```php
