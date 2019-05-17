@@ -18,7 +18,7 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 [Binance](https://github.com/zhouaini528/binance-php)
 
-[Exchanges](https://github.com/zhouaini528/exchanges-php) All integration
+[Exchanges](https://github.com/zhouaini528/exchanges-php) This is all the aggregation
 
 #### Installation
 ```
