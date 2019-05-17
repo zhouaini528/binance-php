@@ -136,6 +136,6 @@ try {
 }
 ```
 
-[More use cases](https://github.com/zhouaini528/binance-php/tree/master/tests)
+[More Test](https://github.com/zhouaini528/binance-php/tree/master/tests)
 
 [More API](https://github.com/zhouaini528/binance-php/tree/master/src/Api)
