@@ -37,6 +37,7 @@ $binance->setProxy([
     'http'  => 'http://127.0.0.1:12333',
     'https' => 'http://127.0.0.1:12333',
 ]);
+```
 
 System related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/system.php)
 
