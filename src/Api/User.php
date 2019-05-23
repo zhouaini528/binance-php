@@ -16,7 +16,7 @@ class User extends Request
      * 查看账户当前挂单 (USER_DATA)
     GET /api/v3/openOrders  (HMAC SHA256)
      * */
-    public function getOpenOrders(array $data){
+    public function getOpenOrders(array $data=[]){
         $this->type='GET';
         $this->path='/api/v3/openOrders';
         $this->data=$data;
@@ -36,7 +36,7 @@ class User extends Request
     recvWindow	LONG	NO	
     timestamp	LONG	YES	
      * */
-    public function getAllOrders(array $data){
+    public function getAllOrders(array $data=[]){
         $this->type='GET';
         $this->path='/api/v3/allOrders';
         
@@ -91,7 +91,7 @@ class User extends Request
      *账户成交历史 (USER_DATA)
     GET /api/v3/myTrades  (HMAC SHA256)
      * */
-    public function getMyTrades(array $data){
+    public function getMyTrades(array $data=[]){
         $this->type='GET';
         $this->path='/api/v3/myTrades';
         $this->data=$data;
@@ -102,7 +102,7 @@ class User extends Request
      *充值历史 (USER_DATA)
     GET /wapi/v3/depositHistory.html (HMAC SHA256)
      * */
-    public function getDepositHistory(array $data){
+    public function getDepositHistory(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/depositHistory.html';
         $this->data=$data;
@@ -113,7 +113,7 @@ class User extends Request
      *提现历史 (USER_DATA)
     GET /wapi/v3/withdrawHistory.html (HMAC SHA256)
      * */
-    public function getWithdrawHistory(array $data){
+    public function getWithdrawHistory(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/withdrawHistory.html';
         $this->data=$data;
@@ -124,7 +124,7 @@ class User extends Request
      *获取充值地址(USER_DATA)
     GET  /wapi/v3/depositAddress.html (HMAC SHA256)
      * */
-    public function getDepositAddress(array $data){
+    public function getDepositAddress(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/depositAddress.html';
         $this->data=$data;
@@ -136,7 +136,7 @@ class User extends Request
      *账户状态 (USER_DATA)
     GET /wapi/v3/accountStatus.html
      * */
-    public function getAccountStatus(array $data){
+    public function getAccountStatus(array $data=[]){
         $this->signature=false;
         $this->type='GET';
         $this->path='/wapi/v3/accountStatus.html';
@@ -148,7 +148,7 @@ class User extends Request
      *小额资产转换历史 (USER_DATA)
     GET /wapi/v3/userAssetDribbletLog.html   (HMAC SHA256)
      * */
-    public function getAssetDribbletLog(array $data){
+    public function getAssetDribbletLog(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/userAssetDribbletLog.html';
         $this->data=$data;
@@ -159,7 +159,7 @@ class User extends Request
      *交易手续费率查询 (USER_DATA)
     GET  /wapi/v3/tradeFee.html (HMAC SHA256)
      * */
-    public function getTradeFee(array $data){
+    public function getTradeFee(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/tradeFee.html';
         $this->data=$data;
@@ -170,7 +170,7 @@ class User extends Request
      *上架资产详情 (USER_DATA)
     GET  /wapi/v3/assetDetail.html (HMAC SHA256)
      * */
-    public function getAssetDetail(array $data){
+    public function getAssetDetail(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/assetDetail.html';
         $this->data=$data;
