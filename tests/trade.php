@@ -37,7 +37,7 @@ try {
     $result=$binance->user()->getOrder([
         'symbol'=>'BTCUSDT',
         'orderId'=>$result['orderId'],
-        'origClientOrderId'=>$result['origClientOrderId'],
+        'origClientOrderId'=>$result['clientOrderId'],
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -49,7 +49,7 @@ try {
     $result=$binance->trade()->deleteOrder([
         'symbol'=>'BTCUSDT',
         'orderId'=>$result['orderId'],
-        'origClientOrderId'=>$result['origClientOrderId'],
+        'origClientOrderId'=>$result['clientOrderId'],
     ]);
     print_r($result);
 }catch (\Exception $e){

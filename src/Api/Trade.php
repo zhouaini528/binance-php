@@ -47,6 +47,7 @@ class Trade extends Request
         $this->path='/api/v3/order';
         
         $data['timestamp']=time().'000';
+        $data['newOrderRespType']=$data['newOrderRespType'] ?? 'ACK';
         
         switch (strtoupper($data['type'])){
             case 'LIMIT':{
