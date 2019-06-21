@@ -20,6 +20,8 @@ Binance 文档地址 [https://github.com/binance-exchange/binance-official-api-d
 
 [Exchanges](https://github.com/zhouaini528/exchanges-php) 是以上所有交易所集合成的SDK
 
+[Exchanges Tools](https://github.com/dytf/exchanges-tools) 模拟数据测试工具
+
 #### 安装方式
 ```
 composer require "linwj/binance dev-master"
