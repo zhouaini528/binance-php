@@ -29,7 +29,7 @@ class Request
     
     protected $data=[];
     
-    protected $timeout=10;
+    protected $timeout=60;
     
     protected $proxy=false;
     
@@ -38,6 +38,8 @@ class Request
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
         $this->host=$data['host'] ?? 'https://api.binance.com';
+        
+        $this->timeout=$data['timeout'] ?? 60;
     }
     
     /**
