@@ -17,6 +17,9 @@ include 'key_secret.php';
 
 $binance=new Binance();
 
+//Set the request timeout to 60 seconds by default
+//$binance->setTimeOut(10);
+
 //Order book
 try {
     $result=$binance->system()->getDepth([

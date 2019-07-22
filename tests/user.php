@@ -17,6 +17,9 @@ include 'key_secret.php';
 
 $binance=new Binance($key,$secret);
 
+//Set the request timeout to 60 seconds by default
+//$binance->setTimeOut(10);
+
 //Get all account orders; active, canceled, or filled.
 try {
     $result=$binance->user()->getAllOrders([
@@ -30,7 +33,7 @@ try {
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
-
+die();
 //Get current account information.
 try {
     $result=$binance->user()->getAccount();

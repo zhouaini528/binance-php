@@ -17,6 +17,7 @@ class Binance
     protected $host;
     
     protected $proxy=false;
+    protected $timeout=60;
     
     function __construct(string $key='',string $secret='',string $host='https://api.binance.com'){
         $this->key=$key;
@@ -32,6 +33,7 @@ class Binance
             'key'=>$this->key,
             'secret'=>$this->secret,
             'host'=>$this->host,
+            'timeout'=>$this->timeout,
         ];
     }
     
@@ -50,6 +52,13 @@ class Binance
      * */
     function setProxy($proxy=true){
         $this->proxy=$proxy;
+    }
+    
+    /**
+     * Set the request timeout to 60 seconds by default
+     * */
+    function setTimeOut($timeout=60){
+        $this->timeout=$timeout;
     }
     
     /**

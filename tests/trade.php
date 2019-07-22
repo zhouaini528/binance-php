@@ -17,6 +17,9 @@ include 'key_secret.php';
 
 $binance=new Binance($key,$secret);
 
+//Set the request timeout to 60 seconds by default
+//$binance->setTimeOut(10);
+
 //Send in a new order.
 try {
     $result=$binance->trade()->postOrder([
