@@ -17,17 +17,30 @@ include 'key_secret.php';
 
 $binance=new Binance($key,$secret);
 
-//Set the request timeout to 60 seconds by default
-//$binance->setTimeOut(10);
+$binance->setOptions([
+    //Set the request timeout to 60 seconds by default
+    'timeout'=>10,
+    
+    //If you are developing locally and need an agent, you can set this
+    'proxy'=>true,
+    //More flexible Settings
+    /* 'proxy'=>[
+     'http'  => 'http://127.0.0.1:12333',
+     'https' => 'http://127.0.0.1:12333',
+     'no'    =>  ['.cn']
+     ], */
+    //Close the certificate
+    'verify'=>false,
+]);
 
 //Send in a new order.
 try {
     $result=$binance->trade()->postOrder([
-        'symbol'=>'BTCUSDT',
-        'side'=>'BUY',
+        'symbol'=>'BCHABCUSDT',
+        'side'=>'SELL',
         'type'=>'LIMIT',
-        'quantity'=>'0.01',
-        'price'=>'2000',
+        'quantity'=>'0.1',
+        'price'=>'999',
         'timeInForce'=>'GTC',
     ]);
     print_r($result);
@@ -38,7 +51,7 @@ try {
 //Check an order's status.
 try {
     $result=$binance->user()->getOrder([
-        'symbol'=>'BTCUSDT',
+        'symbol'=>'BCHABCUSDT',
         'orderId'=>$result['orderId'],
         'origClientOrderId'=>$result['clientOrderId'],
     ]);
@@ -50,7 +63,7 @@ try {
 //Cancel an active order.
 try {
     $result=$binance->trade()->deleteOrder([
-        'symbol'=>'BTCUSDT',
+        'symbol'=>'BCHABCUSDT',
         'orderId'=>$result['orderId'],
         'origClientOrderId'=>$result['clientOrderId'],
     ]);

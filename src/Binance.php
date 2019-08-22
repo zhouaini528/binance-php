@@ -16,8 +16,7 @@ class Binance
     protected $secret;
     protected $host;
     
-    protected $proxy=false;
-    protected $timeout=60;
+    protected $options=[];
     
     function __construct(string $key='',string $secret='',string $host='https://api.binance.com'){
         $this->key=$key;
@@ -33,58 +32,36 @@ class Binance
             'key'=>$this->key,
             'secret'=>$this->secret,
             'host'=>$this->host,
-            'timeout'=>$this->timeout,
+            
+            'options'=>$this->options,
         ];
     }
     
     /**
-     * Local development sets the proxy
-     * @param bool|array
-     * $proxy=false Default
-     * $proxy=true  Local proxy http://127.0.0.1:12333
-     *
-     * Manual proxy
-     * $proxy=[
-     'http'  => 'http://127.0.0.1:12333',
-     'https' => 'http://127.0.0.1:12333',
-     'no'    =>  ['.cn']
-     * ]
+     * 
      * */
-    function setProxy($proxy=true){
-        $this->proxy=$proxy;
-    }
-    
-    /**
-     * Set the request timeout to 60 seconds by default
-     * */
-    function setTimeOut($timeout=60){
-        $this->timeout=$timeout;
+    function setOptions(array $options=[]){
+        $this->options=$options;
     }
     
     /**
      * 
      * */
     public function user(){
-        $user= new User($this->init());
-        $user->proxy($this->proxy);
-        return $user;
+        return new User($this->init());
     }
     
     /**
      *
      * */
     public function system(){
-        $system= new System($this->init());
-        $system->proxy($this->proxy);
-        return $system;
+        return new System($this->init());
     }
     
     /**
      *
      * */
     public function trade(){
-        $trade= new Trade($this->init());
-        $trade->proxy($this->proxy);
-        return $trade;
+        return new Trade($this->init());
     }
 }
