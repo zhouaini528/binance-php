@@ -95,7 +95,7 @@ class Request
         
         $this->options['timeout'] = $this->options['timeout'] ?? 60;
         
-        if($this->options['proxy']===true) {
+        if(isset($this->options['proxy']) && $this->options['proxy']===true) {
             $this->options['proxy']=[
                 'http'  => 'http://127.0.0.1:12333',
                 'https' => 'http://127.0.0.1:12333',
