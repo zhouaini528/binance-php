@@ -31,6 +31,7 @@ composer require "linwj/binance dev-master"
 ```php
 $binance=new Binance($key,$secret);
 
+//You can set special needs
 $binance->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
@@ -43,7 +44,7 @@ $binance->setOptions([
      'https' => 'http://127.0.0.1:12333',
      'no'    =>  ['.cn']
      ],
-     
+
     //Close the certificate
     'verify'=>false,
 ]);

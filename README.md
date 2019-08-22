@@ -29,6 +29,7 @@ Local development sets the proxy [More](https://github.com/zhouaini528/binance-p
 ```php
 $binance=new Binance($key,$secret);
 
+//You can set special needs
 $binance->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
