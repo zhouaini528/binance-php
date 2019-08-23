@@ -25,7 +25,7 @@ Many interfaces are not yet complete, and users can continue to extend them base
 composer require "linwj/binance dev-master"
 ```
 
-Local development sets the proxy [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)
+Support for more request Settings [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)
 ```php
 $binance=new Binance($key,$secret);
 
