@@ -10,6 +10,8 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 ### Other exchanges API
 
+[Exchanges](https://github.com/zhouaini528/exchanges-php) It includes all of the following exchanges and is highly recommended.
+
 [Bitmex](https://github.com/zhouaini528/bitmex-php)
 
 [Okex](https://github.com/zhouaini528/okex-php)
@@ -17,8 +19,6 @@ Many interfaces are not yet complete, and users can continue to extend them base
 [Huobi](https://github.com/zhouaini528/huobi-php)
 
 [Binance](https://github.com/zhouaini528/binance-php)
-
-[Exchanges](https://github.com/zhouaini528/exchanges-php) This is all the aggregation
 
 #### Installation
 ```
