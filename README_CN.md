@@ -27,7 +27,7 @@ Binance 文档地址 [https://github.com/binance-exchange/binance-official-api-d
 composer require "linwj/binance dev-master"
 ```
 
-本地开发支持代理 [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)
+支持更多的请求设置 [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)
 ```php
 $binance=new Binance($key,$secret);
 
