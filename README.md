@@ -20,6 +20,8 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 [Binance](https://github.com/zhouaini528/binance-php)
 
+[Kucoin](https://github.com/zhouaini528/kucoin-php)
+
 #### Installation
 ```
 composer require "linwj/binance dev-master"
