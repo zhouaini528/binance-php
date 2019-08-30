@@ -20,6 +20,8 @@ Binance 文档地址 [https://github.com/binance-exchange/binance-official-api-d
 
 [Binance](https://github.com/zhouaini528/binance-php)
 
+[Kucoin](https://github.com/zhouaini528/kucoin-php)
+
 #### 安装方式
 ```
 composer require "linwj/binance dev-master"
