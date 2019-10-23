@@ -24,7 +24,7 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 #### Installation
 ```
-composer require "linwj/binance dev-master"
+composer require linwj/binance
 ```
 
 Support for more request Settings [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)

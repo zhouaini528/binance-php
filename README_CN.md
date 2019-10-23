@@ -24,7 +24,7 @@ Binance 文档地址 [https://github.com/binance-exchange/binance-official-api-d
 
 #### 安装方式
 ```
-composer require "linwj/binance dev-master"
+composer require linwj/binance
 ```
 
 本地开发支持代理 [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)
