@@ -30,7 +30,10 @@
 composer require linwj/binance
 ```
 
-本地开发支持代理 [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)```php
+本地开发支持代理 [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)
+
+```php
+use Lin\Binance\Binance;
 $binance=new Binance($key,$secret);
 
 //You can set special needs
@@ -56,6 +59,7 @@ $binance->setOptions([
 ### 币币交易 API
 
 系统数据相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/system.php)
+
 
 ```php
 use Lin\Binance\Binance;
@@ -231,7 +235,7 @@ try {
 }
 ```
 
-交易相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/trade.php)
+交易相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/future/trade.php)
 
 ```php
 use Lin\Binance\BinanceFuture;
@@ -281,7 +285,7 @@ try {
 }
 ```
 
-用户相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/user.php)
+用户相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/future/user.php)
 
 ```php
 use Lin\Binance\BinanceFuture;

@@ -167,13 +167,13 @@ try {
 }
 ```
 
-[More Test](https://github.com/zhouaini528/binance-php/tree/master/tests)
+[More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/spot)
 
 [More API](https://github.com/zhouaini528/binance-php/tree/master/src/Api)
 
 ### Futures Trading API
 
-Market related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/system.php)
+Market related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/future/system.php)
 
 ```php
 use Lin\Binance\BinanceFuture;
@@ -226,7 +226,7 @@ try {
 }
 ```
 
-Trade related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/trade.php)
+Trade related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/future/trade.php)
 
 ```php
 use Lin\Binance\BinanceFuture;
@@ -276,7 +276,7 @@ try {
 }
 ```
 
-User related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/user.php)
+User related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/future/user.php)
 
 ```php
 use Lin\Binance\BinanceFuture;
@@ -315,7 +315,7 @@ try {
 }
 ```
 
-[More Test](https://github.com/zhouaini528/binance-php/tree/master/tests)
+[More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/future)
 
 [More API](https://github.com/zhouaini528/binance-php/tree/master/src/Api)
 
