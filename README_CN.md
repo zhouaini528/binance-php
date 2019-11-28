@@ -1,8 +1,11 @@
 ### 建议您先阅读官方文档
 
+
 币币交易文档地址 [https://github.com/binance-exchange/binance-official-api-docs](https://github.com/binance-exchange/binance-official-api-docs)
 
+
 合约交易文档地址 [https://binance-docs.github.io/apidocs/futures/cn](https://binance-docs.github.io/apidocs/futures/cn)
+
 
 使用者可以根据我的设计方案继续扩展，欢迎与我一起迭代它。
 
@@ -27,8 +30,7 @@
 composer require linwj/binance
 ```
 
-本地开发支持代理 [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/proxy.php#L21)
-```php
+本地开发支持代理 [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)```php
 $binance=new Binance($key,$secret);
 
 //You can set special needs
@@ -49,6 +51,7 @@ $binance->setOptions([
     'verify'=>false,
 ]);
 ```
+
 
 ### 币币交易 API
 
@@ -90,6 +93,7 @@ try {
     print_r(json_decode($e->getMessage(),true));
 }
 ```
+
 
 交易相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/trade.php)
 
@@ -137,6 +141,7 @@ try {
 }
 ```
 
+
 用户相关 API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/user.php)
 
 ```php
@@ -165,6 +170,7 @@ try {
     print_r(json_decode($e->getMessage(),true));
 }
 ```
+
 
 [更多用例](https://github.com/zhouaini528/binance-php/tree/master/tests/spot)
 
