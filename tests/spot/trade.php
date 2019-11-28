@@ -11,7 +11,7 @@
  * */
 use Lin\Binance\Binance;
 
-require __DIR__ .'../../vendor/autoload.php';
+require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
@@ -22,7 +22,7 @@ $binance->setOptions([
     'timeout'=>10,
     
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -30,30 +30,51 @@ $binance->setOptions([
      'no'    =>  ['.cn']
      ], */
     //Close the certificate
-    'verify'=>false,
+    //'verify'=>false,
 ]);
 
-//Get all account orders; active, canceled, or filled.
+//Send in a new order.
 try {
-    $result=$binance->user()->getAllOrders([
-        'symbol'=>'BCHABCUSDT',
-        'limit'=>'20',
-        //'orderId'=>'',
-        //'startTime'=>'',
-        //'endTime'=>'',
+    $result=$binance->trade()->postOrder([
+        'symbol'=>'LTCUSDT',
+        'side'=>'SELL',
+        'type'=>'LIMIT',
+        'quantity'=>'0.1',
+        'price'=>'200',
+        'timeInForce'=>'GTC',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//Get current account information.
+//Check an order's status.
 try {
-    $result=$binance->user()->getAccount();
+    $result=$binance->user()->getOrder([
+        'symbol'=>'LTCUSDT',
+        'orderId'=>$result['orderId'],
+        'origClientOrderId'=>$result['clientOrderId'],
+    ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
+
+//Cancel an active order.
+try {
+    $result=$binance->trade()->deleteOrder([
+        'symbol'=>'LTCUSDT',
+        'orderId'=>$result['orderId'],
+        'origClientOrderId'=>$result['clientOrderId'],
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+
+
+
 
 
 

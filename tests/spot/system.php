@@ -11,18 +11,18 @@
  * */
 use Lin\Binance\Binance;
 
-require __DIR__ .'../../vendor/autoload.php';
+require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$binance=new Binance($key,$secret);
+$binance=new Binance();
 
 $binance->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -30,51 +30,37 @@ $binance->setOptions([
      'no'    =>  ['.cn']
      ], */
     //Close the certificate
-    'verify'=>false,
+    //'verify'=>false,
 ]);
 
-//Send in a new order.
+//Order book
 try {
-    $result=$binance->trade()->postOrder([
-        'symbol'=>'BCHABCUSDT',
-        'side'=>'SELL',
-        'type'=>'LIMIT',
-        'quantity'=>'0.1',
-        'price'=>'999',
-        'timeInForce'=>'GTC',
+    $result=$binance->system()->getDepth([
+        'symbol'=>'BTCUSDT',
+        'limit'=>'20',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//Check an order's status.
+//Recent trades list
 try {
-    $result=$binance->user()->getOrder([
-        'symbol'=>'BCHABCUSDT',
-        'orderId'=>$result['orderId'],
-        'origClientOrderId'=>$result['clientOrderId'],
+    $result=$binance->system()->getTrades([
+        'symbol'=>'BTCUSDT',
+        'limit'=>'20',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//Cancel an active order.
+//Current average price
 try {
-    $result=$binance->trade()->deleteOrder([
-        'symbol'=>'BCHABCUSDT',
-        'orderId'=>$result['orderId'],
-        'origClientOrderId'=>$result['clientOrderId'],
+    $result=$binance->system()->getAvgPrice([
+        'symbol'=>'BTCUSDT'
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
-
-
-
-
-
-
-

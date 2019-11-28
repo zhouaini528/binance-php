@@ -11,18 +11,18 @@
  * */
 use Lin\Binance\Binance;
 
-require __DIR__ .'../../vendor/autoload.php';
+require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$binance=new Binance();
+$binance=new Binance($key,$secret);
 
 $binance->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -30,37 +30,30 @@ $binance->setOptions([
      'no'    =>  ['.cn']
      ], */
     //Close the certificate
-    'verify'=>false,
+    //'verify'=>false,
 ]);
 
-//Order book
+//Get all account orders; active, canceled, or filled.
 try {
-    $result=$binance->system()->getDepth([
-        'symbol'=>'BTCUSDT',
+    $result=$binance->user()->getAllOrders([
+        'symbol'=>'BCHABCUSDT',
         'limit'=>'20',
+        //'orderId'=>'',
+        //'startTime'=>'',
+        //'endTime'=>'',
     ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//Recent trades list
+//Get current account information.
 try {
-    $result=$binance->system()->getTrades([
-        'symbol'=>'BTCUSDT',
-        'limit'=>'20',
-    ]);
+    $result=$binance->user()->getAccount();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//Current average price
-try {
-    $result=$binance->system()->getAvgPrice([
-        'symbol'=>'BTCUSDT'
-    ]);
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
+
+

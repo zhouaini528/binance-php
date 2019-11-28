@@ -1,8 +1,8 @@
 ### It is recommended that you read the official document first
 
-Binance docs [https://github.com/binance-exchange/binance-official-api-docs](https://github.com/binance-exchange/binance-official-api-docs)
+Spot trading docs [https://github.com/binance-exchange/binance-official-api-docs](https://github.com/binance-exchange/binance-official-api-docs)
 
-All interface methods are initialized the same as those provided by binance. See details [src/api](https://github.com/zhouaini528/binance-php/tree/master/src/Api)
+Futures trading docs [https://binance-docs.github.io/apidocs/futures/cn](https://binance-docs.github.io/apidocs/futures/cn)
 
 Many interfaces are not yet complete, and users can continue to extend them based on my design. Welcome to improve it with me
 
@@ -27,8 +27,9 @@ Many interfaces are not yet complete, and users can continue to extend them base
 composer require linwj/binance
 ```
 
-Support for more request Settings [More](https://github.com/zhouaini528/binance-php/blob/master/tests/proxy.php#L21)
+Support for more request Settings [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/proxy.php#L21)
 ```php
+use Lin\Binance\Binance;
 $binance=new Binance($key,$secret);
 
 //You can set special needs
@@ -50,9 +51,12 @@ $binance->setOptions([
 ]);
 ```
 
-System related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/system.php)
+### Spot Trading API
+
+System related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/system.php)
 
 ```php
+use Lin\Binance\Binance;
 $binance=new Binance();
 
 //Order book
@@ -88,9 +92,10 @@ try {
 }
 ```
 
-Trade related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/trade.php)
+Trade related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/trade.php)
 
 ```php
+use Lin\Binance\Binance;
 $binance=new Binance($key,$secret);
 
 //Send in a new order.
@@ -133,9 +138,10 @@ try {
 }
 ```
 
-User related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/user.php)
+User related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/user.php)
 
 ```php
+use Lin\Binance\Binance;
 $binance=new Binance($key,$secret);
 
 //Get all account orders; active, canceled, or filled.
@@ -164,3 +170,152 @@ try {
 [More Test](https://github.com/zhouaini528/binance-php/tree/master/tests)
 
 [More API](https://github.com/zhouaini528/binance-php/tree/master/src/Api)
+
+### Futures Trading API
+
+Market related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/system.php)
+
+```php
+use Lin\Binance\BinanceFuture;
+$binance=new BinanceFuture();
+
+try {
+    $result=$binance->market()->getExchangeInfo();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$binance->market()->getDepth([
+        'symbol'=>'BTCUSDT',
+        'limit'=>10
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$binance->market()->getTrades([
+        'symbol'=>'BTCUSDT',
+        'limit'=>10
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$binance->market()->getPrice([
+        'symbol'=>'BTCUSDT',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$binance->market()->getFundingRate([
+        'symbol'=>'BTCUSDT',
+        'limit'=>10
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+Trade related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/trade.php)
+
+```php
+use Lin\Binance\BinanceFuture;
+$binance=new BinanceFuture();
+
+//Send in a new order.
+try {
+    $result=$binance->trade()->postOrder([
+        'symbol'=>'BTCUSDT',
+        'side'=>'BUY',
+        'type'=>'LIMIT',
+        'quantity'=>'0.01',
+        'price'=>'6500',
+        'timeInForce'=>'GTC',
+        
+        //'newClientOrderId'=>'xxxxxxx'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+sleep(1);
+
+//Check an order's status.
+try {
+    $result=$binance->trade()->getOrder([
+        'symbol'=>'BTCUSDT',
+        'orderId'=>$result['orderId'],
+        'origClientOrderId'=>$result['clientOrderId'],
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+sleep(1);
+
+//Cancel an active order.
+try {
+    $result=$binance->trade()->deleteOrder([
+        'symbol'=>'BTCUSDT',
+        'orderId'=>$result['orderId'],
+        'origClientOrderId'=>$result['clientOrderId'],
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+User related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/user.php)
+
+```php
+use Lin\Binance\BinanceFuture;
+$binance=new BinanceFuture();
+
+try {
+    $result=$binance->user()->getOpenOrders([
+        'symbol'=>'BTCUSDT',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$binance->user()->getAllOrders([
+        'symbol'=>'BTCUSDT',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$binance->user()->getAccount();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$binance->user()->getBalance();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+[More Test](https://github.com/zhouaini528/binance-php/tree/master/tests)
+
+[More API](https://github.com/zhouaini528/binance-php/tree/master/src/Api)
+
