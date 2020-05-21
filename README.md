@@ -20,7 +20,15 @@ Many interfaces are not yet complete, and users can continue to extend them base
 
 [Binance](https://github.com/zhouaini528/binance-php)
 
-[Kucoin](https://github.com/zhouaini528/kucoin-php)
+[Kucoin](https://github.com/zhouaini528/Kucoin-php)
+
+[Mxc](https://github.com/zhouaini528/mxc-php)
+
+[Coinbase](https://github.com/zhouaini528/coinbase-php)
+
+[ZB](https://github.com/zhouaini528/zb-php)
+
+[Bitfinex](https://github.com/zhouaini528/zb-php)
 
 #### Installation
 ```
