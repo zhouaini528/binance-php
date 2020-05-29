@@ -30,6 +30,8 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [Bitfinex](https://github.com/zhouaini528/zb-php)
 
+[Bittrex](https://github.com/zhouaini528/bittrex-php)
+
 #### Installation
 ```
 composer require linwj/binance
