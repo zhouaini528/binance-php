@@ -32,6 +32,8 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [Bittrex](https://github.com/zhouaini528/bittrex-php)
 
+[Gate](https://github.com/zhouaini528/gate-php)
+
 #### Installation
 ```
 composer require linwj/binance
