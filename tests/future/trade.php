@@ -3,9 +3,9 @@
 
 /**
  * @author lin <465382251@qq.com>
- * 
+ *
  * Fill in your key and secret and pass can be directly run
- * 
+ *
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/huobi-php.git
  * */
@@ -20,7 +20,7 @@ $binance=new BinanceFuture($key,$secret);
 $binance->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
     //'proxy'=>true,
     //More flexible Settings
@@ -39,28 +39,27 @@ try {
         'symbol'=>'BTCUSDT',
         'side'=>'BUY',
         'type'=>'LIMIT',
-        'quantity'=>'0.01',
-        'price'=>'6500',
+        'quantity'=>'1',
+        'price'=>'5000',
         'timeInForce'=>'GTC',
-        
         //'newClientOrderId'=>'xxxxxxx'
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 sleep(1);
 
 //Check an order's status.
 try {
-    $result=$binance->trade()->getOrder([
+    $result=$binance->user()->getOrder([
         'symbol'=>'BTCUSDT',
         'orderId'=>$result['orderId'],
-        'origClientOrderId'=>$result['clientOrderId'],
+        //'origClientOrderId'=>$result['clientOrderId'],
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 sleep(1);
 
@@ -73,7 +72,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 

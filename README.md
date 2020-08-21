@@ -81,7 +81,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 //Recent trades list
@@ -92,7 +92,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 //Current average price
@@ -102,7 +102,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 ```
 
@@ -124,7 +124,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 //Check an order's status.
@@ -136,7 +136,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 //Cancel an active order.
@@ -148,7 +148,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 ```
 
@@ -169,7 +169,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 //Get current account information.
@@ -177,7 +177,7 @@ try {
     $result=$binance->user()->getAccount();
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 ```
 
@@ -191,52 +191,75 @@ Market related API [More](https://github.com/zhouaini528/binance-php/blob/master
 
 ```php
 use Lin\Binance\BinanceFuture;
+use Lin\Binance\BinanceDelivery;
+
 $binance=new BinanceFuture();
+//Or New Delivery
+$binance=new BinanceDelivery();
 
 try {
     $result=$binance->market()->getExchangeInfo();
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
     $result=$binance->market()->getDepth([
         'symbol'=>'BTCUSDT',
-        'limit'=>10
+        'limit'=>5
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
     $result=$binance->market()->getTrades([
         'symbol'=>'BTCUSDT',
-        'limit'=>10
+        'limit'=>5
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
-    $result=$binance->market()->getPrice([
-        'symbol'=>'BTCUSDT',
+    $result=$binance->market()->getHistoricalTrades([
+        'symbol'=>'BTCUSDT'
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$binance->market()->getAggTrades([
+        'symbol'=>'BTCUSDT',
+        'limit'=>5
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$binance->market()->getPremiumIndex([
+        //'symbol'=>'BTCUSDT',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
 }
 
 try {
     $result=$binance->market()->getFundingRate([
         'symbol'=>'BTCUSDT',
-        'limit'=>10
+        'limit'=>5
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 ```
 
@@ -244,7 +267,11 @@ Trade related API [More](https://github.com/zhouaini528/binance-php/blob/master/
 
 ```php
 use Lin\Binance\BinanceFuture;
+use Lin\Binance\BinanceDelivery;
+
 $binance=new BinanceFuture();
+//Or New Delivery
+$binance=new BinanceDelivery($key,$secret);
 
 //Send in a new order.
 try {
@@ -260,7 +287,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 sleep(1);
 
@@ -273,7 +300,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 sleep(1);
 
@@ -286,7 +313,7 @@ try {
     ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 ```
 
@@ -294,39 +321,69 @@ User related API [More](https://github.com/zhouaini528/binance-php/blob/master/t
 
 ```php
 use Lin\Binance\BinanceFuture;
+use Lin\Binance\BinanceDelivery;
+
 $binance=new BinanceFuture();
+//Or New Delivery
+$binance=new BinanceDelivery($key,$secret);
 
 try {
-    $result=$binance->user()->getOpenOrders([
-        'symbol'=>'BTCUSDT',
-    ]);
+    $result=$binance->user()->getBalance();
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$binance->user()->getAllOrders([
-        'symbol'=>'BTCUSDT',
-    ]);
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
     $result=$binance->user()->getAccount();
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
 
 try {
-    $result=$binance->user()->getBalance();
+    $result=$binance->user()->getOrder([
+        'symbol'=>'BTCUSDT',
+        'orderId'=>'111111111',
+        'origClientOrderId'=>'xxxxxxx',
+    ]);
     print_r($result);
 }catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
+    print_r($e->getMessage());
 }
+
+try {
+    $result=$binance->user()->getOpenOrder([
+        'symbol'=>'BTCUSDT',
+        'orderId'=>'111111111',
+        'origClientOrderId'=>'xxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$binance->user()->getLeverageBracket();
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$binance->user()->getForceOrders();
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
+try {
+    $result=$binance->user()->getAdlQuantile();
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
 ```
 
 [More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/future)

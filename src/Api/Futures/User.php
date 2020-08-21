@@ -12,82 +12,130 @@ class User extends Request
     //Default required HMAC SHA256
     protected $signature=true;
 
+    function __construct(array $data)
+    {
+        parent::__construct($data);
+
+        $this->data['timestamp']=time().'000';
+    }
+
     /**
-     * GET /fapi/v1/openOrders (HMAC SHA256)
+     *POST /fapi/v1/positionSide/dual (HMAC SHA256)  USER_DATA
+     * */
+    public function postPositionSideDual(array $data=[]){
+        $this->type='POST';
+        $this->path='/fapi/v1/positionSide/dual';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
+
+    /**
+     *GET /fapi/v1/order (HMAC SHA256) USER_DATA
+     * */
+    public function getOrder(array $data=[]){
+        $this->type='GET';
+        $this->path='/fapi/v1/order';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
+
+    /**
+     *GET /fapi/v1/openOrder (HMAC SHA256) USER_DATA
+     * */
+    public function getOpenOrder(array $data=[]){
+        $this->type='GET';
+        $this->path='/fapi/v1/openOrder';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
+
+    /**
+     *GET /fapi/v1/openOrders (HMAC SHA256) USER_DATA
      * */
     public function getOpenOrders(array $data=[]){
         $this->type='GET';
         $this->path='/fapi/v1/openOrders';
-
-        $data['timestamp']=time().'000';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v1/allOrders (HMAC SHA256)
+     *GET /fapi/v1/allOrders (HMAC SHA256) USER_DATA
      * */
     public function getAllOrders(array $data=[]){
         $this->type='GET';
         $this->path='/fapi/v1/allOrders';
-
-        $data['timestamp']=time().'000';
-        $data['limit']=$data['limit'] ?? 1000;
-
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
     /**
-     *Get /fapi/v1/balance (HMAC SHA256)
+     *GET /fapi/v1/balance (HMAC SHA256) USER_DATA
      * */
     public function getBalance(array $data=[]){
         $this->type='GET';
         $this->path='/fapi/v1/balance';
-
-        $data['timestamp']=time().'000';
-
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v1/account (HMAC SHA256)
+     *GET /fapi/v1/account (HMAC SHA256) USER_DATA
      * */
     public function getAccount(array $data=[]){
         $this->type='GET';
         $this->path='/fapi/v1/account';
-
-        $data['timestamp']=time().'000';
-
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
-
     /**
-     *GET /fapi/v1/userTrades (HMAC SHA256)
+     *GET /fapi/v1/userTrades (HMAC SHA256) USER_DATA
      * */
-    public function getTrades(array $data=[]){
+    public function getUserTrades(array $data=[]){
         $this->type='GET';
         $this->path='/fapi/v1/userTrades';
-
-        $data['timestamp']=time().'000';
-
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v1/income (HMAC SHA256)
+     *GET /fapi/v1/income (HMAC SHA256) USER_DATA
      * */
     public function getIncome(array $data=[]){
         $this->type='GET';
         $this->path='/fapi/v1/income';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
 
-        $data['timestamp']=time().'000';
+    /**
+     *GET /fapi/v1/leverageBracket  USER_DATA
+     * */
+    public function getLeverageBracket(array $data=[]){
+        $this->type='GET';
+        $this->path='/fapi/v1/leverageBracket';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
 
-        $this->data=$data;
+    /**
+     *GET /fapi/v1/forceOrders  USER_DATA
+     * */
+    public function getForceOrders(array $data=[]){
+        $this->type='GET';
+        $this->path='/fapi/v1/forceOrders';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
+
+    /**
+     *GET /fapi/v1/adlQuantile USER_DATA
+     * */
+    public function getAdlQuantile(array $data=[]){
+        $this->type='GET';
+        $this->path='/fapi/v1/adlQuantile';
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 }
