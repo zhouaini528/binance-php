@@ -9,9 +9,9 @@ use Lin\Binance\Request;
 
 class Market extends Request
 {
-    //该接口默认不需要HMAC SHA256
+    //Default Dont required HMAC SHA256
     protected $signature=false;
-    
+
     /**
      * GET /fapi/v1/exchangeInfo
      * */
@@ -21,7 +21,7 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/depth
      * */
@@ -31,7 +31,7 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/trades
      * */
@@ -41,7 +41,7 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/historicalTrades
      * */
@@ -51,7 +51,7 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/aggTrades
      * */
@@ -61,7 +61,7 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/klines
      * */
@@ -71,7 +71,7 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/premiumIndex
      * */
@@ -81,7 +81,7 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/fundingRate
      * */
@@ -91,9 +91,9 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
-     *GET /fapi/v1/ticker/24hr 
+     *GET /fapi/v1/ticker/24hr
      * */
     public function get24hr(array $data=[]){
         $this->type='GET';
@@ -101,7 +101,7 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/ticker/price
      * */
@@ -111,7 +111,7 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/ticker/bookTicker
      * */

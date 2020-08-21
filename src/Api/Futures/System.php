@@ -9,32 +9,33 @@ use Lin\Binance\Request;
 
 class System extends Request
 {
+    //Default required HMAC SHA256
     protected $signature=true;
-    
+
     /**
      * GET /fapi/v1/ping
      * */
     public function getPing(array $data=[]){
         $this->signature=false;
-        
+
         $this->type='GET';
         $this->path='/fapi/v1/ping';
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/time
      * */
     public function getTime(array $data=[]){
         $this->signature=false;
-        
+
         $this->type='GET';
         $this->path='/fapi/v1/time';
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *POST https://api.binance.com/sapi/v1/futures/transfer   HMAC SHA256
      * */
@@ -44,7 +45,7 @@ class System extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET https://api.binance.com/sapi/v1/futures/transfer   HMAC SHA256
      * */
@@ -54,7 +55,7 @@ class System extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *GET /fapi/v1/positionRisk (HMAC SHA256)
      * */

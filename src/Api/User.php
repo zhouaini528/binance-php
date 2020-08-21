@@ -9,9 +9,9 @@ use Lin\Binance\Request;
 
 class User extends Request
 {
-    //该接口默认需要HMAC SHA256
+    //Default required HMAC SHA256
     protected $signature=true;
-    
+
     /**
      * 查看账户当前挂单 (USER_DATA)
     GET /api/v3/openOrders  (HMAC SHA256)
@@ -22,70 +22,70 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *查询所有订单（包括历史订单） (USER_DATA)
     GET /api/v3/allOrders (HMAC SHA256)
-    
+
     Name	Type	Mandatory	Description
-    symbol	STRING	YES	
+    symbol	STRING	YES
     orderId	LONG	NO	只返回此orderID之后的订单，缺省返回最近的订单
-    startTime	LONG	NO	
-    endTime	LONG	NO	
+    startTime	LONG	NO
+    endTime	LONG	NO
     limit	INT	NO	Default 500; max 1000.
-    recvWindow	LONG	NO	
-    timestamp	LONG	YES	
+    recvWindow	LONG	NO
+    timestamp	LONG	YES
      * */
     public function getAllOrders(array $data=[]){
         $this->type='GET';
         $this->path='/api/v3/allOrders';
-        
+
         $data['timestamp']=time().'000';
         $data['limit']=$data['limit'] ?? 1000;
-        
+
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *查询订单 (USER_DATA)
     GET /api/v3/order (HMAC SHA256)
-    
+
     Name	Type	Mandatory	Description
-    symbol	STRING	YES	
-    orderId	LONG	NO	
-    origClientOrderId	STRING	NO	
-    recvWindow	LONG	NO	
-    timestamp	LONG	YES	
+    symbol	STRING	YES
+    orderId	LONG	NO
+    origClientOrderId	STRING	NO
+    recvWindow	LONG	NO
+    timestamp	LONG	YES
      * */
     public function getOrder(array $data){
         $this->type='GET';
         $this->path='/api/v3/order';
-        
+
         $data['timestamp']=time().'000';
-        
+
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *账户信息 (USER_DATA)
     GET /api/v3/account (HMAC SHA256)
-    
+
     Name	Type	Mandatory	Description
-    recvWindow	LONG	NO	
-    timestamp	LONG	YES	
+    recvWindow	LONG	NO
+    timestamp	LONG	YES
      * */
     public function getAccount(array $data=[]){
         $this->type='GET';
         $this->path='/api/v3/account';
-        
+
         $data['timestamp']=time().'000';
-        
+
         $this->data=$data;
         return $this->exec();
     }
-    
+
 
     /**
      *账户成交历史 (USER_DATA)
@@ -97,7 +97,7 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *充值历史 (USER_DATA)
     GET /wapi/v3/depositHistory.html (HMAC SHA256)
@@ -108,7 +108,7 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *提现历史 (USER_DATA)
     GET /wapi/v3/withdrawHistory.html (HMAC SHA256)
@@ -119,7 +119,7 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *获取充值地址(USER_DATA)
     GET  /wapi/v3/depositAddress.html (HMAC SHA256)
@@ -130,8 +130,8 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
-    
+
+
     /**
      *账户状态 (USER_DATA)
     GET /wapi/v3/accountStatus.html
@@ -143,7 +143,7 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *小额资产转换历史 (USER_DATA)
     GET /wapi/v3/userAssetDribbletLog.html   (HMAC SHA256)
@@ -154,7 +154,7 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *交易手续费率查询 (USER_DATA)
     GET  /wapi/v3/tradeFee.html (HMAC SHA256)
@@ -165,7 +165,7 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *上架资产详情 (USER_DATA)
     GET  /wapi/v3/assetDetail.html (HMAC SHA256)
