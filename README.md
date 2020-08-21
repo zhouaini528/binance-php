@@ -4,6 +4,8 @@ Spot trading docs [https://github.com/binance-exchange/binance-official-api-docs
 
 Futures trading docs [https://binance-docs.github.io/apidocs/futures/cn](https://binance-docs.github.io/apidocs/futures/cn)
 
+Delivery trading docs [https://binance-docs.github.io/apidocs/delivery/cn](https://binance-docs.github.io/apidocs/delivery/cn)
+
 Most of the interface is now complete, and the user can continue to extend it based on my design, working with me to improve it.
 
 [中文文档](https://github.com/zhouaini528/binance-php/blob/master/README_CN.md)
