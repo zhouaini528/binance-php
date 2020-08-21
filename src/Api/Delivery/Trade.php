@@ -12,13 +12,20 @@ class Trade extends Request
     //Default required HMAC SHA256
     protected $signature=true;
 
+    function __construct(array $data)
+    {
+        parent::__construct($data);
+
+        $this->data['timestamp']=time().'000';
+    }
+
     /*
      *GET /dapi/v1/positionSide/dual (HMAC SHA256)
      */
     public function getPositionSideDual(array $data=[]){
         $this->type='get';
         $this->path='/dapi/v1/positionSide/dual';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -28,7 +35,7 @@ class Trade extends Request
     public function postOrder(array $data=[]){
         $this->type='POST';
         $this->path='/dapi/v1/order';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -38,7 +45,7 @@ class Trade extends Request
     public function postOrderTest(array $data=[]){
         $this->type='POST';
         $this->path='/dapi/v1/order/test';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -48,7 +55,7 @@ class Trade extends Request
     public function postBatchOrders(array $data=[]){
         $this->type='POST';
         $this->path='/dapi/v1/batchOrders';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -58,7 +65,7 @@ class Trade extends Request
     public function deleteOrder(array $data=[]){
         $this->type='DELETE';
         $this->path='/dapi/v1/order';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -68,7 +75,7 @@ class Trade extends Request
     public function deleteAllOpenOrders(array $data=[]){
         $this->type='DELETE';
         $this->path='/dapi/v1/allOpenOrders';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -78,7 +85,7 @@ class Trade extends Request
     public function deleteBatchOrders(array $data=[]){
         $this->type='DELETE';
         $this->path='/dapi/v1/batchOrders';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -88,7 +95,7 @@ class Trade extends Request
     public function postCountdownCancelAll(array $data=[]){
         $this->type='POST';
         $this->path='/dapi/v1/countdownCancelAll';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -98,7 +105,7 @@ class Trade extends Request
     public function postLeverage(array $data=[]){
         $this->type='get';
         $this->path='/dapi/v1/leverage';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -108,7 +115,7 @@ class Trade extends Request
     public function getMarginType(array $data=[]){
         $this->type='POST';
         $this->path='/dapi/v1/marginType';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -118,7 +125,7 @@ class Trade extends Request
     public function postPositionMargin(array $data=[]){
         $this->type='POST';
         $this->path='/dapi/v1/positionMargin';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -128,7 +135,7 @@ class Trade extends Request
     public function getPositionMarginHistory(array $data=[]){
         $this->type='get';
         $this->path='/dapi/v1/positionMargin/history';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -138,7 +145,7 @@ class Trade extends Request
     public function getPositionRisk(array $data=[]){
         $this->type='get';
         $this->path='/dapi/v1/positionRisk';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 }

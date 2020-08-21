@@ -17,7 +17,7 @@ class Market extends Request
      * */
     public function getPing(array $data=[]){
         $this->type='GET';
-        $this->path='dapi/v1/ping';
+        $this->path='/dapi/v1/ping';
         $this->data=$data;
         return $this->exec();
     }
@@ -93,11 +93,11 @@ class Market extends Request
     }
 
     /**
-     *GET /dapi/v1/fundingRa
+     * GET /dapi/v1/fundingRate
      * */
-    public function getFundingRa(array $data=[]){
+    public function getFundingRate(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/fundingRa';
+        $this->path='/dapi/v1/fundingRate';
         $this->data=$data;
         return $this->exec();
     }

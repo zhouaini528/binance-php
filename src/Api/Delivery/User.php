@@ -12,13 +12,20 @@ class User extends Request
     //Default required HMAC SHA256
     protected $signature=true;
 
+    function __construct(array $data)
+    {
+        parent::__construct($data);
+
+        $this->data['timestamp']=time().'000';
+    }
+
     /**
      *POST /dapi/v1/positionSide/dual (HMAC SHA256)  USER_DATA
      * */
     public function postPositionSideDual(array $data=[]){
         $this->type='POST';
         $this->path='/dapi/v1/positionSide/dual';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -28,7 +35,7 @@ class User extends Request
     public function getOrder(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/order';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -38,7 +45,7 @@ class User extends Request
     public function getOpenOrder(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/openOrder';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -48,7 +55,7 @@ class User extends Request
     public function getOpenOrders(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/openOrders';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -58,7 +65,7 @@ class User extends Request
     public function getAllOrders(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/allOrders';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -68,7 +75,7 @@ class User extends Request
     public function getBalance(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/balance';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -78,7 +85,7 @@ class User extends Request
     public function getAccount(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/account';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -88,7 +95,7 @@ class User extends Request
     public function getUserTrades(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/userTrades';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -98,7 +105,7 @@ class User extends Request
     public function getIncome(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/income';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -108,7 +115,7 @@ class User extends Request
     public function getLeverageBracket(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/leverageBracket';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -118,7 +125,7 @@ class User extends Request
     public function getForceOrders(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/forceOrders';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 
@@ -128,7 +135,7 @@ class User extends Request
     public function getAdlQuantile(array $data=[]){
         $this->type='GET';
         $this->path='/dapi/v1/adlQuantile';
-        $this->data=$data;
+        $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
 }

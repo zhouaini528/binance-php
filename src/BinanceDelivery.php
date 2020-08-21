@@ -18,7 +18,7 @@ class BinanceDelivery
 
     protected $options=[];
 
-    function __construct(string $key='',string $secret='',string $host='https://fapi.binance.com'){
+    function __construct(string $key='',string $secret='',string $host='https://dapi.binance.com'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;
