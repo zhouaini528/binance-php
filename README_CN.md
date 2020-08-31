@@ -35,7 +35,9 @@ USDT合约交易文档地址 [https://binance-docs.github.io/apidocs/futures/cn]
 
 [Gate](https://github.com/zhouaini528/gate-php)
 
-[Bigone](https://github.com/zhouaini528/bigone-php)   
+[Bigone](https://github.com/zhouaini528/bigone-php) 
+
+[Crex24](https://github.com/zhouaini528/crex24-php)     
 
 #### 安装方式
 ```

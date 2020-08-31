@@ -38,6 +38,8 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [Bigone](https://github.com/zhouaini528/bigone-php)   
 
+[Crex24](https://github.com/zhouaini528/crex24-php)   
+
 #### Installation
 ```
 composer require linwj/binance
