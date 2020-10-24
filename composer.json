@@ -17,6 +17,8 @@
     },
     "require": {
         "php": ">=7.0",
-        "guzzlehttp/guzzle": "*"
+        "guzzlehttp/guzzle": "*",
+        "workerman/workerman": "*",
+        "workerman/globaldata": "*"
     }
 }
