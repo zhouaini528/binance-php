@@ -138,4 +138,36 @@ class User extends Request
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
+
+
+
+    /**
+     * POST /fapi/v1/listenKey
+     */
+    public function postListenKey(array $data=[]){
+        $this->type='POST';
+        $this->path='/fapi/v1/listenKey';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *PUT /fapi/v1/listenKey
+     */
+    public function putListenKey(array $data=[]){
+        $this->type='PUT';
+        $this->path='/fapi/v1/listenKey';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *DELETE /fapi/v1/listenKey
+     */
+    public function deleteListenKey(array $data=[]){
+        $this->type='DELETE';
+        $this->path='/fapi/v1/listenKey';
+        $this->data=$data;
+        return $this->exec();
+    }
 }

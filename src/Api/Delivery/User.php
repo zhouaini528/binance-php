@@ -138,4 +138,35 @@ class User extends Request
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
+
+
+    /**
+     * POST /dapi/v1/listenKey
+     */
+    public function postListenKey(array $data=[]){
+        $this->type='POST';
+        $this->path='/dapi/v1/listenKey';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *PUT /dapi/v1/listenKey
+     */
+    public function putListenKey(array $data=[]){
+        $this->type='PUT';
+        $this->path='/dapi/v1/listenKey';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *DELETE /dapi/v1/listenKey
+     */
+    public function deleteListenKey(array $data=[]){
+        $this->type='DELETE';
+        $this->path='/dapi/v1/listenKey';
+        $this->data=$data;
+        return $this->exec();
+    }
 }

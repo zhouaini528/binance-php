@@ -176,4 +176,99 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
+
+
+
+
+    /**
+     * POST /api/v3/userDataStream
+     */
+    public function postUserDataStream(array $data=[]){
+        $this->type='POST';
+        $this->path='/api/v3/userDataStream';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *PUT /api/v3/userDataStream
+     */
+    public function putUserDataStream(array $data=[]){
+        $this->type='PUT';
+        $this->path='/api/v3/userDataStream';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *DELETE /api/v3/userDataStream
+     */
+    public function deleteUserDataStream(array $data=[]){
+        $this->type='DELETE';
+        $this->path='/api/v3/userDataStream';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+
+    /**
+     * POST /sapi/v1/userDataStream
+     */
+    public function postUserDataStreamSapi(array $data=[]){
+        $this->type='POST';
+        $this->path='/sapi/v1/userDataStream';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *PUT /sapi/v1/userDataStream
+     */
+    public function putUserDataStreamSapi(array $data=[]){
+        $this->type='PUT';
+        $this->path='/sapi/v1/userDataStream';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *DELETE /sapi/v1/userDataStream
+     */
+    public function deleteUserDataStreamSapi(array $data=[]){
+        $this->type='DELETE';
+        $this->path='/sapi/v1/userDataStream';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+
+    /**
+     * POST /sapi/v1/userDataStream/isolated
+     */
+    public function postUserDataStreamIsolated(array $data=[]){
+        $this->type='POST';
+        $this->path='/sapi/v1/userDataStream/isolated';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *PUT /sapi/v1/userDataStream/isolated
+     */
+    public function putUserDataStreamIsolated(array $data=[]){
+        $this->type='PUT';
+        $this->path='/sapi/v1/userDataStream/isolated';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *DELETE /sapi/v1/userDataStream/isolated
+     */
+    public function deleteUserDataStreamIsolated(array $data=[]){
+        $this->type='DELETE';
+        $this->path='/sapi/v1/userDataStream/isolated';
+        $this->data=$data;
+        return $this->exec();
+    }
 }

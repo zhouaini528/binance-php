@@ -108,7 +108,9 @@ class Request
     protected function send(){
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->request($this->type, $this->host.$this->path.'?'.$this->signature, $this->options);
+        $query = $this->signature === true ? '' : '?'.$this->signature;
+
+        $response = $client->request($this->type, $this->host.$this->path.$query, $this->options);
 
         $this->signature='';
 
