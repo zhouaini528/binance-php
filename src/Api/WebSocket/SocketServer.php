@@ -42,13 +42,25 @@ class SocketServer
         $this->newConnection()($tag,$keysecret);
     }
 
+    private function getBaseUrl($global,$keysecret){
+        $baseurl=isset($this->config['baseurl']) ? $this->config['baseurl'] : 'ws://stream.binance.com:9443';
+
+        if(empty($keysecret)) {
+            $baseurl.='/stream';
+        }else{
+            //$baseurl='ws://stream.binance.com:9443/ws/w2DAeRP0jmuWT0yEw01gAfM9BUAwdwSW9cjU4VKyesUWtHe4Uw3Ch82gp9D6';
+            $client_keysecret=$global->get('keysecret');
+            $baseurl.='/ws/'.$client_keysecret[$keysecret['key']]['listen_key'];
+        }
+
+        return $baseurl;
+    }
+
     private function newConnection(){
         return function($tag,$keysecret){
             $global=$this->client();
 
-            $baseurl=isset($this->config['baseurl']) ? $this->config['baseurl'] : 'ws://stream.binance.com:9443';
-
-            $baseurl='ws://stream.binance.com:9443/stream';
+            $baseurl=$this->getBaseUrl($global,$keysecret);
 
             $this->connection[$this->connectionIndex] = new AsyncTcpConnection($baseurl);
             $this->connection[$this->connectionIndex]->transport = 'ssl';
@@ -74,16 +86,9 @@ class SocketServer
         return function($con) use($keysecret){
             if(empty($keysecret)) return;
 
-            $timestamp=round(microtime(true)*1000)/1000;
-
-            $message = $timestamp.'GET/users/self/verify';
-            $sign=base64_encode(hash_hmac('sha256', $message, $keysecret['secret'], true));
-            $data = json_encode([
-                'op' => "login",
-                'args' => [$keysecret['key'], $keysecret['passphrase'], $timestamp, $sign]
+            $this->keysecretInit($keysecret,[
+                'connection'=>1
             ]);
-
-            $con->send($data);
 
             $this->log($keysecret['key'].' new connect send');
         };
@@ -96,20 +101,36 @@ class SocketServer
             if(isset($data['stream'])) {
                 $table=$data['stream'];
 
-                if($con->tag != 'public') $table=$this->userKey($con->tag_keysecret,$table);
-
                 $global->save($table,$data);
                 return;
             }
+
+            //if($con->tag!='public')
+
+            if(isset($data['e']) && $con->tag!='public') {
+                $table=$this->userKey($con->tag_keysecret,$data['e']);
+
+                $global->save($table,$data);
+
+                $global->allSubUpdate([$con->tag_keysecret['key']=>[$table]],'add');
+                return;
+            }
+
+            $this->log($data);
         };
     }
 
     private function onClose(){
         return function($con){
-            $this->log('reconnection');
-
             //这里连接失败 会轮询 connect
-            $con->reConnect(5);
+            if($con->tag=='public') {
+                //TODO如果连接失败  应该public  private 都行重新加载
+                $this->log('reconnection');
+                $con->reConnect(5);
+            }else{
+                $this->log('connection close '.$con->tag_keysecret['key']);
+                Timer::del($con->timer);
+            }
         };
     }
 
@@ -136,10 +157,12 @@ class SocketServer
     private function other($con,$global){
         $time=isset($this->config['listen_time']) ? $this->config['listen_time'] : 2 ;
 
-        Timer::add($time, function() use($con,$global) {
+        $con->timer=Timer::add($time, function() use($con,$global) {
             $this->subscribe($con,$global);
 
-            //$this->unsubscribe($con,$global);
+            $this->unsubscribe($con,$global);
+
+            $this->account($con,$global);
 
             $this->log('listen '.$con->tag);
         });
@@ -148,44 +171,18 @@ class SocketServer
     private function subscribe($con,$global){
         if(empty($global->get('add_sub'))) return;
 
-        if($con->tag=='public'){
-            //公共订阅 并 触发私有连接
-            $this->subscribePublic($con,$global);
-        }else{
-            //$this->subscribePrivate($con,$global);
-        }
-
-        return;
-    }
-
-    private function subscribePublic($con,$global){
-        $sub=[
-            'public'=>[],
-            'private'=>[],
-        ];
-
-        $temp=$global->get('add_sub');
-        foreach ($temp as $v){
-            if(count($v)>1) $sub['private'][$v[1]['key']]=$v[1];
-            else array_push($sub['public'],$v[0]);
-        }
-
-        //有私有频道先去建立新连接 即登陆
-        foreach ($sub['private'] as $v){
-            $this->login($global,$v);
-        }
+        $sub=$global->get('add_sub');
 
         //公共连接 标记订阅频道是否有改变。
-        if(empty($sub['public'])) {
+        if(empty($sub)) {
             $this->log('public dont change return');
             return;
         }
 
-
         $data=[
             "method"=>"SUBSCRIBE",
-            'params'=>$sub['public'],
-            'id'=>12345
+            'params'=>$sub,
+            'id'=>$this->getId()
         ];
 
         $data=json_encode($data);
@@ -195,52 +192,10 @@ class SocketServer
         $this->log('public subscribe send');
 
         //*******订阅成功后，删除add_sub  public 值
-        $global->addSubUpdate('public');
+        $global->addSubUpdate();
 
         //*******订阅成功后 更改 all_sub  public 值
-        $global->allSubUpdate('public',['sub'=>$sub['public']]);
-    }
-
-    private function subscribePrivate($con,$global){
-        $sub=[];
-        $keysecret=$con->tag_keysecret;
-        $temp=$global->get('add_sub');
-        //判断是否是私有连接，并判断该私有连接是否是  当前用户。
-        foreach ($temp as $v){
-            $key=$v[1]['key'];
-            if(count($v)>1 && $key==$keysecret['key']) $sub[]=$v[0];
-        }
-
-        if(empty($sub)) {
-            $this->log('subscribe private return');
-            return;
-        }
-
-        //**********判断是否已经登陆
-        $client_keysecret=$global->get('keysecret');
-        $keysecret=$con->tag_keysecret;
-        if($client_keysecret[$keysecret['key']]['login']!=1) {
-            $this->log('subscribe private dont login return '.$keysecret['key']);
-            return;
-        }
-
-        $data=[
-            'op' => "subscribe",
-            'args' => $sub,
-        ];
-
-        $data=json_encode($data);
-        $con->send($data);
-
-        $this->log($data);
-        $this->log('private subscribe send '.$keysecret['key']);
-
-        //*******订阅成功后，删除add_sub   值
-        $global->addSubUpdate('private',['user_key'=>$keysecret['key']]);
-
-
-        //*******订阅成功后 更改 all_sub   值
-        $global->allSubUpdate('private',['sub'=>$temp]);
+        $global->allSubUpdate($sub,'add');
 
         return;
     }
@@ -248,21 +203,10 @@ class SocketServer
     private function unsubscribe($con,$global){
         if(empty($this->get('del_sub'))) return;
 
-        if($con->tag=='public'){
-            //公共订阅 并 触发私有连接
-            $this->unsubscribePublic($con,$global);
-        }else{
-            $this->unsubscribePrivate($con,$global);
-        }
-
-        return;
-    }
-
-    private function unsubscribePublic($con,$global){
         $unsub=[];
         $temp=$this->get('del_sub');
         foreach ($temp as $v){
-            if(count($v)==1) $unsub[]=$v[0];
+            $unsub[]=$v;
         }
 
         if(empty($unsub)) {
@@ -272,8 +216,9 @@ class SocketServer
 
         //判断当前是否已经重复订阅。可以无所谓。
         $data=[
-            'op' => "unsubscribe",
-            'args' => $unsub,
+            "method"=>"UNSUBSCRIBE",
+            'params'=>$unsub,
+            'id'=>$this->getId()
         ];
 
         $data=json_encode($data);
@@ -283,71 +228,69 @@ class SocketServer
         $this->log('public unsubscribe send');
 
         //*******订阅成功后，删除del_sub  public 值
-        $global->delSubUpdate('public');
-
+        $global->delSubUpdate();
 
         //*******订阅成功后 更改 all_sub  public 值
-        $global->unAllSubUpdate('public',['sub'=>$unsub]);
+        $global->allSubUpdate($unsub,'del');
 
+        return;
     }
 
-    private function unsubscribePrivate($con,$global){
-        $unsub=[];
-        $keysecret=$con->tag_keysecret;
-        $temp=$global->get('del_sub');
-        //判断是否是私有连接，并判断该私有连接是否是  当前用户。
-        foreach ($temp as $v){
-            $key=$v[1]['key'];
-            if(count($v)>1 && $key==$keysecret['key']) $unsub[]=$v[0];
+    private function account($con,$global){
+        $keysecret=$global->get('keysecret');
+        if(empty($keysecret)) return;
+
+        foreach ($keysecret as $k=>$v){
+            //是否取消连接
+            if($con->tag!='public' && isset($v['connection_close']) && $v['connection_close']==1){
+                echo $con->tag.PHP_EOL;
+                $con->close();
+                $this->keysecretInit($v,[]);
+                $this->log('private connection close '.$v['key']);
+
+                continue;
+            }
+
+
+            //是否有新的连接
+            if(isset($v['connection'])){
+                switch ($v['connection']){
+                    case 0:{
+                        $listen_key=$this->getListenKey($v);
+
+                        $this->keysecretInit($v,[
+                            'connection'=>2,
+                            'listen_key'=>$listen_key,
+                            'listen_key_time'=>time(),
+                            'connection_close'=>0,
+                        ]);
+
+                        $this->log('private account new connection '.$v['key']);
+
+                        $this->addConnection($v['key'],$v);
+                        break;
+                    }
+                    case 1:{
+                        //listen_key是否过期  60分钟过期时间
+                        if(time()-$v['listen_key_time']>=3000) {
+
+                            $listen_key=$this->getListenKey($v);
+                            $this->keysecretInit($v,[
+                                'listen_key'=>$listen_key,
+                                'listen_key_time'=>time(),
+                            ]);
+
+                            $this->log('private update listen_key_time '.$v['key']);
+                        }
+                        break;
+                    }
+                    case 2:{
+                        $this->log('private already account return '.$v['key']);
+                        break;
+                    }
+                }
+            }
+
         }
-
-        if(empty($unsub)) {
-            $this->log('unsubscribe private return');
-            return;
-        }
-
-        $data=[
-            'op' => "unsubscribe",
-            'args' => $unsub,
-        ];
-
-        $data=json_encode($data);
-        $con->send($data);
-
-        $this->log($data);
-        $this->log('private unsubscribe send '.$keysecret['key']);
-
-        //*******订阅成功后，删除add_sub   值
-        $global->delSubUpdate('private',['user_key'=>$keysecret['key']]);
-
-        //*******订阅成功后 更改 all_sub   值
-        $global->unAllSubUpdate('private',['sub'=>$temp]);
-    }
-
-    private function login($global,$keysecret){
-        //判断是否已经登陆
-        $old_client_keysecret=$global->get('keysecret');
-        if(empty($old_client_keysecret)) {
-            $this->log('private no value keysecret return ');
-            return;
-        }
-
-        if($old_client_keysecret[$keysecret['key']]['login']==1) {
-            $this->log('private already login return '.$keysecret['key']);
-            return;
-        }
-
-        if($old_client_keysecret[$keysecret['key']]['login']==2) {
-            $this->log('private doing return '.$keysecret['key']);
-            return;
-        }
-
-        $this->log('private new connection '.$keysecret['key']);
-
-        //**********如果登陆失败，事件监听会再次 执行轮询 创建新连接，所以必须要有正在登陆中的状态标记
-        $global->keysecretUpdate($keysecret['key'],2);
-
-        //当前连接是公共连接才允许建立新的私有连接
-        $this->addConnection($keysecret['key'],$keysecret);
     }
 }

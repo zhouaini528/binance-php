@@ -8,38 +8,34 @@ namespace Lin\Binance\Api\WebSocket;
 
 trait SocketFunction
 {
-    //对数据轮询 获取当前数据的订阅ID
-    protected function getInstrumentId(array $array){
-        if(isset($array['currency'])) return $array['currency'];
-        if(isset($array['instrument_id'])) return $array['instrument_id'];
-
-        foreach ($array as $v){
-            if(is_array($v)) {
-                $rlt=$this->getInstrumentId($v);
-                if(!empty($rlt)) return $rlt;
-            }
-        }
-
-        return ;
-    }
-
     /**
-     * 标记订阅的频道是否需要有登陆的KEY
+     * @param $key_secret
+     * @return mixed
      */
-    protected function resub(array $sub=[]){
-        $new_sub=[];
-        $temp1=['account','position','order'];
-        foreach ($sub as $v) {
-            $temp2=[$v];
-            foreach ($temp1 as $tv){
-                if(strpos($v, $tv) !== false){
-                    array_push($temp2,empty($this->keysecret)? [] : $this->keysecret);
-                }
+    public function getListenKey(array $key_secret){
+        //'baseurl'=>'ws://stream.binance.com:9443',//default
+        //'baseurl'=>'ws://fstream.binance.com',
+        //'baseurl'=>'ws://dstream.binance.com',
+
+        switch ($this->config['baseurl']){
+            case 'ws://fstream.binance.com':{
+                $binance=new \Lin\Binance\BinanceFuture($key_secret['key'],$key_secret['secret']);
+                $listen_key=$binance->user()->postListenKey();
+                break;
             }
-            array_push($new_sub,$temp2);
+            case 'ws://dstream.binance.com':{
+                $binance=new \Lin\Binance\BinanceDelivery($key_secret['key'],$key_secret['secret']);
+                $listen_key=$binance->user()->postListenKey();
+                break;
+            }
+            //ws://stream.binance.com:9443
+            default:{
+                $binance=new \Lin\Binance\Binance($key_secret['key'],$key_secret['secret']);
+                $listen_key=$binance->user()->postUserDataStream();
+            }
         }
 
-        return $new_sub;
+        return current($listen_key);
     }
 
     /**

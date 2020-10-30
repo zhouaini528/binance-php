@@ -15,14 +15,29 @@ trait SocketGlobal
 
     private $config=[];
 
+    private function port(){
+        switch ($this->config['baseurl']){
+            case 'ws://fstream.binance.com':{
+                return '2210';
+            }
+            case 'ws://dstream.binance.com':{
+                return '2209';
+            }
+            //ws://stream.binance.com:9443
+            default:{
+                return '2208';
+            }
+        }
+    }
+
     protected function server(){
-        $address=isset($this->config['global']) ? explode(':',$this->config['global']) : ['0.0.0.0','2208'];
+        $address=isset($this->config['global']) ? explode(':',$this->config['global']) : ['0.0.0.0',$this->port()];
         $this->server=new Server($address[0],$address[1]);
         return $this;
     }
 
     protected function client(){
-        $address=isset($this->config['global']) ? $this->config['global'] : '0.0.0.0:2208';
+        $address=isset($this->config['global']) ? $this->config['global'] : '0.0.0.0:'.$this->port();
         $this->client=new Client($address);
         return $this;
     }
@@ -43,74 +58,67 @@ trait SocketGlobal
         else $this->client->$key=$value;
     }
 
-    protected function addSubUpdate($type='public',$data=[]){
+    protected function addSubUpdate($data=[]){
         do{
             $old_value=$new_value=$this->client->add_sub;
             foreach ($new_value as $k=>$v){
-                if($type=='public' && count($v)==1) unset($new_value[$k]);
-                if($type=='private') {
-                    //添加的频道必须当前用户
-                    $key=$v[1]['key'];
-                    if(count($v)>1 && $key==$data['user_key']) unset($new_value[$k]);
-                }
+                unset($new_value[$k]);
             }
         }
         while(!$this->client->cas('add_sub', $old_value, $new_value));
     }
 
-    protected function delSubUpdate($type='public',$data=[]){
+    protected function delSubUpdate($data=[]){
         do{
             $old_value=$new_value=$this->client->del_sub;
             foreach ($new_value as $k=>$v){
-                if($type=='public' && count($v)==1) unset($new_value[$k]);
-                if($type=='private') {
-                    //添加的频道必须当前用户
-                    $key=$v[1]['key'];
-                    if(count($v)>1 && $key==$data['user_key']) unset($new_value[$k]);
-                }
+                unset($new_value[$k]);
             }
         }
         while(!$this->client->cas('del_sub', $old_value, $new_value));
     }
 
-    protected function allSubUpdate($type='public',$data=[]){
+    protected function allSubUpdate($data,$type='add'){
         do{
             $old_value=$new_value=$this->client->all_sub;
-            foreach ($data['sub'] as $v){
-                if($type=='public') $key=$v;
-                if($type=='private') $key=$v[1]['key'].$v[0];
-                $new_value[$key]=$v;
+
+            foreach ($data as $k=>$v){
+                switch ($type){
+                    case 'add':{
+                        if(is_array($v)){
+                            if(!isset($new_value[$k])) $new_value[$k]=$v;
+                            else $new_value[$k]=array_unique(array_merge($new_value[$k],$v));
+                        }else{
+                            $new_value[$k]=$v;
+                        }
+                        break;
+                    }
+                    case 'del':{
+                        unset($new_value[$k]);
+                        break;
+                    }
+                }
             }
+
         }
         while(!$this->client->cas('all_sub', $old_value, $new_value));
     }
 
-    protected function unAllSubUpdate($type='public',$data=[]){
-        do{
-            $old_value=$new_value=$this->client->all_sub;
-            foreach ($data['sub'] as $v){
-                if($type=='public') unset($new_value[$v]);
-                if($type=='private') unset($new_value[$v[1]['key'].$v[0]]);
-            }
-        }
-        while(!$this->client->cas('all_sub', $old_value, $new_value));
-    }
-
-    protected function keysecretUpdate($key,$login=0){
-        do{
-            $old_client_keysecret=$new_client_keysecret=$this->client->keysecret;
-            $new_client_keysecret[$key]['login']=$login;
-        }
-        while(!$this->client->cas('keysecret', $old_client_keysecret, $new_client_keysecret));
-    }
-
-    protected function keysecretInit($keysecret){
+    protected function keysecretInit($keysecret,$data=[]){
         do {
             $old_value = $new_value = $this->client->keysecret;
 
-            if(!isset($new_value[$keysecret['key']])) {
-                $new_value[$keysecret['key']]=$keysecret;
-                $new_value[$keysecret['key']]['login']=0;
+            if(empty($data)) {
+                $new_value[$keysecret['key']]=[];
+            }else{
+                if(isset($new_value[$keysecret['key']])) $new_value[$keysecret['key']]=array_merge($new_value[$keysecret['key']],$keysecret);
+                else $new_value[$keysecret['key']]=$keysecret;
+
+                if(!empty($data)){
+                    foreach ($data as $k=>$v){
+                        $new_value[$keysecret['key']][$k]=$v;
+                    }
+                }
             }
         }
         while(!$this->client->cas('keysecret', $old_value, $new_value));
@@ -122,5 +130,13 @@ trait SocketGlobal
             $new_value[$key]=$key;
         }
         while(!$this->client->cas('global_key', $old_value, $new_value));
+    }
+
+    /**
+     * binance
+     */
+    protected function getId(){
+        list($msec, $sec) = explode(' ', microtime());
+        return (float)sprintf('%.0f', (floatval($msec) + floatval($sec)) * 1000);
     }
 }

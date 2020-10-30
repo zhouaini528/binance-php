@@ -21,7 +21,7 @@ $binance->config([
     //Do you want to enable local logging,default false
     'log'=>true,
 
-    //Daemons address and port,default 0.0.0.0:2207
+    //Daemons address and port,default 0.0.0.0:2208
     //'global'=>'127.0.0.1:2208',
 
     //Heartbeat time,default 20 seconds
@@ -32,6 +32,11 @@ $binance->config([
 
     //Channel data update time,0.1 seconds
     //'data_time'=>0.1,
+
+    //baseurl
+    //'baseurl'=>'ws://stream.binance.com:9443',//default
+    //'baseurl'=>'ws://fstream.binance.com',
+    'baseurl'=>'ws://dstream.binance.com',
 ]);
 
 $action=intval($_GET['action'] ?? 0);//http pattern
@@ -39,13 +44,12 @@ if(empty($action)) $action=intval($argv[1]);//cli pattern
 
 switch ($action){
     //**************public
-
     //subscribe
     case 1:{
 
         $binance->subscribe([
-            'btcusdt@depth',
-            'bchusdt@depth',
+            'btcusd_201225@depth',
+            'ethusd_201225@depth',
         ]);
 
         break;
@@ -54,10 +58,21 @@ switch ($action){
     //unsubscribe
     case 2:{
         $binance->unsubscribe([
-            'spot/depth5:BCH-USDT',
-            'futures/depth5:BCH-USD-210326',
-            'swap/depth5:BCH-USD-SWAP',
-            'option/depth5:BTCUSD-20201021-11750-C',
+            'btcusd_201225@depth',
+            'ethusd_201225@depth',
+        ]);
+
+        break;
+    }
+
+    case 3:{
+
+        $binance->subscribe([
+            'btcusdt@aggTrade',
+            'btcusdt@trade',
+            'btcusdt@kline_1d',
+            'btcusdt@miniTicker',
+            'btcusdt@depth20'
         ]);
 
         break;
@@ -67,15 +82,14 @@ switch ($action){
     //subscribe
     case 10:{
         $binance->keysecret($key_secret[0]);
-        $binance->subscribe([
-            'spot/depth5:BCH-USDT',
-            'futures/depth5:BCH-USD-210326',
-            'swap/depth5:BCH-USD-SWAP',
+        //Subscribe to all private channels by default
+        $binance->subscribe();
 
-            'futures/position:BCH-USD-210326',
-            'futures/account:BCH-USDT',
-            'swap/position:BCH-USD-SWAP',
-        ]);
+        /*$binance->subscribe([
+            '<listenKey>@account',
+            '<listenKey>@balance',
+            '<listenKey>@position',
+        ]);*/
         break;
     }
 

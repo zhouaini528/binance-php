@@ -83,4 +83,5 @@ class BinanceWebSocket
     public function getSubscribes($callback=null,$daemon=false){
         return $this->client()->getSubscribes($callback,$daemon);
     }
+
 }

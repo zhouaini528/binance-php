@@ -17,6 +17,7 @@ class SocketClient
     use SocketFunction;
 
     private $config=[];
+    private $keysecret=[];
 
 
     function __construct(array $config=[])
@@ -53,14 +54,28 @@ class SocketClient
      * @param array $sub
      */
     public function subscribe(array $sub=[]){
-        $this->save('add_sub',$this->resub($sub));
+
+        // 是否又私有频道订阅
+        if(empty($sub) && !empty($this->keysecret)) {
+            $this->keysecretInit($this->keysecret,[
+                'connection'=>0,
+            ]);
+        }
+
+        $this->save('add_sub',$sub);
     }
 
     /**
      * @param array $sub
      */
     public function unsubscribe(array $sub=[]){
-        $this->save('del_sub',$this->resub($sub));
+        if(empty($sub) && !empty($this->keysecret)) {
+            $this->keysecretInit($this->keysecret,[
+                'connection_close'=>1,
+            ]);
+        }
+
+        $this->save('del_sub',$sub);
     }
 
     /**
@@ -71,8 +86,6 @@ class SocketClient
      */
     public function getSubscribe(array $sub,$callback=null,$daemon=false){
         if($daemon) $this->daemon($callback,$sub);
-
-        $sub=$this->resub($sub);
 
         return $this->getData($this,$callback,$sub);
     }
@@ -95,8 +108,6 @@ class SocketClient
             $global = $this->client();
 
             $time=isset($this->config['data_time']) ? $this->config['data_time'] : 0.1 ;
-
-            $sub=$this->resub($sub);
 
             Timer::add($time, function() use ($global,$callback,$sub){
                 $this->getData($global,$callback,$sub);
