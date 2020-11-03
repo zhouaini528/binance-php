@@ -594,9 +594,9 @@ $binance->getSubscribe([//Return all data of private channel and partial data of
 },true);
 ```
 
-[Spot More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_spot.php)
+[Spot Websocket More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_spot.php)
 
-[USDT Future More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_usdt_future.php)
+[USDT Future Websocket More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_usdt_future.php)
 
-[Coin Future More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_coin_future.php)
+[Coin Future Websocket More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_coin_future.php)
 
