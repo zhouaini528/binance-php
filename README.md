@@ -16,11 +16,11 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [Bitmex](https://github.com/zhouaini528/bitmex-php)
 
-[Okex](https://github.com/zhouaini528/okex-php)
+[Okex](https://github.com/zhouaini528/okex-php) Support [Websocket](https://github.com/zhouaini528/okex-php/blob/master/README.md#Websocket)
 
 [Huobi](https://github.com/zhouaini528/huobi-php)
 
-[Binance](https://github.com/zhouaini528/binance-php)
+[Binance](https://github.com/zhouaini528/binance-php) Support [Websocket](https://github.com/zhouaini528/binance-php/blob/master/README.md#Websocket)
 
 [Kucoin](https://github.com/zhouaini528/Kucoin-php)
 
