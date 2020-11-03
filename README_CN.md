@@ -5,6 +5,8 @@ USDT合约交易文档地址 [https://binance-docs.github.io/apidocs/futures/cn]
 
 币本位合约文档地址 [https://binance-docs.github.io/apidocs/delivery/cn](https://binance-docs.github.io/apidocs/delivery/cn)
 
+支持[Websocket](https://github.com/zhouaini528/binance-php/blob/master/README_CN.md#Websocket)
+
 大部分的接口已经完成，使用者可以根据我的设计方案继续扩展，欢迎与我一起迭代它。
 
 [English Document](https://github.com/zhouaini528/binance-php/blob/master/README.md)
@@ -15,11 +17,11 @@ USDT合约交易文档地址 [https://binance-docs.github.io/apidocs/futures/cn]
 
 [Bitmex](https://github.com/zhouaini528/bitmex-php)
 
-[Okex](https://github.com/zhouaini528/okex-php)
+[Okex](https://github.com/zhouaini528/okex-php) 支持[Websocket](https://github.com/zhouaini528/okex-php/blob/master/README_CN.md#Websocket)
 
 [Huobi](https://github.com/zhouaini528/huobi-php)
 
-[Binance](https://github.com/zhouaini528/binance-php)
+[Binance](https://github.com/zhouaini528/binance-php) 支持[Websocket](https://github.com/zhouaini528/binance-php/blob/master/README_CN.md#Websocket)
 
 [Kucoin](https://github.com/zhouaini528/Kucoin-php)
 
@@ -395,5 +397,206 @@ try {
 [更多用例](https://github.com/zhouaini528/binance-php/tree/master/tests/future)
 
 [更多API](https://github.com/zhouaini528/binance-php/tree/master/src/Api)
+
+### Websocket
+
+Websocket有两个服务server和client，server负责处理交易所新连接、数据接收、认证登陆等等。client负责获取数据、处理数据。
+
+Server端初始化，必须在cli模式下开启。
+```php
+use \Lin\Binance\BinanceWebSocket;
+require __DIR__ .'./vendor/autoload.php';
+
+$binance=new BinanceWebSocket();
+
+$binance->config([
+    //是否开启日志,默认未开启 false
+    'log'=>true,
+
+    //进程服务端口地址,默认 0.0.0.0:2208
+    //'global'=>'127.0.0.1:2208',
+
+    //心跳时间,默认 20 秒
+    //'ping_time'=>20,
+
+    //订阅新的频道监控时间, 默认 2 秒
+    //'listen_time'=>2,
+
+    //频道数据更新时间,默认 0.1 秒
+    //'data_time'=>0.1,
+
+    //baseurl
+    'baseurl'=>'ws://stream.binance.com:9443',//默认现货
+    //'baseurl'=>'ws://fstream.binance.com',//usdt期货
+    //'baseurl'=>'ws://dstream.binance.com',//币本位期货
+]);
+
+$binance->start();
+```
+
+如果你要测试，你可以 php server.php start 可以在终端即时输出日志。
+
+如果你要部署，你可以 php server.php start -d  开启常驻进程模式，并开启'log'=>true 查看日志。
+
+[更多用例请查看](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/server.php)
+
+
+Client端初始化。
+```php
+$binance=new BinanceWebSocket();
+
+$binance->config([
+    //是否开启日志,默认未开启 false
+    'log'=>true,
+
+    //进程服务端口地址,默认 0.0.0.0:2208
+    //'global'=>'127.0.0.1:2208',
+
+    //心跳时间,默认 20 秒
+    //'ping_time'=>20,
+
+    //订阅新的频道监控时间, 默认 2 秒
+    //'listen_time'=>2,
+
+    //频道数据更新时间,默认 0.1 秒
+    //'data_time'=>0.1,
+
+    'baseurl'=>'ws://stream.binance.com:9443',//默认现货
+    //'baseurl'=>'ws://fstream.binance.com',//usdt期货
+    //'baseurl'=>'ws://dstream.binance.com',//币本位期货
+]);
+```
+
+频道订阅
+```php
+//你可以只订阅公共频道
+$binance->subscribe([
+    'btcusdt@depth',
+    'bchusdt@depth',
+    'btcusdt@aggTrade',
+    'btcusdt@trade',
+    'btcusdt@kline_1d',
+    'btcusdt@miniTicker',
+    'btcusdt@depth20'
+]);
+
+//你也可以私人频道与公共频道混合订阅，设置了keysecret默认会订阅私人所有频道
+$binance->keysecret([
+    'key'=>'xxxxxxxxx',
+    'secret'=>'xxxxxxxxx',
+    'passphrase'=>'xxxxxxxxx',
+]);
+$binance->subscribe([
+    'btcusdt@depth',
+    'bchusdt@depth',
+    'btcusdt@aggTrade',
+    'btcusdt@trade',
+    'btcusdt@kline_1d',
+    'btcusdt@miniTicker',
+    'btcusdt@depth20',
+]);
+```
+
+频道订阅取消
+```php
+//取消订阅公共频道
+$binance->unsubscribe([
+    'btcusdt@depth',
+    'bchusdt@depth',
+    'btcusdt@aggTrade',
+    'btcusdt@trade',
+    'btcusdt@kline_1d',
+    'btcusdt@miniTicker',
+    'btcusdt@depth20'
+]);
+
+//取消私人频道与公共频道混合订阅，设置了keysecret默认会取消订阅私人所有频道
+$binance->keysecret([
+    'key'=>'xxxxxxxxx',
+    'secret'=>'xxxxxxxxx',
+    'passphrase'=>'xxxxxxxxx',
+]);
+$binance->unsubscribe([
+    'btcusdt@depth',
+    'bchusdt@depth',
+    'btcusdt@aggTrade',
+    'btcusdt@trade',
+    'btcusdt@kline_1d',
+    'btcusdt@miniTicker',
+    'btcusdt@depth20'
+]);
+```
+
+获取全部频道订阅数据
+```php
+//第一种方式，直接获取当前最新数据
+$data=$binance->getSubscribes();
+print_r(json_encode($data));
+
+
+//第二种方式，通过回调函数，获取当前最新数据
+$binance->getSubscribes(function($data){
+    print_r(json_encode($data));
+});
+
+//第二种方式，通过回调函数并开启常驻进程，获取当前最新数据
+$binance->getSubscribes(function($data){
+    print_r(json_encode($data));
+},true);
+```
+
+获取部分频道订阅数据
+```php
+//The first way
+$data=$binance->getSubscribe([
+    'btcusdt@depth',
+    'bchusdt@depth',
+]);
+print_r(json_encode($data));
+
+//The second way callback
+$binance->getSubscribe([
+    'btcusdt@depth',
+    'bchusdt@depth',
+],function($data){
+    print_r(json_encode($data));
+});
+
+//The third way is to guard the process
+$binance->getSubscribe([
+    'btcusdt@depth',
+    'bchusdt@depth',
+],function($data){
+    print_r(json_encode($data));
+},true);
+```
+
+获取私有频道订阅数据，
+```php
+//The first way
+$binance->keysecret($key_secret);
+$data=$binance->getSubscribe();//返回私有频道所有数据
+print_r(json_encode($data));
+
+//The second way callback
+$binance->keysecret($key_secret);
+$binance->getSubscribe([//返回私有频道所有数据、返回部分公共频道数据
+    'btcusdt@depth',
+    'bchusdt@depth',
+],function($data){
+    print_r(json_encode($data));
+});
+
+//The third way is to guard the process
+$binance->keysecret($key_secret);
+$binance->getSubscribe([//返回私有频道所有数据、返回部分公共频道数据
+    'btcusdt@depth',
+    'bchusdt@depth',
+],function($data){
+    print_r(json_encode($data));
+},true);
+```
+
+[更多用例请查看](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_spot.php)
 
 

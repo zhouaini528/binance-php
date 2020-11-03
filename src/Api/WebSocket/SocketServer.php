@@ -129,7 +129,9 @@ class SocketServer
                 $con->reConnect(5);
             }else{
                 $this->log('connection close '.$con->tag_keysecret['key']);
-                Timer::del($con->timer);
+
+                Timer::del($con->timer_ping);
+                Timer::del($con->timer_other);
             }
         };
     }
@@ -147,7 +149,7 @@ class SocketServer
     private function ping($con){
         $time=isset($this->config['ping_time']) ? $this->config['ping_time'] : 20 ;
 
-        Timer::add($time, function() use ($con) {
+        $con->timer_ping=Timer::add($time, function() use ($con) {
             //$con->send('ping');
 
             $this->log($con->tag.' send ping');
@@ -157,7 +159,7 @@ class SocketServer
     private function other($con,$global){
         $time=isset($this->config['listen_time']) ? $this->config['listen_time'] : 2 ;
 
-        $con->timer=Timer::add($time, function() use($con,$global) {
+        $con->timer_other=Timer::add($time, function() use($con,$global) {
             $this->subscribe($con,$global);
 
             $this->unsubscribe($con,$global);

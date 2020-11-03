@@ -56,7 +56,10 @@ class SocketClient
     public function subscribe(array $sub=[]){
 
         // 是否又私有频道订阅
-        if(empty($sub) && !empty($this->keysecret)) {
+        if(!empty($this->keysecret)) {
+            $keysecret=$this->get('keysecret');
+
+            if(!isset($keysecret[$this->keysecret['key']]['connection']))
             $this->keysecretInit($this->keysecret,[
                 'connection'=>0,
             ]);
@@ -69,7 +72,8 @@ class SocketClient
      * @param array $sub
      */
     public function unsubscribe(array $sub=[]){
-        if(empty($sub) && !empty($this->keysecret)) {
+        if(!empty($this->keysecret)) {
+            if(!isset($keysecret[$this->keysecret['key']]['connection']))
             $this->keysecretInit($this->keysecret,[
                 'connection_close'=>1,
             ]);
@@ -140,18 +144,18 @@ class SocketClient
             }
         }else{
             //返回规定的数据
+            if(!empty($this->keysecret)) {
+                //是否有私有数据
+                $all_sub=$global->get('all_sub');
+                if(isset($all_sub[$this->keysecret['key']])) $sub=array_merge($sub,$all_sub[$this->keysecret['key']]);
+            }
             foreach ($sub as $k=>$v){
-                if(count($v)==1) $table=$v[0];
-                else {
-                    //private
-                    if(!isset($v[1]['key'])) continue;
-                    $table=$this->userKey($v[1],$v[0]);
-                }
-                $data=$global->get(strtolower($table));
+                $data=$global->get($v);
                 if(empty($data)) continue;
 
-                $temp[$table]=$data;
+                $temp[$v]=$data;
             }
+
         }
 
         if($callback!==null){
