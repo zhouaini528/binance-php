@@ -422,9 +422,9 @@ $binance->config([
     //'data_time'=>0.1,
 
     //baseurl
-    'baseurl'=>'ws://stream.binance.com:9443',//default
-    //'baseurl'=>'ws://fstream.binance.com',
-    //'baseurl'=>'ws://dstream.binance.com',
+    'baseurl'=>'ws://stream.binance.com:9443',//spot default
+    //'baseurl'=>'ws://fstream.binance.com',//usdt future
+    //'baseurl'=>'ws://dstream.binance.com',//coin future
 ]);
 
 $binance->start();
@@ -458,9 +458,9 @@ $binance->config([
     'data_time'=>1,
 
     //baseurl
-    'baseurl'=>'ws://stream.binance.com:9443',//default
-    //'baseurl'=>'ws://fstream.binance.com',
-    //'baseurl'=>'ws://dstream.binance.com',
+    'baseurl'=>'ws://stream.binance.com:9443',//spot default
+    //'baseurl'=>'ws://fstream.binance.com',//usdt future
+    //'baseurl'=>'ws://dstream.binance.com',//coin future
 ]);
 ```
 
