@@ -438,7 +438,7 @@ $binance->start();
 
 如果你要部署，你可以 php server.php start -d  开启常驻进程模式，并开启'log'=>true 查看日志。
 
-[更多用例请查看](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/server.php)
+[更多用例请查看](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/server_spot.php)
 
 
 Client端初始化。
@@ -597,6 +597,10 @@ $binance->getSubscribe([//返回私有频道所有数据、返回部分公共频
 },true);
 ```
 
-[更多用例请查看](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_spot.php)
+[现货更多用例请查看](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_spot.php)
+
+[USDT期货更多用例请查看](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_usdt_future.php)
+
+[币本位期货更多用例请查看](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_coin_future.php)
 
 

@@ -40,7 +40,7 @@ try {
         'side'=>'BUY',
         'type'=>'LIMIT',
         'quantity'=>'1',
-        'price'=>'5000',
+        'price'=>'10',
         'timeInForce'=>'GTC',
         //'newClientOrderId'=>'xxxxxxx'
     ]);

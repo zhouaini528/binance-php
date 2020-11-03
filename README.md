@@ -434,7 +434,7 @@ If you want to test, you can "php server.php start" immediately outputs the log 
 
 If you want to deploy, you can "php server.php start -d" enables resident process mode, and enables "log=>true" to view logs.
 
-[More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/server.php)
+[More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/server_spot.php)
 
 
 Client side initialization.
@@ -594,5 +594,9 @@ $binance->getSubscribe([//Return all data of private channel and partial data of
 },true);
 ```
 
-[More ](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_spot.php)
+[Spot More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_spot.php)
+
+[USDT Future More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_usdt_future.php)
+
+[Coin Future More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_coin_future.php)
 

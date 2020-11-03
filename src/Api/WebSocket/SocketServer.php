@@ -245,11 +245,11 @@ class SocketServer
         foreach ($keysecret as $k=>$v){
             //是否取消连接
             if($con->tag!='public' && isset($v['connection_close']) && $v['connection_close']==1){
-                echo $con->tag.PHP_EOL;
                 $con->close();
-                $this->keysecretInit($v,[]);
-                $this->log('private connection close '.$v['key']);
 
+                $this->keysecretInit($v,[]);
+
+                $this->log('private connection close '.$v['key']);
                 continue;
             }
 

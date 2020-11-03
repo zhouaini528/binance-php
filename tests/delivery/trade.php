@@ -36,11 +36,11 @@ $binance->setOptions([
 //Send in a new order.
 try {
     $result=$binance->trade()->postOrder([
-        'symbol'=>'BTCUSD_200925',
+        'symbol'=>'ETHUSD_201225',
         'side'=>'BUY',
         'type'=>'LIMIT',
         'quantity'=>'1',
-        'price'=>'5000',
+        'price'=>'50',
         'timeInForce'=>'GTC',
 
         //'newClientOrderId'=>'xxxxxxx'
@@ -54,7 +54,7 @@ sleep(1);
 //Check an order's status.
 try {
     $result=$binance->user()->getOrder([
-        'symbol'=>'BTCUSD_200925',
+        'symbol'=>'ETHUSD_201225',
         'orderId'=>$result['orderId'],
         //'origClientOrderId'=>$result['clientOrderId'],
     ]);
@@ -67,7 +67,7 @@ sleep(1);
 //Cancel an active order.
 try {
     $result=$binance->trade()->deleteOrder([
-        'symbol'=>'BTCUSD_200925',
+        'symbol'=>'ETHUSD_201225',
         'orderId'=>$result['orderId'],
         'origClientOrderId'=>$result['clientOrderId'],
     ]);

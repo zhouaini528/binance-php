@@ -54,7 +54,6 @@ class SocketClient
      * @param array $sub
      */
     public function subscribe(array $sub=[]){
-
         // 是否又私有频道订阅
         if(!empty($this->keysecret)) {
             $keysecret=$this->get('keysecret');
@@ -72,6 +71,7 @@ class SocketClient
      * @param array $sub
      */
     public function unsubscribe(array $sub=[]){
+        // 是否又私有频道订阅
         if(!empty($this->keysecret)) {
             if(!isset($keysecret[$this->keysecret['key']]['connection']))
             $this->keysecretInit($this->keysecret,[
