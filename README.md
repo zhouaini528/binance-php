@@ -6,6 +6,8 @@ Futures trading docs [https://binance-docs.github.io/apidocs/futures/cn](https:/
 
 Delivery trading docs [https://binance-docs.github.io/apidocs/delivery/cn](https://binance-docs.github.io/apidocs/delivery/cn)
 
+Support [Websocket](https://github.com/zhouaini528/binance-php/blob/master/README.md#Websocket)
+
 Most of the interface is now complete, and the user can continue to extend it based on my design, working with me to improve it.
 
 [中文文档](https://github.com/zhouaini528/binance-php/blob/master/README_CN.md)
