@@ -483,7 +483,6 @@ $binance->subscribe([
 $binance->keysecret([
     'key'=>'xxxxxxxxx',
     'secret'=>'xxxxxxxxx',
-    'passphrase'=>'xxxxxxxxx',
 ]);
 $binance->subscribe([
     'btcusdt@depth',
@@ -513,7 +512,6 @@ $binance->unsubscribe([
 $binance->keysecret([
     'key'=>'xxxxxxxxx',
     'secret'=>'xxxxxxxxx',
-    'passphrase'=>'xxxxxxxxx',
 ]);
 $binance->unsubscribe([
     'btcusdt@depth',
