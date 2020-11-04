@@ -44,9 +44,6 @@ class SocketClient
 
     function keysecret(array $keysecret=[]){
         $this->keysecret=$keysecret;
-
-        $this->keysecretInit($this->keysecret);
-
         return $this;
     }
 

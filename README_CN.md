@@ -571,7 +571,7 @@ $binance->getSubscribe([
 },true);
 ```
 
-获取私有频道订阅数据，
+获取私有频道订阅数据，私有频道默认全部返回
 ```php
 //The first way
 $binance->keysecret($key_secret);

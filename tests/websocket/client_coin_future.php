@@ -83,11 +83,8 @@ switch ($action){
     case 10:{
         $binance->keysecret($key_secret[2]);
         //Subscribe to all private channels by default
-        $binance->subscribe([
-            '@account',
-            '@balance',
-            '@position',
-        ]);
+        $binance->subscribe();
+
         break;
     }
 

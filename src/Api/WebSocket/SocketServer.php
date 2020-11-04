@@ -105,8 +105,6 @@ class SocketServer
                 return;
             }
 
-            //if($con->tag!='public')
-
             if(isset($data['e']) && $con->tag!='public') {
                 $table=$this->userKey($con->tag_keysecret,$data['e']);
 
@@ -115,6 +113,8 @@ class SocketServer
                 $global->allSubUpdate([$con->tag_keysecret['key']=>[$table]],'add');
                 return;
             }
+
+            if(isset($data['result']) && empty($data['result'])) return;
 
             $this->log($data);
         };
@@ -165,6 +165,8 @@ class SocketServer
             $this->unsubscribe($con,$global);
 
             $this->account($con,$global);
+
+            $this->coinFutureSubscribe($con,$global);
 
             $this->log('listen '.$con->tag);
         });
@@ -293,6 +295,25 @@ class SocketServer
                 }
             }
 
+        }
+    }
+
+    /**
+     * @param $con
+     * @param $global
+     */
+    private function coinFutureSubscribe($con,$global){
+        if($con->tag!='public' && $this->config['baseurl']=='ws://dstream.binance.com'){
+            $data=[
+                "method"=>"REQUEST",
+                'params'=>[
+                    '@account',
+                    '@balance',
+                    '@position',
+                ],
+                'id'=>$this->getId()
+            ];
+            $con->send(json_encode($data));
         }
     }
 }
