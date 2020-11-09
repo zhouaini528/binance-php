@@ -103,7 +103,7 @@ class Trade extends Request
      *POST /fapi/v1/leverage (HMAC SHA256)
      */
     public function postLeverage(array $data=[]){
-        $this->type='get';
+        $this->type='post';
         $this->path='/fapi/v1/leverage';
         $this->data=array_merge($this->data,$data);
         return $this->exec();

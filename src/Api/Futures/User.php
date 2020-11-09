@@ -170,4 +170,14 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
+
+    /**
+     *GET /fapi/v1/apiTradingStatus
+     */
+    public function getApiTradingStatus(array $data=[]){
+        $this->type='get';
+        $this->path='/fapi/v1/apiTradingStatus';
+        $this->data=$data;
+        return $this->exec();
+    }
 }

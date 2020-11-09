@@ -251,4 +251,14 @@ class Market extends Request
         $this->data=$data;
         return $this->exec();
     }
+
+    /**
+     *GET /fapi/v1/indexInfo
+     * */
+    public function getIndexInfo(array $data=[]){
+        $this->type='GET';
+        $this->path='/fapi/v1/indexInfo';
+        $this->data=$data;
+        return $this->exec();
+    }
 }
