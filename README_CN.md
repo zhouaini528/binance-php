@@ -412,8 +412,8 @@ $binance=new BinanceWebSocket();
 $binance->config([
     //是否开启日志,默认未开启 false
     'log'=>true,
-    //或者设置日志名称， 默认按照日期保存
-    //'log'=>['filename'=>'usdt-future'],
+    //或者设置日志名称，默认按照日期保存
+    //'log'=>['filename'=>'spot'],
 
     //进程服务端口地址,默认 0.0.0.0:2208
     //'global'=>'127.0.0.1:2208',
