@@ -19,7 +19,9 @@ $binance=new BinanceWebSocket();
 
 $binance->config([
     //Do you want to enable local logging,default false
-    'log'=>true,
+    //'log'=>true,
+    //Or set the log name
+    'log'=>['filename'=>'spot'],
 
     //Daemons address and port,default 0.0.0.0:2208
     //'global'=>'127.0.0.1:2208',

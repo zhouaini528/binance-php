@@ -73,8 +73,13 @@ trait SocketFunction
 
         $message=$tiemdate.' '.$message.PHP_EOL;
 
-        if(isset($this->config['log']) && $this->config['log']){
-            $filename=date('Y-m-d',$time).'.txt';
+        if(isset($this->config['log'])){
+            if(is_array($this->config['log']) && isset($this->config['log']['filename'])){
+                $filename=$this->config['log']['filename'].'-'.date('Y-m-d',$time).'.txt';
+            }else{
+                $filename=date('Y-m-d',$time).'.txt';
+            }
+
             file_put_contents($filename,$message,FILE_APPEND);
         }
 
