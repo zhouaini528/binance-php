@@ -53,9 +53,55 @@ trait SocketGlobal
         return $this->client->$key;
     }
 
+
     protected function save($key,$value){
         if(!isset($this->client->$key)) $this->add($key,$value);
         else $this->client->$key=$value;
+    }
+
+    /**
+     * 对了获取数据
+     * @param $key
+     * @return array
+     */
+    protected function getQueue($key){
+        if(!isset($this->client->$key) || empty($this->client->$key)) return [];
+
+        do{
+            $old_value=$new_value=$this->client->$key;
+
+            if(empty($new_value)) return [];
+            //队列先进先出。
+            $value=array_shift($new_value);
+        }
+        while(!$this->client->cas($key, $old_value, $new_value));
+
+        return $value;
+    }
+
+    /**
+     * 队列保存数据
+     * @param $key
+     * @param $value
+     */
+    protected function saveQueue($key,$value){
+        //最大存储数据量，超过后保留一条最新的数据，其余数据全部删除。
+        $max=100;
+
+        if(!isset($this->client->$key)) $this->add($key,[$value]);
+        else {
+            do{
+                $old_value=$new_value=$this->client->$key;
+
+                //超过最大数据量，保留最新数据
+                if(count($new_value)>$max){
+                    $new_value=[$value];
+                }else{
+                    array_push($new_value,$value);
+                }
+            }
+            while(!$this->client->cas($key, $old_value, $new_value));
+        }
     }
 
     protected function addSubUpdate($data=[]){

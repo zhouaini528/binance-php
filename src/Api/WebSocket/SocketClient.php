@@ -20,6 +20,8 @@ class SocketClient
     private $keysecret=[];
 
 
+
+
     function __construct(array $config=[])
     {
         $this->config=$config;
@@ -132,22 +134,37 @@ class SocketClient
         //默认返回所有数据
         if(empty($sub)){
             foreach ($all_sub as $k=>$v){
-                if(is_array($v)) $table=$k;
-                else $table=$v;
+                if(is_array($v)){
+                    if(empty($this->keysecret) || $this->keysecret['key']!=$k) continue;
 
-                $data=$global->get(strtolower($table));
-                if(empty($data)) continue;
-                $temp[$table]=$data;
+                    foreach ($v as $vv){
+                        $data=$global->getQueue($vv);
+                        $temp[$vv]=$data;
+                    }
+                }else{
+                    $data=$global->get($v);
+                    $temp[$v]=$data;
+                }
             }
         }else{
             //返回规定的数据
             if(!empty($this->keysecret)) {
                 //是否有私有数据
-                $all_sub=$global->get('all_sub');
                 if(isset($all_sub[$this->keysecret['key']])) $sub=array_merge($sub,$all_sub[$this->keysecret['key']]);
+
             }
+            //print_r($sub);die;
             foreach ($sub as $k=>$v){
-                $data=$global->get($v);
+                //判断私有数据是否需要走队列数据
+                $temp_v=explode(self::$USER_DELIMITER,$v);
+                if(count($temp_v)>1){
+                    //private
+                    $data=$global->getQueue($v);
+                }else{
+                    //public
+                    $data=$global->get($v);
+                }
+
                 if(empty($data)) continue;
 
                 $temp[$v]=$data;
@@ -171,12 +188,10 @@ class SocketClient
     }
 
     function test2(){
-        //print_r($this->client->global_key);
         $global_key=$this->client->global_key;
         foreach ($global_key as $k=>$v){
-            echo $k.PHP_EOL;
-            print_r($this->client->$v);
-
+            echo count($this->client->$v).'----'.$k.PHP_EOL;
+            echo json_encode($this->client->$v).PHP_EOL;
         }
     }
 }

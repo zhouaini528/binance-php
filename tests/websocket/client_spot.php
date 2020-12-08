@@ -185,7 +185,7 @@ switch ($action){
             'bchusdt@depth',
         ]);
         print_r(json_encode($data));
-
+        die;
         //The second way callback
         $binance->keysecret($key_secret[0]);
         $binance->getSubscribe([

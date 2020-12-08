@@ -108,7 +108,7 @@ class SocketServer
             if(isset($data['e']) && $con->tag!='public') {
                 $table=$this->userKey($con->tag_keysecret,$data['e']);
 
-                $global->save($table,$data);
+                $global->saveQueue($table,$data);
 
                 $global->allSubUpdate([$con->tag_keysecret['key']=>[$table]],'add');
                 return;

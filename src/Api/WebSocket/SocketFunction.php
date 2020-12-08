@@ -8,6 +8,9 @@ namespace Lin\Binance\Api\WebSocket;
 
 trait SocketFunction
 {
+    //标记分隔符
+    static $USER_DELIMITER='===';
+
     /**
      * @param $key_secret
      * @return mixed
@@ -91,6 +94,6 @@ trait SocketFunction
      * @param $keysecret
      */
     protected function userKey(array $keysecret,string $sub){
-        return $keysecret['key'].'='.$sub;
+        return $keysecret['key'].self::$USER_DELIMITER.$sub;
     }
 }
