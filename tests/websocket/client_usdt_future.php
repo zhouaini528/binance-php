@@ -48,9 +48,14 @@ switch ($action){
     //**************public
     //subscribe
     case 1:{
-        $binance->subscribe([
+        /*$binance->subscribe([
             'btcusdt@depth',
             'bchusdt@depth',
+        ]);*/
+
+        $binance->subscribe([
+            'btcusdt@bookTicker',
+            'bchusdt@bookTicker',
         ]);
         break;
     }
@@ -98,9 +103,12 @@ switch ($action){
             'secret'=>'xxxxxxxxx',
         ]);
         */
-        $binance->keysecret($key_secret[2]);
+        $binance->keysecret($key_secret[0]);
         //Subscribe to all private channels by default
-        $binance->subscribe();
+        $binance->subscribe([
+            'xrpusdt@bookTicker',
+            //'bchusdt@depth',
+        ]);
 
         break;
     }
@@ -131,13 +139,14 @@ switch ($action){
         //****Three ways to get all data
 
         //The first way
-        $data=$binance->getSubscribes();
+        /*$data=$binance->getSubscribes();
         print_r(json_encode($data));
+        return;
 
         //The second way callback
         $binance->getSubscribes(function($data){
             print_r(json_encode($data));
-        });
+        });*/
 
         //The third way is to guard the process
         $binance->getSubscribes(function($data){
@@ -179,12 +188,13 @@ switch ($action){
         //****Three ways return to the specified channel data,All private data is also returned by default
 
         //The first way
-        $binance->keysecret($key_secret[2]);
+        $binance->keysecret($key_secret[0]);
         $data=$binance->getSubscribe([
             'btcusdt@depth',
             'bchusdt@depth',
         ]);
         print_r(json_encode($data));
+        die;
 
         //The second way callback
         $binance->keysecret($key_secret[2]);
@@ -218,15 +228,7 @@ switch ($action){
     }
 
     case 10005:{
-        $binance->keysecret($key_secret[1]);
-        $binance->subscribe();
-        break;
-    }
-
-    //subscribe
-    case 10006:{
-        $binance->keysecret($key_secret[1]);
-        $binance->subscribe();
+        $binance->client()->test_reconnection();
         break;
     }
 }

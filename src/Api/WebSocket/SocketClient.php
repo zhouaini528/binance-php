@@ -42,6 +42,8 @@ class SocketClient
         $this->add('del_sub',[]);//正在删除的频道
 
         $this->add('keysecret',[]);//目前总共key
+
+        $this->add('debug',[]);
     }
 
     function keysecret(array $keysecret=[]){
@@ -193,5 +195,11 @@ class SocketClient
             echo count($this->client->$v).'----'.$k.PHP_EOL;
             echo json_encode($this->client->$v).PHP_EOL;
         }
+    }
+
+    function test_reconnection(){
+        $this->client->debug=[
+            'public'=>['public'=>'close'],
+        ];
     }
 }

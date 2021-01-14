@@ -218,15 +218,7 @@ switch ($action){
     }
 
     case 10005:{
-        $binance->keysecret($key_secret[1]);
-        $binance->subscribe();
-        break;
-    }
-
-    //subscribe
-    case 10006:{
-        $binance->keysecret($key_secret[1]);
-        $binance->subscribe();
+        $binance->client()->test_reconnection();
         break;
     }
 }

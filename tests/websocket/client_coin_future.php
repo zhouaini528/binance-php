@@ -50,8 +50,8 @@ switch ($action){
     case 1:{
 
         $binance->subscribe([
-            'btcusd_201225@depth',
-            'ethusd_201225@depth',
+            'btcusd_210326@depth',
+            'ethusd_210326@depth',
         ]);
 
         break;
@@ -214,6 +214,11 @@ switch ($action){
 
         $binance->client()->test2();
 
+        break;
+    }
+
+    case 10005:{
+        $binance->client()->test_reconnection();
         break;
     }
 }

@@ -96,4 +96,23 @@ trait SocketFunction
     protected function userKey(array $keysecret,string $sub){
         return $keysecret['key'].self::$USER_DELIMITER.$sub;
     }
+
+    /**
+     * 重新订阅
+     */
+    private function reconnection($global,$type='public'){
+        $all_sub=$global->get('all_sub');
+        if(empty($all_sub)) return;
+
+        if($type=='public'){
+            $temp=[];
+            foreach ($all_sub as $v){
+                if(!is_array($v)) $temp[]=$v;
+            }
+
+            $global->save('add_sub',$temp);
+        }else{
+
+        }
+    }
 }

@@ -65,13 +65,15 @@ class SocketServer
             $this->connection[$this->connectionIndex] = new AsyncTcpConnection($baseurl);
             $this->connection[$this->connectionIndex]->transport = 'ssl';
 
+            $this->log('Connection '.$baseurl);
+
             //自定义属性
             $this->connection[$this->connectionIndex]->tag=$tag;//标记公共连接还是私有连接
             if(!empty($keysecret)) $this->connection[$this->connectionIndex]->tag_keysecret=$keysecret;//标记私有连接
 
             $this->connection[$this->connectionIndex]->onConnect=$this->onConnect($keysecret);
             $this->connection[$this->connectionIndex]->onMessage=$this->onMessage($global);
-            $this->connection[$this->connectionIndex]->onClose=$this->onClose();
+            $this->connection[$this->connectionIndex]->onClose=$this->onClose($global);
             $this->connection[$this->connectionIndex]->onError=$this->onError();
 
             $this->connect($this->connection[$this->connectionIndex]);
@@ -120,13 +122,16 @@ class SocketServer
         };
     }
 
-    private function onClose(){
-        return function($con){
+    private function onClose($global){
+        return function($con) use($global){
             //这里连接失败 会轮询 connect
             if($con->tag=='public') {
                 //TODO如果连接失败  应该public  private 都行重新加载
-                $this->log('reconnection');
-                $con->reConnect(5);
+                $this->log($con->tag.' reconnection');
+
+                $this->reconnection($global,'public');
+
+                $con->reConnect(10);
             }else{
                 $this->log('connection close '.$con->tag_keysecret['key']);
 
@@ -168,8 +173,33 @@ class SocketServer
 
             $this->coinFutureSubscribe($con,$global);
 
+            $this->debug($con,$global);
+
             $this->log('listen '.$con->tag);
         });
+    }
+
+    /**
+     * 调试用
+     * @param $con
+     * @param $global
+     */
+    private function debug($con,$global){
+        if($con->tag=='public') {
+            //public
+            $debug=$global->get('debug');
+
+            if(isset($debug['public']) && $debug['public'][$con->tag]=='close'){
+                $this->log($con->tag.' debug '.json_encode($debug));
+
+                $debug['public'][$con->tag]='recon';
+                $global->save('debug',$debug);
+
+                $con->close();
+            }
+        }else{
+            //private
+        }
     }
 
     private function subscribe($con,$global){
