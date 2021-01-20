@@ -425,6 +425,9 @@ $binance->config([
     //Channel data update time,0.1 seconds
     //'data_time'=>0.1,
 
+    //Number of messages WS queue shuold hold, default 100
+    //'queue_count'=>100,
+
     //baseurl
     'baseurl'=>'ws://stream.binance.com:9443',//spot default
     //'baseurl'=>'ws://fstream.binance.com',//usdt future
@@ -462,6 +465,9 @@ $binance->config([
 
     //Channel data update time,0.1 seconds
     'data_time'=>1,
+
+    //Number of messages WS queue shuold hold, default 100
+    //'queue_count'=>100,
 
     //baseurl
     'baseurl'=>'ws://stream.binance.com:9443',//spot default
