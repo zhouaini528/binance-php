@@ -427,6 +427,9 @@ $binance->config([
     //频道数据更新时间,默认 0.1 秒
     //'data_time'=>0.1,
 
+    //私有数据队列默认保存100条
+    //'queue_count'=>100,
+
     //baseurl
     'baseurl'=>'ws://stream.binance.com:9443',//默认现货
     //'baseurl'=>'ws://fstream.binance.com',//usdt期货
@@ -462,6 +465,9 @@ $binance->config([
 
     //频道数据更新时间,默认 0.1 秒
     //'data_time'=>0.1,
+
+    //私有数据队列默认保存100条
+    //'queue_count'=>100,
 
     'baseurl'=>'ws://stream.binance.com:9443',//默认现货
     //'baseurl'=>'ws://fstream.binance.com',//usdt期货
