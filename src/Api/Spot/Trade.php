@@ -3,7 +3,7 @@
  * @author lin <465382251@qq.com>
  * */
 
-namespace Lin\Binance\Api;
+namespace Lin\Binance\Api\Spot;
 
 use Lin\Binance\Request;
 
@@ -67,6 +67,7 @@ class Trade extends Request
     public function postOrderTest(array $data){
         $this->type='POST';
         $this->path='/api/v3/order/test';
+        $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
     }

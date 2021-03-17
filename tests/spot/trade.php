@@ -3,9 +3,9 @@
 
 /**
  * @author lin <465382251@qq.com>
- * 
+ *
  * Fill in your key and secret and pass can be directly run
- * 
+ *
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/huobi-php.git
  * */
@@ -20,7 +20,7 @@ $binance=new Binance($key,$secret);
 $binance->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
+
     //If you are developing locally and need an agent, you can set this
     //'proxy'=>true,
     //More flexible Settings
@@ -52,8 +52,8 @@ try {
 try {
     $result=$binance->user()->getOrder([
         'symbol'=>'LTCUSDT',
-        'orderId'=>$result['orderId'],
-        'origClientOrderId'=>$result['clientOrderId'],
+        'orderId'=>'22222',
+        'origClientOrderId'=>'22222',
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -64,8 +64,8 @@ try {
 try {
     $result=$binance->trade()->deleteOrder([
         'symbol'=>'LTCUSDT',
-        'orderId'=>$result['orderId'],
-        'origClientOrderId'=>$result['clientOrderId'],
+        'orderId'=>'111111',
+        'origClientOrderId'=>'1111111',
     ]);
     print_r($result);
 }catch (\Exception $e){

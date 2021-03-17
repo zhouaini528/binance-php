@@ -3,7 +3,7 @@
  * @author lin <465382251@qq.com>
  * */
 
-namespace Lin\Binance\Api;
+namespace Lin\Binance\Api\Spot;
 
 use Lin\Binance\Request;
 
@@ -19,6 +19,7 @@ class User extends Request
     public function getOpenOrders(array $data=[]){
         $this->type='GET';
         $this->path='/api/v3/openOrders';
+        $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
     }
@@ -94,6 +95,7 @@ class User extends Request
     public function getMyTrades(array $data=[]){
         $this->type='GET';
         $this->path='/api/v3/myTrades';
+        $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
     }
@@ -105,6 +107,7 @@ class User extends Request
     public function getDepositHistory(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/depositHistory.html';
+        $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
     }
@@ -116,6 +119,7 @@ class User extends Request
     public function getWithdrawHistory(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/withdrawHistory.html';
+        $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
     }
@@ -127,6 +131,7 @@ class User extends Request
     public function getDepositAddress(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/depositAddress.html';
+        $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
     }
@@ -140,6 +145,7 @@ class User extends Request
         $this->signature=false;
         $this->type='GET';
         $this->path='/wapi/v3/accountStatus.html';
+        $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
     }
@@ -151,6 +157,7 @@ class User extends Request
     public function getAssetDribbletLog(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/userAssetDribbletLog.html';
+        $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
     }
@@ -162,6 +169,7 @@ class User extends Request
     public function getTradeFee(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/tradeFee.html';
+        $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
     }
@@ -173,13 +181,14 @@ class User extends Request
     public function getAssetDetail(array $data=[]){
         $this->type='GET';
         $this->path='/wapi/v3/assetDetail.html';
+        $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
     }
 
 
 
-
+    //Websocket Account Pull
     /**
      * POST /api/v3/userDataStream
      */
