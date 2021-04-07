@@ -92,4 +92,22 @@ class Trade extends Request
         $this->data=$data;
         return $this->exec();
     }
+    
+    /**
+     *撤销订单 (TRADE)
+    DELETE /api/v3/openOrders  (HMAC SHA256)
+
+    symbol	STRING	YES
+    recvWindow	LONG	NO
+    timestamp	LONG	YES
+     * */
+    public function deleteAllOrders(array $data){
+        $this->type='DELETE';
+        $this->path='/api/v3/openOrders';
+
+        $data['timestamp']=time().'000';
+
+        $this->data=$data;
+        return $this->exec();
+    }
 }
