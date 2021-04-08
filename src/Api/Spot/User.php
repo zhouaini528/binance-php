@@ -280,4 +280,43 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
+
+
+
+    /**
+     *Query OCO (USER_DATA)
+     * GET /api/v3/orderList (HMAC SHA256)
+     */
+    public function getOrderList(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/v3/orderList';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *Query all OCO (USER_DATA)
+     * GET /api/v3/allOrderList (HMAC SHA256)
+     */
+    public function getAllOrderList(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/v3/allOrderList';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+
+        return $this->exec();
+    }
+
+    /**
+     *Query Open OCO (USER_DATA)
+     * GET /api/v3/openOrderList (HMAC SHA256)
+     */
+    public function getOpenOrderList(array $data=[]){
+        $this->type='GET';
+        $this->path='/api/v3/openOrderList';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
 }

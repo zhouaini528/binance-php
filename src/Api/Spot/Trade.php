@@ -92,7 +92,7 @@ class Trade extends Request
         $this->data=$data;
         return $this->exec();
     }
-    
+
     /**
      *撤销订单 (TRADE)
     DELETE /api/v3/openOrders  (HMAC SHA256)
@@ -110,4 +110,34 @@ class Trade extends Request
         $this->data=$data;
         return $this->exec();
     }
+
+    /**
+     * New OCO (TRADE)
+    POST /api/v3/order/oco (HMAC SHA256)
+     * */
+    public function postOrderOco(array $data=[]){
+        $this->type='POST';
+        $this->path='/api/v3/order/oco';
+
+        $data['timestamp']=time().'000';
+
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     * Cancel OCO (TRADE)
+    DELETE /api/v3/orderList (HMAC SHA256) Cancel an entire Order List.
+     * */
+    public function deleteOrderList(array $data=[]){
+        $this->type='DELETE';
+        $this->path='/api/v3/orderList';
+
+        $data['timestamp']=time().'000';
+
+        $this->data=$data;
+        return $this->exec();
+    }
+
+
 }

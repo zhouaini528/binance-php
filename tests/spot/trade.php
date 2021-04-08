@@ -32,7 +32,7 @@ $binance->setOptions([
     //Close the certificate
     //'verify'=>false,
 ]);
-
+/*
 //Send in a new order.
 try {
     $result=$binance->trade()->postOrder([
@@ -71,6 +71,51 @@ try {
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
+*/
+
+//New OCO (TRADE)
+try {
+    $result=$binance->trade()->postOrderOco([
+        'symbol'=>'LTCBTC',
+        'side'=>'SELL',
+        'type'=>'LIMIT',
+        'quantity'=>'0.1',
+        'price'=>'200',
+        'stopPrice'=>'0.1',
+        'timeInForce'=>'GTC',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Cancel OCO (TRADE)
+try {
+    $result=$binance->trade()->deleteOrderList([
+        'symbol'=>'LTCBTC',
+        'orderListId'=>'xxxxxxx',
+        'newClientOrderId'=>'xxxxxxx',
+        //'listClientOrderId'=>'xxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Cancel OCO (TRADE)
+try {
+    $result=$binance->trade()->deleteOrderList([
+        'symbol'=>'LTCBTC',
+        'orderListId'=>'xxxxxxx',
+        'newClientOrderId'=>'xxxxxxx',
+        //'listClientOrderId'=>'xxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+
 
 
 
