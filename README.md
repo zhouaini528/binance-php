@@ -157,6 +157,17 @@ try {
     print_r($e->getMessage());
 }
 
+//Cancel all Open Orders on a Symbol
+try {
+    $result=$binance->trade()->deleteAllOrders([
+        'symbol'=>'ADAUSDT',
+        //'timeInForce'=>'GTC',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+
 //Cancel an active order.
 try {
     $result=$binance->trade()->deleteOrder([
