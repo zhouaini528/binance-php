@@ -179,6 +179,48 @@ try {
 }catch (\Exception $e){
     print_r($e->getMessage());
 }
+
+//New OCO (TRADE)
+try {
+    $result=$binance->trade()->postOrderOco([
+        'symbol'=>'LTCBTC',
+        'side'=>'SELL',
+        'type'=>'LIMIT',
+        'quantity'=>'0.1',
+        'price'=>'200',
+        'stopPrice'=>'0.1',
+        'timeInForce'=>'GTC',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Cancel OCO (TRADE)
+try {
+    $result=$binance->trade()->deleteOrderList([
+        'symbol'=>'LTCBTC',
+        'orderListId'=>'xxxxxxx',
+        'newClientOrderId'=>'xxxxxxx',
+        //'listClientOrderId'=>'xxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Cancel OCO (TRADE)
+try {
+    $result=$binance->trade()->deleteOrderList([
+        'symbol'=>'LTCBTC',
+        'orderListId'=>'xxxxxxx',
+        'newClientOrderId'=>'xxxxxxx',
+        //'listClientOrderId'=>'xxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
 ```
 
 User related API [More](https://github.com/zhouaini528/binance-php/blob/master/tests/spot/user.php)
@@ -207,6 +249,32 @@ try {
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
+}
+
+//Query OCO (USER_DATA)
+try {
+    $result=$binance->user()->getOrderList([
+        'orderListId'=>'xxxxxx'
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Query all OCO (USER_DATA)
+try {
+    $result=$binance->user()->getAllOrderList();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//Query Open OCO (USER_DATA)
+try {
+    $result=$binance->user()->getOpenOrderList();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
 }
 ```
 
