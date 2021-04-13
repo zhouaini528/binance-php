@@ -69,6 +69,7 @@ class SocketServer
 
             //自定义属性
             $this->connection[$this->connectionIndex]->tag=$tag;//标记公共连接还是私有连接
+            $this->connection[$this->connectionIndex]->tag_reconnection_num=0;//标记当前已重连次数
             if(!empty($keysecret)) $this->connection[$this->connectionIndex]->tag_keysecret=$keysecret;//标记私有连接
 
             $this->connection[$this->connectionIndex]->onConnect=$this->onConnect($keysecret);
@@ -104,6 +105,11 @@ class SocketServer
                 $table=$data['stream'];
 
                 $global->save($table,$data);
+
+                //最后数据更新时间
+                $con->tag_data_time=time();
+                //成功接收数据重连次数回归0
+                $con->tag_reconnection_num=0;
                 return;
             }
 
@@ -174,6 +180,20 @@ class SocketServer
             $this->coinFutureSubscribe($con,$global);
 
             $this->debug($con,$global);
+
+            //公共数据如果60秒内无数据更新，则断开连接重新订阅，重试次数不超过10次
+            if($con->tag=='public') {
+                //public
+                if (isset($con->tag_data_time) && time() - $con->tag_data_time > 60 * ($con->tag_reconnection_num + 1) && $con->tag_reconnection_num <= 10) {
+                    $con->close();
+
+                    $con->tag_reconnection_num++;
+
+                    $this->log('listen ' . $con->tag . ' reconnection_num:' . $con->tag_reconnection_num . ' tag_data_time:' . $con->tag_data_time);
+                }
+            }else{
+                //private
+            }
 
             $this->log('listen '.$con->tag);
         });
