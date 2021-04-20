@@ -102,8 +102,13 @@ class SocketServer
             $data=json_decode($data,true);
 
             if(isset($data['stream'])) {
-                $table=$data['stream'];
+                /*$debug=$global->get('debug2');
+                if($debug==1){
+                    $con->tag_data_time='1618899692';
+                    return;
+                }*/
 
+                $table=$data['stream'];
                 $global->save($table,$data);
 
                 //最后数据更新时间
@@ -137,7 +142,7 @@ class SocketServer
 
                 $this->reconnection($global,'public');
             }else{
-                $this->log('private connection close '.$con->tag_keysecret['key']);
+                $this->log('private connection close,ready to reconnect '.$con->tag_keysecret['key']);
 
                 //更改为掉线状态
                 $listen_key=$this->getListenKey($con->tag_keysecret);
@@ -192,6 +197,12 @@ class SocketServer
 
             //公共数据如果60秒内无数据更新，则断开连接重新订阅，重试次数不超过10次
             if($con->tag=='public') {
+                /*if(isset($con->tag_data_time)){
+                    //debug
+                    echo time() - $con->tag_data_time;
+                    echo PHP_EOL;
+                }*/
+
                 //public
                 if (isset($con->tag_data_time) && time() - $con->tag_data_time > 60 * ($con->tag_reconnection_num + 1) && $con->tag_reconnection_num <= 10) {
                     $con->close();
@@ -215,10 +226,10 @@ class SocketServer
      * @param $global
      */
     private function debug($con,$global){
+        $debug=$global->get('debug');
+
         if($con->tag=='public') {
             //public
-            $debug=$global->get('debug');
-
             if(isset($debug['public']) && $debug['public'][$con->tag]=='close'){
                 $this->log($con->tag.' debug '.json_encode($debug));
 
