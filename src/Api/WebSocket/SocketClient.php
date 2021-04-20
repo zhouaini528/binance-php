@@ -202,4 +202,14 @@ class SocketClient
             'public'=>['public'=>'close'],
         ];
     }
+
+    function test_reconnection3(){
+        $this->client->debug2=1;
+    }
+
+    function test_reconnection2($key){
+        $this->client->debug=[
+            'private'=>[$key=>'close'],
+        ];
+    }
 }

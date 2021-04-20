@@ -100,7 +100,7 @@ trait SocketFunction
     /**
      * 重新订阅
      */
-    private function reconnection($global,$type='public'){
+    private function reconnection($global,$type='public',array $keysecret=[]){
         $all_sub=$global->get('all_sub');
         if(empty($all_sub)) return;
 

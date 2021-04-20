@@ -136,14 +136,23 @@ class SocketServer
                 $this->log($con->tag.' reconnection');
 
                 $this->reconnection($global,'public');
-
-                $con->reConnect(10);
             }else{
-                $this->log('connection close '.$con->tag_keysecret['key']);
+                $this->log('private connection close '.$con->tag_keysecret['key']);
 
-                Timer::del($con->timer_ping);
-                Timer::del($con->timer_other);
+                //更改为掉线状态
+                $listen_key=$this->getListenKey($con->tag_keysecret);
+                $this->keysecretInit($con->tag_keysecret,[
+                    'connection'=>2,
+                    'listen_key'=>$listen_key,
+                    'listen_key_time'=>time(),
+                    'connection_close'=>0,
+                ]);
+
+                //重新订阅私有频道
+                $this->reconnection($global,'private',$con->tag_keysecret);
             }
+
+            $con->reConnect(10);
         };
     }
 
@@ -193,6 +202,7 @@ class SocketServer
                 }
             }else{
                 //private
+
             }
 
             $this->log('listen '.$con->tag);
@@ -219,6 +229,14 @@ class SocketServer
             }
         }else{
             //private
+            if(isset($debug['private'][$con->tag_keysecret['key']]) && $debug['private'][$con->tag_keysecret['key']]=='close'){
+                $this->log($con->tag_keysecret['key'].' debug '.json_encode($debug));
+
+                $debug['private'][$con->tag_keysecret['key']]='recon';
+                $global->save('debug',$debug);
+
+                $con->close();
+            }
         }
     }
 
