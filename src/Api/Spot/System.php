@@ -126,6 +126,17 @@ class System extends Request
     }
 
     /**
+     *系统状态 (System)
+    GET /sapi/v1/system/status
+     * */
+    public function getSystemStatus(array $data=[]){
+        $this->type='GET';
+        $this->path='/sapi/v1/system/status';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
      *24hr价格变动情况
     GET /api/v1/ticker/24hr
      * */

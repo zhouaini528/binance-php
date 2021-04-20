@@ -100,6 +100,93 @@ class User extends Request
         return $this->exec();
     }
 
+    /**
+     *充值历史 (USER_DATA)
+     * GET /sapi/v1/capital/deposit/hisrec
+     * */
+    public function getCapitalDepositHisrec(array $data=[]){
+        $this->type='GET';
+        $this->path='/sapi/v1/capital/deposit/hisrec';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *提现历史 (USER_DATA)
+    GET /sapi/v1/capital/withdraw/history
+     * */
+    public function getCapitalWithdrawHistory(array $data=[]){
+        $this->type='GET';
+        $this->path='/sapi/v1/capital/withdraw/history';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *获取充值地址(USER_DATA)
+    GET /sapi/v1/capital/deposit/address
+     * */
+    public function getCapitalDepositAddress(array $data=[]){
+        $this->type='GET';
+        $this->path='/sapi/v1/capital/deposit/address';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+
+    /**
+     *账户状态 (USER_DATA)
+     * GET /sapi/v1/account/status
+     * */
+    public function getAccountStatus(array $data=[]){
+        $this->signature=false;
+        $this->type='GET';
+        $this->path='/sapi/v1/account/status';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *小额资产转换历史 (USER_DATA)
+     * GET /sapi/v1/asset/dribblet
+     * */
+    public function getAssetDribblet(array $data=[]){
+        $this->type='GET';
+        $this->path='/sapi/v1/asset/dribblet';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *交易手续费率查询 (USER_DATA)
+    GET /sapi/v1/asset/tradeFee
+     * */
+    public function getTradeFee(array $data=[]){
+        $this->type='GET';
+        $this->path='/sapi/v1/asset/tradeFee';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     *上架资产详情 (USER_DATA)
+    GET /sapi/v1/asset/assetDetail
+     * */
+    public function getAssetDetail(array $data=[]){
+        $this->type='GET';
+        $this->path='/sapi/v1/asset/assetDetail';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+
 
     //Websocket Account Pull
     /**
