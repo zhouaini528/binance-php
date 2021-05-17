@@ -206,6 +206,7 @@ class User extends Request
         $this->type='PUT';
         $this->path='/api/v3/userDataStream';
         $this->data=$data;
+        $this->signature=false;
         return $this->exec();
     }
 
@@ -216,6 +217,7 @@ class User extends Request
         $this->type='DELETE';
         $this->path='/api/v3/userDataStream';
         $this->data=$data;
+        $this->signature=false;
         return $this->exec();
     }
 
