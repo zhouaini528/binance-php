@@ -92,14 +92,6 @@ class Request
 
         $this->options['headers']=$this->headers;
         $this->options['timeout'] = $this->options['timeout'] ?? 60;
-
-        if(isset($this->options['proxy']) && $this->options['proxy']===true) {
-            $this->options['proxy']=[
-                'http'  => 'http://127.0.0.1:12333',
-                'https' => 'http://127.0.0.1:12333',
-                'no'    =>  ['.cn']
-            ];
-        }
     }
 
     /**
@@ -131,8 +123,11 @@ class Request
 
                 $temp=json_decode($contents,true);
                 if(!empty($temp)) {
+                    $query='';
+                    if(!empty($this->data)) $query=http_build_query($this->data,'', '&');
+
                     $temp['_method']=$this->type;
-                    $temp['_url']=$this->host.$this->path;
+                    $temp['_url']=$this->host.$this->path.$query;
                 }else{
                     $temp['_message']=$e->getMessage();
                 }
