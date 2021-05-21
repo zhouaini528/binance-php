@@ -233,21 +233,21 @@ class Market extends Request
     }
 
     /**
-     *GET /futures/data/takerBuySellVol
+     * GET /futures/data/takerlongshortRatio
      * */
-    public function getTakerBuySellVol(array $data=[]){
+    public function getTakerlongshortRatio(array $data=[]){
         $this->type='GET';
-        $this->path='/futures/data/takerBuySellVol';
+        $this->path='/futures/data/takerlongshortRatio';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /futures/data/basis
+     *GET /fapi/v1/lvtKlines
      * */
-    public function getBasis(array $data=[]){
+    public function getLvtKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/futures/data/basis';
+        $this->path='/fapi/v1/lvtKlines';
         $this->data=$data;
         return $this->exec();
     }
