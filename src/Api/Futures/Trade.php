@@ -30,6 +30,16 @@ class Trade extends Request
     }
 
     /*
+     * GET /fapi/v1/multiAssetsMargin (HMAC SHA256)
+     */
+    public function getMultiAssetsMargin(array $data=[]){
+        $this->type='get';
+        $this->path='/fapi/v1/multiAssetsMargin';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
+
+    /*
      *POST /fapi/v1/order (HMAC SHA256)
      */
     public function postOrder(array $data=[]){
@@ -135,16 +145,6 @@ class Trade extends Request
     public function getPositionMarginHistory(array $data=[]){
         $this->type='get';
         $this->path='/fapi/v1/positionMargin/history';
-        $this->data=array_merge($this->data,$data);
-        return $this->exec();
-    }
-
-    /*
-     *GET /fapi/v1/positionRisk (HMAC SHA256)
-     */
-    public function getPositionRisk(array $data=[]){
-        $this->type='get';
-        $this->path='/fapi/v1/positionRisk';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }

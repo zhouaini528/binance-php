@@ -90,6 +90,16 @@ class User extends Request
     }
 
     /**
+     *GET /fapi/v1/positionRisk (HMAC SHA256) USER_DATA
+     **/
+    public function getPositionRisk(array $data=[]){
+        $this->type='get';
+        $this->path='/fapi/v1/positionRisk';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
+
+    /**
      *GET /fapi/v1/userTrades (HMAC SHA256) USER_DATA
      * */
     public function getUserTrades(array $data=[]){
@@ -139,8 +149,16 @@ class User extends Request
         return $this->exec();
     }
 
-
-
+    /**
+     * GET /fapi/v1/commissionRate (HMAC SHA256)
+     * */
+    public function getCommissionRate(array $data=[]){
+        $this->type='GET';
+        $this->path='/fapi/v1/commissionRate';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
+positionRisk
     /**
      * POST /fapi/v1/listenKey
      */
