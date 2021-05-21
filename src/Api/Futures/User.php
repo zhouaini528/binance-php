@@ -158,7 +158,7 @@ class User extends Request
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
-positionRisk
+
     /**
      * POST /fapi/v1/listenKey
      */
