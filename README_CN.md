@@ -556,6 +556,14 @@ $binance->getSubscribes(function($data){
 $binance->getSubscribes(function($data){
     print_r(json_encode($data));
 },true);
+
+//注意如果需要循环获取数据，第一种和第二种方法需要加上'pcntl_alarm(0)'
+while(1){
+    pcntl_alarm(0);
+    sleep(1);
+    $data=$binance->getSubscribes();
+    print_r(json_encode($data));
+}
 ```
 
 获取部分频道订阅数据

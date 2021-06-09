@@ -622,18 +622,26 @@ Get all channel subscription data
 ```php
 
 //The first way
-$data=$binance->getSubscribe();
+$data=$binance->getSubscribes();
 print_r(json_encode($data));
 
 //The second way callback
-$binance->getSubscribe(function($data){
+$binance->getSubscribes(function($data){
     print_r(json_encode($data));
 });
 
 //The third way is to guard the process
-$binance->getSubscribe(function($data){
+$binance->getSubscribes(function($data){
     print_r(json_encode($data));
 },true);
+
+//Note that if you need to get data in a loop, the first and second methods need to add 'pcntl_alarm(0)'
+while(1){
+    pcntl_alarm(0);
+    sleep(1);
+    $data=$binance->getSubscribes();
+    print_r(json_encode($data));
+}
 ```
 
 Get partial channel subscription data
