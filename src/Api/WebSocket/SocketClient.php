@@ -43,6 +43,8 @@ class SocketClient
 
         $this->add('keysecret',[]);//目前总共key
 
+        $this->add('global_local',[]);//临时存储数据
+
         $this->add('debug',[]);
     }
 
@@ -131,6 +133,7 @@ class SocketClient
         $all_sub=$global->get('all_sub');
         if(empty($all_sub)) return [];
 
+        $global_local=$global->get('global_local');
         $temp=[];
 
         //默认返回所有数据
@@ -144,7 +147,8 @@ class SocketClient
                         $temp[$vv]=$data;
                     }
                 }else{
-                    $data=$global->get($v);
+                    //$data=$global->get($v);
+                    $data=$global_local['public'][$v];
                     $temp[$v]=$data;
                 }
             }
@@ -164,7 +168,8 @@ class SocketClient
                     $data=$global->getQueue($v);
                 }else{
                     //public
-                    $data=$global->get($v);
+                    //$data=$global->get($v);
+                    $data=$global_local['public'][$v];
                 }
 
                 if(empty($data)) continue;
