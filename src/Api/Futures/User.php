@@ -20,9 +20,19 @@ class User extends Request
     }
 
     /**
+     *GET /fapi/v2/positionRisk (HMAC SHA256)  USER_DATA
+     * */
+    public function getPositionRisk(array $data=[]){
+        $this->type='GET';
+        $this->path='/fapi/v2/positionRisk';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
+
+    /**
      *POST /fapi/v2/positionSide/dual (HMAC SHA256)  USER_DATA
      * */
-    public function postPositionSideDual(array $data=[]){
+     public function postPositionSideDual(array $data=[]){
         $this->type='POST';
         $this->path='/fapi/v2/positionSide/dual';
         $this->data=array_merge($this->data,$data);
