@@ -251,6 +251,14 @@ class SocketServer
                 $this->log($con->tag_keysecret['key'].' debug '.json_encode($debug));
 
                 $debug['private'][$con->tag_keysecret['key']]='recon';
+
+                //更改为掉线状态
+                $this->keysecretInit($con->tag_keysecret,[
+                    'connection'=>2,
+                    'listen_key_time'=>time(),
+                    'connection_close'=>0,
+                ]);
+
                 $global->save('debug',$debug);
 
                 $con->close();
