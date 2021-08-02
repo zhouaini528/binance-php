@@ -13,181 +13,171 @@ class Market extends Request
     protected $signature=false;
 
     /**
-     *GET /fapi/v2/ping
+     *GET /fapi/v1/ping
      * */
     public function getPing(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/ping';
+        $this->path='/fapi/v1/ping';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/time
+     *GET /fapi/v1/time
      * */
     public function getTime(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/time';
+        $this->path='/fapi/v1/time';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/exchangeInfo
+     *GET /fapi/v1/exchangeInfo
      * */
     public function getExchangeInfo(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/exchangeInfo';
+        $this->path='/fapi/v1/exchangeInfo';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/depth
+     *GET /fapi/v1/depth
      * */
     public function getDepth(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/depth';
+        $this->path='/fapi/v1/depth';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/trades
+     *GET /fapi/v1/trades
      * */
     public function getTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/trades';
+        $this->path='/fapi/v1/trades';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/historicalTrades
+     *GET /fapi/v1/historicalTrades
      * */
     public function getHistoricalTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/historicalTrades';
+        $this->path='/fapi/v1/historicalTrades';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/aggTrades
+     *GET /fapi/v1/aggTrades
      * */
     public function getAggTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/aggTrades';
+        $this->path='/fapi/v1/aggTrades';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/premiumIndex
+     *GET /fapi/v1/premiumIndex
      * */
     public function getPremiumIndex(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/premiumIndex';
+        $this->path='/fapi/v1/premiumIndex';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     * GET /fapi/v2/fundingRate
+     * GET /fapi/v1/fundingRate
      * */
     public function getFundingRate(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/fundingRate';
+        $this->path='/fapi/v1/fundingRate';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/klines
+     *GET /fapi/v1/klines
      * */
     public function getKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/klines';
+        $this->path='/fapi/v1/klines';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/continuousKlines
+     *GET /fapi/v1/continuousKlines
      * */
     public function getContinuousKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/continuousKlines';
+        $this->path='/fapi/v1/continuousKlines';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/indexPriceKlines
+     *GET /fapi/v1/indexPriceKlines
      * */
     public function getIndexPriceKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/indexPriceKlines';
+        $this->path='/fapi/v1/indexPriceKlines';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/markPriceKlines
+     *GET /fapi/v1/markPriceKlines
      * */
     public function getMarkPriceKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/markPriceKlines';
+        $this->path='/fapi/v1/markPriceKlines';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/ticker/24hr
+     *GET /fapi/v1/ticker/24hr
      * */
     public function get24hr(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/ticker/24hr';
+        $this->path='/fapi/v1/ticker/24hr';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/ticker/price
+     *GET /fapi/v1/ticker/price
      * */
     public function getTickerPrice(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/ticker/price';
+        $this->path='/fapi/v1/ticker/price';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/ticker/bookTicker
+     *GET /fapi/v1/ticker/bookTicker
      * */
     public function getTickerBookTicker(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/ticker/bookTicker';
+        $this->path='/fapi/v1/ticker/bookTicker';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/allForceOrders
-     * */
-    public function get(array $data=[]){
-        $this->type='GET';
-        $this->path='';
-        $this->data=$data;
-        return $this->exec();
-    }
-
-    /**
-     *GET /fapi/v2/openInterest
+     *GET /fapi/v1/openInterest
      * */
     public function getOpenInterest(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/openInterest';
+        $this->path='/fapi/v1/openInterest';
         $this->data=$data;
         return $this->exec();
     }
@@ -243,21 +233,21 @@ class Market extends Request
     }
 
     /**
-     *GET /fapi/v2/lvtKlines
+     *GET /fapi/v1/lvtKlines
      * */
     public function getLvtKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/lvtKlines';
+        $this->path='/fapi/v1/lvtKlines';
         $this->data=$data;
         return $this->exec();
     }
 
     /**
-     *GET /fapi/v2/indexInfo
+     *GET /fapi/v1/indexInfo
      * */
     public function getIndexInfo(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/indexInfo';
+        $this->path='/fapi/v1/indexInfo';
         $this->data=$data;
         return $this->exec();
     }
