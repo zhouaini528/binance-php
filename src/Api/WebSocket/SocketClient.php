@@ -67,7 +67,10 @@ class SocketClient
             ]);
         }
 
-        $this->save('add_sub',$sub);
+        //$this->save('add_sub',$sub);
+        $add_sub=$this->get('add_sub');
+        if(empty($add_sub)) $this->save('add_sub',$sub);
+        else $this->save('add_sub',array_merge($sub,$add_sub));
     }
 
     /**
@@ -190,9 +193,14 @@ class SocketClient
      *
      * */
     function reconPrivate(string $key){
-        $this->client->debug=[
-            'private'=>[$key=>'close'],
-        ];
+        $debug=$this->client->debug;
+        if(empty($debug)){
+            $this->client->debug=[
+                'private'=>[$key=>$key],
+            ];
+        }else{
+            $this->client->debug=['private'=>array_merge($this->client->debug['private'],[$key=>$key])];
+        }
     }
 
     function reconPublic(){

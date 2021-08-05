@@ -104,15 +104,18 @@ trait SocketFunction
         $all_sub=$global->get('all_sub');
         if(empty($all_sub)) return;
 
+        $temp=[];
         if($type=='public'){
-            $temp=[];
             foreach ($all_sub as $v){
                 if(!is_array($v)) $temp[]=$v;
             }
-
-            $global->save('add_sub',$temp);
+            //$global->save('add_sub',$temp);
         }else{
 
         }
+
+        $add_sub=$global->get('add_sub');
+        if(empty($add_sub)) $global->save('add_sub',$temp);
+        else $global->save('add_sub',array_merge($temp,$add_sub));
     }
 }
