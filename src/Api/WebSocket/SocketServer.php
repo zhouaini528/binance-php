@@ -142,6 +142,9 @@ class SocketServer
                 //TODO如果连接失败  应该public  private 都行重新加载
                 $this->log($con->tag.' reconnection');
 
+                //Clear public cached data
+                foreach ($this->local_global['public'] as $k=>$v) unset($this->local_global['public'][$k]);
+
                 $this->reconnection($global,'public');
             }else{
                 $this->log('private connection close,ready to reconnect '.$con->tag_keysecret['key']);
