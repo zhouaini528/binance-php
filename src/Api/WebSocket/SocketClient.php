@@ -151,8 +151,7 @@ class SocketClient
                     }
                 }else{
                     //$data=$global->get($v);
-                    $data=$global_local['public'][$v];
-                    $temp[$v]=$data;
+                    if(isset($global_local['public'][$v])) $temp[$v]=$global_local['public'][$v];
                 }
             }
         }else{
@@ -172,7 +171,7 @@ class SocketClient
                 }else{
                     //public
                     //$data=$global->get($v);
-                    $data=$global_local['public'][$v];
+                    if(isset($global_local['public'][$v])) $data=$global_local['public'][$v];
                 }
 
                 if(empty($data)) continue;
