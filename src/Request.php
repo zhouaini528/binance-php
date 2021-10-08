@@ -31,6 +31,8 @@ class Request
 
     protected $options=[];
 
+    protected $response_headers = [];
+
     public function __construct(array $data)
     {
         $this->key=$data['key'] ?? '';
@@ -85,6 +87,13 @@ class Request
     }
 
     /**
+     * Get Response Headers
+     * */
+    public function getResponseHeaders(){
+        return $this->response_headers;
+    }
+
+    /**
      * 请求设置
      * */
     protected function options(){
@@ -106,6 +115,8 @@ class Request
 
         $this->signature='';
 
+        $this->response_headers = $response->getHeaders();
+
         return $response->getBody()->getContents();
     }
 
@@ -114,7 +125,6 @@ class Request
      * */
     protected function exec(){
         $this->auth();
-
         try {
             return json_decode($this->send(),true);
         }catch (RequestException $e){
