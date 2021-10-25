@@ -73,6 +73,8 @@ $binance->setOptions([
     'proxy'=>[],
     //https://www.php.net/manual/en/book.curl.php
     'curl'=>[],
+    //default is v1
+    'version'=>'v2',
 ]);
 ```
 
