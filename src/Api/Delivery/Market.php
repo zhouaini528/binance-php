@@ -12,12 +12,15 @@ class Market extends Request
     //Default Dont required HMAC SHA256
     protected $signature=false;
 
+    //Default seting
+    protected $version='v1';
+
     /**
      *GET /dapi/v1/ping
      * */
     public function getPing(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/ping';
+        $this->path='/dapi/'.$this->version.'/ping';
         $this->data=$data;
         return $this->exec();
     }
@@ -27,7 +30,7 @@ class Market extends Request
      * */
     public function getTime(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/time';
+        $this->path='/dapi/'.$this->version.'/time';
         $this->data=$data;
         return $this->exec();
     }
@@ -37,7 +40,7 @@ class Market extends Request
      * */
     public function getExchangeInfo(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/exchangeInfo';
+        $this->path='/dapi/'.$this->version.'/exchangeInfo';
         $this->data=$data;
         return $this->exec();
     }
@@ -47,7 +50,7 @@ class Market extends Request
      * */
     public function getDepth(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/depth';
+        $this->path='/dapi/'.$this->version.'/depth';
         $this->data=$data;
         return $this->exec();
     }
@@ -57,7 +60,7 @@ class Market extends Request
      * */
     public function getTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/trades';
+        $this->path='/dapi/'.$this->version.'/trades';
         $this->data=$data;
         return $this->exec();
     }
@@ -67,7 +70,7 @@ class Market extends Request
      * */
     public function getHistoricalTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/historicalTrades';
+        $this->path='/dapi/'.$this->version.'/historicalTrades';
         $this->data=$data;
         return $this->exec();
     }
@@ -77,7 +80,7 @@ class Market extends Request
      * */
     public function getAggTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/aggTrades';
+        $this->path='/dapi/'.$this->version.'/aggTrades';
         $this->data=$data;
         return $this->exec();
     }
@@ -87,7 +90,7 @@ class Market extends Request
      * */
     public function getPremiumIndex(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/premiumIndex';
+        $this->path='/dapi/'.$this->version.'/premiumIndex';
         $this->data=$data;
         return $this->exec();
     }
@@ -97,7 +100,7 @@ class Market extends Request
      * */
     public function getFundingRate(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/fundingRate';
+        $this->path='/dapi/'.$this->version.'/fundingRate';
         $this->data=$data;
         return $this->exec();
     }
@@ -107,7 +110,7 @@ class Market extends Request
      * */
     public function getKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/klines';
+        $this->path='/dapi/'.$this->version.'/klines';
         $this->data=$data;
         return $this->exec();
     }
@@ -117,7 +120,7 @@ class Market extends Request
      * */
     public function getContinuousKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/continuousKlines';
+        $this->path='/dapi/'.$this->version.'/continuousKlines';
         $this->data=$data;
         return $this->exec();
     }
@@ -127,7 +130,7 @@ class Market extends Request
      * */
     public function getIndexPriceKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/indexPriceKlines';
+        $this->path='/dapi/'.$this->version.'/indexPriceKlines';
         $this->data=$data;
         return $this->exec();
     }
@@ -137,7 +140,7 @@ class Market extends Request
      * */
     public function getMarkPriceKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/markPriceKlines';
+        $this->path='/dapi/'.$this->version.'/markPriceKlines';
         $this->data=$data;
         return $this->exec();
     }
@@ -147,7 +150,7 @@ class Market extends Request
      * */
     public function get24hr(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/ticker/24hr';
+        $this->path='/dapi/'.$this->version.'/ticker/24hr';
         $this->data=$data;
         return $this->exec();
     }
@@ -157,7 +160,7 @@ class Market extends Request
      * */
     public function getTickerPrice(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/ticker/price';
+        $this->path='/dapi/'.$this->version.'/ticker/price';
         $this->data=$data;
         return $this->exec();
     }
@@ -167,7 +170,7 @@ class Market extends Request
      * */
     public function getTickerBookTicker(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/ticker/bookTicker';
+        $this->path='/dapi/'.$this->version.'/ticker/bookTicker';
         $this->data=$data;
         return $this->exec();
     }
@@ -175,9 +178,9 @@ class Market extends Request
     /**
      *GET /dapi/v1/allForceOrders
      * */
-    public function get(array $data=[]){
+    public function getAllForceOrders(array $data=[]){
         $this->type='GET';
-        $this->path='';
+        $this->path='/dapi/'.$this->version.'/allForceOrders';
         $this->data=$data;
         return $this->exec();
     }
@@ -187,7 +190,7 @@ class Market extends Request
      * */
     public function getOpenInterest(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/openInterest';
+        $this->path='/dapi/'.$this->version.'/openInterest';
         $this->data=$data;
         return $this->exec();
     }

@@ -24,7 +24,7 @@ class User extends Request
      * */
     public function postPositionSideDual(array $data=[]){
         $this->type='POST';
-        $this->path='/dapi/v1/positionSide/dual';
+        $this->path='/dapi/'.$this->version.'/positionSide/dual';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -34,7 +34,7 @@ class User extends Request
      * */
     public function getOrder(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/order';
+        $this->path='/dapi/'.$this->version.'/order';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -44,7 +44,7 @@ class User extends Request
      * */
     public function getOpenOrder(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/openOrder';
+        $this->path='/dapi/'.$this->version.'/openOrder';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -54,7 +54,7 @@ class User extends Request
      * */
     public function getOpenOrders(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/openOrders';
+        $this->path='/dapi/'.$this->version.'/openOrders';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -64,7 +64,7 @@ class User extends Request
      * */
     public function getAllOrders(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/allOrders';
+        $this->path='/dapi/'.$this->version.'/allOrders';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -74,7 +74,7 @@ class User extends Request
      * */
     public function getBalance(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/balance';
+        $this->path='/dapi/'.$this->version.'/balance';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -84,7 +84,7 @@ class User extends Request
      * */
     public function getAccount(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/account';
+        $this->path='/dapi/'.$this->version.'/account';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -94,7 +94,7 @@ class User extends Request
      * */
     public function getUserTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/userTrades';
+        $this->path='/dapi/'.$this->version.'/userTrades';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -104,7 +104,7 @@ class User extends Request
      * */
     public function getIncome(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/income';
+        $this->path='/dapi/'.$this->version.'/income';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -114,7 +114,7 @@ class User extends Request
      * */
     public function getLeverageBracket(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/leverageBracket';
+        $this->path='/dapi/'.$this->version.'/leverageBracket';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -124,7 +124,7 @@ class User extends Request
      * */
     public function getForceOrders(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/forceOrders';
+        $this->path='/dapi/'.$this->version.'/forceOrders';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -134,7 +134,7 @@ class User extends Request
      * */
     public function getAdlQuantile(array $data=[]){
         $this->type='GET';
-        $this->path='/dapi/v1/adlQuantile';
+        $this->path='/dapi/'.$this->version.'/adlQuantile';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -145,7 +145,7 @@ class User extends Request
      */
     public function postListenKey(array $data=[]){
         $this->type='POST';
-        $this->path='/dapi/v1/listenKey';
+        $this->path='/dapi/'.$this->version.'/listenKey';
         $this->data=$data;
         return $this->exec();
     }
@@ -155,7 +155,7 @@ class User extends Request
      */
     public function putListenKey(array $data=[]){
         $this->type='PUT';
-        $this->path='/dapi/v1/listenKey';
+        $this->path='/dapi/'.$this->version.'/listenKey';
         $this->data=$data;
         return $this->exec();
     }
@@ -165,7 +165,7 @@ class User extends Request
      */
     public function deleteListenKey(array $data=[]){
         $this->type='DELETE';
-        $this->path='/dapi/v1/listenKey';
+        $this->path='/dapi/'.$this->version.'/listenKey';
         $this->data=$data;
         return $this->exec();
     }
