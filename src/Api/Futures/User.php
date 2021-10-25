@@ -12,6 +12,9 @@ class User extends Request
     //Default required HMAC SHA256
     protected $signature=true;
 
+    //Default seting
+    protected $version='v1';
+
     function __construct(array $data)
     {
         parent::__construct($data);
@@ -24,7 +27,7 @@ class User extends Request
      * */
      public function postPositionSideDual(array $data=[]){
         $this->type='POST';
-        $this->path='/fapi/v1/positionSide/dual';
+        $this->path='/fapi/'.$this->version.'/positionSide/dual';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -34,7 +37,7 @@ class User extends Request
      * */
     public function getOrder(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v1/order';
+        $this->path='/fapi/'.$this->version.'/order';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -44,7 +47,7 @@ class User extends Request
      * */
     public function getOpenOrder(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v1/openOrder';
+        $this->path='/fapi/'.$this->version.'/openOrder';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -54,7 +57,7 @@ class User extends Request
      * */
     public function getOpenOrders(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v1/openOrders';
+        $this->path='/fapi/'.$this->version.'/openOrders';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -64,7 +67,7 @@ class User extends Request
      * */
     public function getAllOrders(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v1/allOrders';
+        $this->path='/fapi/'.$this->version.'/allOrders';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -74,7 +77,7 @@ class User extends Request
      * */
     public function getBalance(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/balance';
+        $this->path='/fapi/'.$this->version.'/balance';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -84,7 +87,7 @@ class User extends Request
      * */
     public function getAccount(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v2/account';
+        $this->path='/fapi/'.$this->version.'/account';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -94,7 +97,7 @@ class User extends Request
      **/
     public function getPositionRisk(array $data=[]){
         $this->type='get';
-        $this->path='/fapi/v2/positionRisk';
+        $this->path='/fapi/'.$this->version.'/positionRisk';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -104,7 +107,7 @@ class User extends Request
      * */
     public function getUserTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v1/userTrades';
+        $this->path='/fapi/'.$this->version.'/userTrades';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -114,7 +117,7 @@ class User extends Request
      * */
     public function getIncome(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v1/income';
+        $this->path='/fapi/'.$this->version.'/income';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -124,7 +127,7 @@ class User extends Request
      * */
     public function getLeverageBracket(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v1/leverageBracket';
+        $this->path='/fapi/'.$this->version.'/leverageBracket';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -134,7 +137,7 @@ class User extends Request
      * */
     public function getForceOrders(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v1/forceOrders';
+        $this->path='/fapi/'.$this->version.'/forceOrders';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -144,7 +147,7 @@ class User extends Request
      * */
     public function getAdlQuantile(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v1/adlQuantile';
+        $this->path='/fapi/'.$this->version.'/adlQuantile';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -154,7 +157,7 @@ class User extends Request
      * */
     public function getCommissionRate(array $data=[]){
         $this->type='GET';
-        $this->path='/fapi/v1/commissionRate';
+        $this->path='/fapi/'.$this->version.'/commissionRate';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -164,7 +167,7 @@ class User extends Request
      */
     public function postListenKey(array $data=[]){
         $this->type='POST';
-        $this->path='/fapi/v1/listenKey';
+        $this->path='/fapi/'.$this->version.'/listenKey';
         $this->data=$data;
         return $this->exec();
     }
@@ -174,7 +177,7 @@ class User extends Request
      */
     public function putListenKey(array $data=[]){
         $this->type='PUT';
-        $this->path='/fapi/v1/listenKey';
+        $this->path='/fapi/'.$this->version.'/listenKey';
         $this->data=$data;
         return $this->exec();
     }
@@ -184,7 +187,7 @@ class User extends Request
      */
     public function deleteListenKey(array $data=[]){
         $this->type='DELETE';
-        $this->path='/fapi/v1/listenKey';
+        $this->path='/fapi/'.$this->version.'/listenKey';
         $this->data=$data;
         return $this->exec();
     }
@@ -194,7 +197,7 @@ class User extends Request
      */
     public function getApiTradingStatus(array $data=[]){
         $this->type='get';
-        $this->path='/fapi/v1/apiTradingStatus';
+        $this->path='/fapi/'.$this->version.'/apiTradingStatus';
         $this->data=$data;
         return $this->exec();
     }

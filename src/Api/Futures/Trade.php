@@ -12,6 +12,9 @@ class Trade extends Request
     //Default required HMAC SHA256
     protected $signature=true;
 
+    //Default seting
+    protected $version='v1';
+
     function __construct(array $data)
     {
         parent::__construct($data);
@@ -24,7 +27,7 @@ class Trade extends Request
      */
     public function getPositionSideDual(array $data=[]){
         $this->type='get';
-        $this->path='/fapi/v1/positionSide/dual';
+        $this->path='/fapi/'.$this->version.'/positionSide/dual';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -34,7 +37,7 @@ class Trade extends Request
      */
     public function getMultiAssetsMargin(array $data=[]){
         $this->type='get';
-        $this->path='/fapi/v1/multiAssetsMargin';
+        $this->path='/fapi/'.$this->version.'/multiAssetsMargin';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -44,7 +47,7 @@ class Trade extends Request
      */
     public function postOrder(array $data=[]){
         $this->type='POST';
-        $this->path='/fapi/v1/order';
+        $this->path='/fapi/'.$this->version.'/order';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -54,7 +57,7 @@ class Trade extends Request
      */
     public function postBatchOrders(array $data=[]){
         $this->type='POST';
-        $this->path='/fapi/v1/batchOrders';
+        $this->path='/fapi/'.$this->version.'/batchOrders';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -64,7 +67,7 @@ class Trade extends Request
      */
     public function deleteOrder(array $data=[]){
         $this->type='DELETE';
-        $this->path='/fapi/v1/order';
+        $this->path='/fapi/'.$this->version.'/order';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -74,7 +77,7 @@ class Trade extends Request
      */
     public function deleteAllOpenOrders(array $data=[]){
         $this->type='DELETE';
-        $this->path='/fapi/v1/allOpenOrders';
+        $this->path='/fapi/'.$this->version.'/allOpenOrders';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -84,7 +87,7 @@ class Trade extends Request
      */
     public function deleteBatchOrders(array $data=[]){
         $this->type='DELETE';
-        $this->path='/fapi/v1/batchOrders';
+        $this->path='/fapi/'.$this->version.'/batchOrders';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -94,7 +97,7 @@ class Trade extends Request
      */
     public function postCountdownCancelAll(array $data=[]){
         $this->type='POST';
-        $this->path='/fapi/v1/countdownCancelAll';
+        $this->path='/fapi/'.$this->version.'/countdownCancelAll';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -104,7 +107,7 @@ class Trade extends Request
      */
     public function postLeverage(array $data=[]){
         $this->type='post';
-        $this->path='/fapi/v1/leverage';
+        $this->path='/fapi/'.$this->version.'/leverage';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -114,7 +117,7 @@ class Trade extends Request
      */
     public function getMarginType(array $data=[]){
         $this->type='POST';
-        $this->path='/fapi/v1/marginType';
+        $this->path='/fapi/'.$this->version.'/marginType';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -124,7 +127,7 @@ class Trade extends Request
      */
     public function postPositionMargin(array $data=[]){
         $this->type='POST';
-        $this->path='/fapi/v1/positionMargin';
+        $this->path='/fapi/'.$this->version.'/positionMargin';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
@@ -134,7 +137,7 @@ class Trade extends Request
      */
     public function getPositionMarginHistory(array $data=[]){
         $this->type='get';
-        $this->path='/fapi/v1/positionMargin/history';
+        $this->path='/fapi/'.$this->version.'/positionMargin/history';
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
