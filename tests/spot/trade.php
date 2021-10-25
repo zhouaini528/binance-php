@@ -21,18 +21,16 @@ $binance->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
 
-    //If you are developing locally and need an agent, you can set this
-    //'proxy'=>true,
-    //More flexible Settings
-    /* 'proxy'=>[
-     'http'  => 'http://127.0.0.1:12333',
-     'https' => 'http://127.0.0.1:12333',
-     'no'    =>  ['.cn']
-     ], */
-    //Close the certificate
-    //'verify'=>false,
+    //https://github.com/guzzle/guzzle
+    'proxy'=>[],
+
+    //https://www.php.net/manual/en/book.curl.php
+    'curl'=>[],
+
+    //default is v1
+    //'version'=>'v3',
 ]);
-/*
+
 //Send in a new order.
 try {
     $result=$binance->trade()->postOrder([
@@ -40,7 +38,7 @@ try {
         'side'=>'SELL',
         'type'=>'LIMIT',
         'quantity'=>'0.1',
-        'price'=>'200',
+        'price'=>'500',
         'timeInForce'=>'GTC',
     ]);
     print_r($result);
@@ -71,7 +69,6 @@ try {
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
-*/
 
 //New OCO (TRADE)
 try {
@@ -114,6 +111,8 @@ try {
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
+
+
 
 
 

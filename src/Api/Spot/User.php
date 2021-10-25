@@ -12,13 +12,16 @@ class User extends Request
     //Default required HMAC SHA256
     protected $signature=true;
 
+    //Default seting
+    protected $version='v3';
+
     /**
      * 查看账户当前挂单 (USER_DATA)
     GET /api/v3/openOrders  (HMAC SHA256)
      * */
     public function getOpenOrders(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v3/openOrders';
+        $this->path='/api/'.$this->version.'/openOrders';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -39,7 +42,7 @@ class User extends Request
      * */
     public function getAllOrders(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v3/allOrders';
+        $this->path='/api/'.$this->version.'/allOrders';
 
         $data['timestamp']=time().'000';
         $data['limit']=$data['limit'] ?? 1000;
@@ -61,7 +64,7 @@ class User extends Request
      * */
     public function getOrder(array $data){
         $this->type='GET';
-        $this->path='/api/v3/order';
+        $this->path='/api/'.$this->version.'/order';
 
         $data['timestamp']=time().'000';
 
@@ -79,7 +82,7 @@ class User extends Request
      * */
     public function getAccount(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v3/account';
+        $this->path='/api/'.$this->version.'/account';
 
         $data['timestamp']=time().'000';
 
@@ -94,7 +97,7 @@ class User extends Request
      * */
     public function getMyTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v3/myTrades';
+        $this->path='/api/'.$this->version.'/myTrades';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -106,7 +109,7 @@ class User extends Request
      * */
     public function getCapitalDepositHisrec(array $data=[]){
         $this->type='GET';
-        $this->path='/sapi/v1/capital/deposit/hisrec';
+        $this->path='/api/'.$this->version.'/capital/deposit/hisrec';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -118,7 +121,7 @@ class User extends Request
      * */
     public function getCapitalWithdrawHistory(array $data=[]){
         $this->type='GET';
-        $this->path='/sapi/v1/capital/withdraw/history';
+        $this->path='/api/'.$this->version.'/capital/withdraw/history';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -130,7 +133,7 @@ class User extends Request
      * */
     public function getCapitalDepositAddress(array $data=[]){
         $this->type='GET';
-        $this->path='/sapi/v1/capital/deposit/address';
+        $this->path='/api/'.$this->version.'/capital/deposit/address';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -144,7 +147,7 @@ class User extends Request
     public function getAccountStatus(array $data=[]){
         $this->signature=false;
         $this->type='GET';
-        $this->path='/sapi/v1/account/status';
+        $this->path='/api/'.$this->version.'/account/status';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -156,7 +159,7 @@ class User extends Request
      * */
     public function getAssetDribblet(array $data=[]){
         $this->type='GET';
-        $this->path='/sapi/v1/asset/dribblet';
+        $this->path='/api/'.$this->version.'/asset/dribblet';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -168,7 +171,7 @@ class User extends Request
      * */
     public function getTradeFee(array $data=[]){
         $this->type='GET';
-        $this->path='/sapi/v1/asset/tradeFee';
+        $this->path='/api/'.$this->version.'/asset/tradeFee';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -180,7 +183,7 @@ class User extends Request
      * */
     public function getAssetDetail(array $data=[]){
         $this->type='GET';
-        $this->path='/sapi/v1/asset/assetDetail';
+        $this->path='/api/'.$this->version.'/asset/assetDetail';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -194,7 +197,7 @@ class User extends Request
      */
     public function postUserDataStream(array $data=[]){
         $this->type='POST';
-        $this->path='/api/v3/userDataStream';
+        $this->path='/api/'.$this->version.'/userDataStream';
         $this->data=$data;
         return $this->exec();
     }
@@ -204,7 +207,7 @@ class User extends Request
      */
     public function putUserDataStream(array $data=[]){
         $this->type='PUT';
-        $this->path='/api/v3/userDataStream';
+        $this->path='/api/'.$this->version.'/userDataStream';
         $this->data=$data;
         $this->signature=false;
         return $this->exec();
@@ -215,7 +218,7 @@ class User extends Request
      */
     public function deleteUserDataStream(array $data=[]){
         $this->type='DELETE';
-        $this->path='/api/v3/userDataStream';
+        $this->path='/api/'.$this->version.'/userDataStream';
         $this->data=$data;
         $this->signature=false;
         return $this->exec();
@@ -227,7 +230,7 @@ class User extends Request
      */
     public function postUserDataStreamSapi(array $data=[]){
         $this->type='POST';
-        $this->path='/sapi/v1/userDataStream';
+        $this->path='/api/'.$this->version.'/userDataStream';
         $this->data=$data;
         return $this->exec();
     }
@@ -237,7 +240,7 @@ class User extends Request
      */
     public function putUserDataStreamSapi(array $data=[]){
         $this->type='PUT';
-        $this->path='/sapi/v1/userDataStream';
+        $this->path='/api/'.$this->version.'/userDataStream';
         $this->data=$data;
         return $this->exec();
     }
@@ -247,7 +250,7 @@ class User extends Request
      */
     public function deleteUserDataStreamSapi(array $data=[]){
         $this->type='DELETE';
-        $this->path='/sapi/v1/userDataStream';
+        $this->path='/api/'.$this->version.'/userDataStream';
         $this->data=$data;
         return $this->exec();
     }
@@ -258,7 +261,7 @@ class User extends Request
      */
     public function postUserDataStreamIsolated(array $data=[]){
         $this->type='POST';
-        $this->path='/sapi/v1/userDataStream/isolated';
+        $this->path='/api/'.$this->version.'/userDataStream/isolated';
         $this->data=$data;
         return $this->exec();
     }
@@ -268,7 +271,7 @@ class User extends Request
      */
     public function putUserDataStreamIsolated(array $data=[]){
         $this->type='PUT';
-        $this->path='/sapi/v1/userDataStream/isolated';
+        $this->path='/api/'.$this->version.'/userDataStream/isolated';
         $this->data=$data;
         return $this->exec();
     }
@@ -278,7 +281,7 @@ class User extends Request
      */
     public function deleteUserDataStreamIsolated(array $data=[]){
         $this->type='DELETE';
-        $this->path='/sapi/v1/userDataStream/isolated';
+        $this->path='/api/'.$this->version.'/userDataStream/isolated';
         $this->data=$data;
         return $this->exec();
     }
@@ -291,7 +294,7 @@ class User extends Request
      */
     public function getOrderList(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v3/orderList';
+        $this->path='/api/'.$this->version.'/orderList';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -303,7 +306,7 @@ class User extends Request
      */
     public function getAllOrderList(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v3/allOrderList';
+        $this->path='/api/'.$this->version.'/allOrderList';
         $data['timestamp']=time().'000';
         $this->data=$data;
 
@@ -316,7 +319,7 @@ class User extends Request
      */
     public function getOpenOrderList(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v3/openOrderList';
+        $this->path='/api/'.$this->version.'/openOrderList';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();

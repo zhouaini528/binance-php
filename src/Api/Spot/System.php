@@ -12,13 +12,16 @@ class System extends Request
     //Default Dont required HMAC SHA256
     protected $signature=false;
 
+    //Default seting
+    protected $version='v1';
+
     /**
      * 测试服务器连通性 PING
     GET /api/v1/ping
      * */
     public function getPing(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v1/ping';
+        $this->path='/api/'.$this->version.'/ping';
         $this->data=$data;
         return $this->exec();
     }
@@ -29,7 +32,7 @@ class System extends Request
      * */
     public function getTime(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v1/time';
+        $this->path='/api/'.$this->version.'/time';
         $this->data=$data;
         return $this->exec();
     }
@@ -40,7 +43,7 @@ class System extends Request
      * */
     public function getExchangeInfo(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v1/exchangeInfo';
+        $this->path='/api/'.$this->version.'/exchangeInfo';
         $this->data=$data;
         return $this->exec();
     }
@@ -54,7 +57,7 @@ class System extends Request
      * */
     public function getDepth(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v1/depth';
+        $this->path='/api/'.$this->version.'/depth';
         $this->data=$data;
         return $this->exec();
     }
@@ -68,7 +71,7 @@ class System extends Request
      * */
     public function getTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v1/trades';
+        $this->path='/api/'.$this->version.'/trades';
         $this->data=$data;
         return $this->exec();
     }
@@ -79,7 +82,7 @@ class System extends Request
      * */
     public function getHistoricalTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v1/historicalTrades';
+        $this->path='/api/'.$this->version.'/historicalTrades';
         $this->data=$data;
         return $this->exec();
     }
@@ -96,7 +99,7 @@ class System extends Request
      * */
     public function getAggTrades(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v1/aggTrades';
+        $this->path='/api/'.$this->version.'/aggTrades';
         $this->data=$data;
         return $this->exec();
     }
@@ -107,7 +110,7 @@ class System extends Request
      * */
     public function getKlines(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v1/klines';
+        $this->path='/api/'.$this->version.'/klines';
         $this->data=$data;
         return $this->exec();
     }
@@ -120,7 +123,7 @@ class System extends Request
      * */
     public function getAvgPrice(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v3/avgPrice';
+        $this->path='/api/'.$this->version.'/avgPrice';
         $this->data=$data;
         return $this->exec();
     }
@@ -131,7 +134,7 @@ class System extends Request
      * */
     public function getSystemStatus(array $data=[]){
         $this->type='GET';
-        $this->path='/sapi/v1/system/status';
+        $this->path='/api/'.$this->version.'/system/status';
         $this->data=$data;
         return $this->exec();
     }
@@ -142,7 +145,7 @@ class System extends Request
      * */
     public function get24hr(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v1/ticker/24hr';
+        $this->path='/api/'.$this->version.'/ticker/24hr';
         $this->data=$data;
         return $this->exec();
     }
@@ -153,7 +156,7 @@ class System extends Request
      * */
     public function getTickerPrice(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v3/ticker/price';
+        $this->path='/api/'.$this->version.'/ticker/price';
         $this->data=$data;
         return $this->exec();
     }
@@ -164,7 +167,7 @@ class System extends Request
      * */
     public function getTickerBookTicker(array $data=[]){
         $this->type='GET';
-        $this->path='/api/v3/ticker/bookTicker';
+        $this->path='/api/'.$this->version.'/ticker/bookTicker';
         $this->data=$data;
         return $this->exec();
     }

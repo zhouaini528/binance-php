@@ -12,6 +12,9 @@ class Trade extends Request
     //Default required HMAC SHA256
     protected $signature=true;
 
+    //Default seting
+    protected $version='v3';
+
     /**
      * 下单 (TRADE)
     POST /api/v3/order  (HMAC SHA256)
@@ -44,7 +47,7 @@ class Trade extends Request
      * */
     public function postOrder(array $data){
         $this->type='POST';
-        $this->path='/api/v3/order';
+        $this->path='/api/'.$this->version.'/order';
 
         $data['timestamp']=time().'000';
         $data['newOrderRespType']=$data['newOrderRespType'] ?? 'ACK';
@@ -66,7 +69,7 @@ class Trade extends Request
      * */
     public function postOrderTest(array $data){
         $this->type='POST';
-        $this->path='/api/v3/order/test';
+        $this->path='/api/'.$this->version.'/order/test';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -85,7 +88,7 @@ class Trade extends Request
      * */
     public function deleteOrder(array $data){
         $this->type='DELETE';
-        $this->path='/api/v3/order';
+        $this->path='/api/'.$this->version.'/order';
 
         $data['timestamp']=time().'000';
 
@@ -103,7 +106,7 @@ class Trade extends Request
      * */
     public function deleteAllOrders(array $data){
         $this->type='DELETE';
-        $this->path='/api/v3/openOrders';
+        $this->path='/api/'.$this->version.'/openOrders';
 
         $data['timestamp']=time().'000';
 
@@ -117,7 +120,7 @@ class Trade extends Request
      * */
     public function postOrderOco(array $data=[]){
         $this->type='POST';
-        $this->path='/api/v3/order/oco';
+        $this->path='/api/'.$this->version.'/order/oco';
 
         $data['timestamp']=time().'000';
 
@@ -131,7 +134,7 @@ class Trade extends Request
      * */
     public function deleteOrderList(array $data=[]){
         $this->type='DELETE';
-        $this->path='/api/v3/orderList';
+        $this->path='/api/'.$this->version.'/orderList';
 
         $data['timestamp']=time().'000';
 

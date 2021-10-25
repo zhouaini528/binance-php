@@ -3,9 +3,9 @@
 
 /**
  * @author lin <465382251@qq.com>
- * 
+ *
  * Fill in your key and secret and pass can be directly run
- * 
+ *
  * Most of them are unfinished and need your help
  * https://github.com/zhouaini528/huobi-php.git
  * */
@@ -17,20 +17,19 @@ include 'key_secret.php';
 
 $binance=new Binance();
 
+//You can set special needs
 $binance->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
-    
-    //If you are developing locally and need an agent, you can set this
-    //'proxy'=>true,
-    //More flexible Settings
-    /* 'proxy'=>[
-     'http'  => 'http://127.0.0.1:12333',
-     'https' => 'http://127.0.0.1:12333',
-     'no'    =>  ['.cn']
-     ], */
-    //Close the certificate
-    //'verify'=>false,
+
+    //https://github.com/guzzle/guzzle
+    'proxy'=>[],
+
+    //https://www.php.net/manual/en/book.curl.php
+    'curl'=>[],
+
+    //default is v1
+    //'version'=>'v1',
 ]);
 
 //Order book
