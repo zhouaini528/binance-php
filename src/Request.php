@@ -33,11 +33,18 @@ class Request
 
     protected $response_headers = [];
 
+    protected $version='';
+
     public function __construct(array $data)
     {
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
         $this->host=$data['host'] ?? 'https://api.binance.com';
+
+        if(isset($data['options']['version'])){
+            $this->version=strtolower($data['options']['version']);
+            unset($data['options']['version']);
+        }
 
         $this->options=$data['options'] ?? [];
     }
