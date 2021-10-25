@@ -21,20 +21,18 @@ $binance->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
 
-    //If you are developing locally and need an agent, you can set this
-    //'proxy'=>true,
-    //More flexible Settings
-    /* 'proxy'=>[
-     'http'  => 'http://127.0.0.1:12333',
-     'https' => 'http://127.0.0.1:12333',
-     'no'    =>  ['.cn']
-     ], */
-    //Close the certificate
-    //'verify'=>false,
+    //https://github.com/guzzle/guzzle
+    'proxy'=>[],
+
+    //https://www.php.net/manual/en/book.curl.php
+    'curl'=>[],
+
+    //default is v1
+    //'version'=>'v3',
 ]);
 
 //Get all account orders; active, canceled, or filled.
-try {
+/*try {
     $result=$binance->user()->getAllOrders([
         'symbol'=>'BCHABCUSDT',
         'limit'=>'20',
@@ -45,16 +43,17 @@ try {
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
-}
+}*/
+
 
 //Get current account information.
 try {
     $result=$binance->user()->getAccount();
-    print_r($result);
+    echo json_encode($result);
+    //print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
-
 
 //Query OCO (USER_DATA)
 //GET /api/v3/orderList (HMAC SHA256)
