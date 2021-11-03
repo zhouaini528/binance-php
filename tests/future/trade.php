@@ -38,7 +38,7 @@ try {
         'side'=>'BUY',
         'type'=>'LIMIT',
         'quantity'=>'1',
-        'price'=>'10',
+        'price'=>'60000',
         'timeInForce'=>'GTC',
         //'newClientOrderId'=>'xxxxxxx'
     ]);
@@ -47,6 +47,37 @@ try {
     print_r($e->getMessage());
 }
 sleep(1);
+
+try {
+    $result=$binance->trade()->postBatchOrders([
+        'batchOrders'=>[
+            [
+                'symbol'=>'BTCUSDT',
+                'side'=>'BUY',
+                'type'=>'LIMIT',
+                'quantity'=>'1',
+                'price'=>'60000',
+                'timeInForce'=>'GTC',
+                //'newClientOrderId'=>'xxxxxxx'
+            ],
+            [
+                'symbol'=>'BTCUSDT',
+                'side'=>'BUY',
+                'type'=>'LIMIT',
+                'quantity'=>'2',
+                'price'=>'60000',
+                'timeInForce'=>'GTC',
+                //'newClientOrderId'=>'xxxxxxx'
+            ],
+        ]
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r($e->getMessage());
+}
+sleep(1);
+die;
+
 
 //Check an order's status.
 try {

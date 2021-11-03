@@ -27,6 +27,8 @@ class Request
 
     protected $path='';
 
+    protected $query='';
+
     protected $data=[];
 
     protected $options=[];
@@ -74,12 +76,16 @@ class Request
      * */
     protected function signature(){
         if(!empty($this->data)){
-            $query=http_build_query($this->data,'', '&');
+            foreach ($this->data as $k1=>$v1){
+                if(is_array($v1)) $this->query.=$k1.'='.urlencode(json_encode($v1)).'&';
+                else $this->query.=$k1.'='.$v1.'&';
+            }
+            $this->query=substr($this->query,0,-1);
 
             if($this->signature===true){
-                $this->signature = $query.'&signature='.hash_hmac('sha256', $query, $this->secret);
+                $this->signature = $this->query.'&signature='.hash_hmac('sha256', $this->query, $this->secret);
             }else{
-                $this->signature = $query;
+                $this->signature = $this->query;
             }
         }
     }
@@ -101,7 +107,7 @@ class Request
     }
 
     /**
-     * 请求设置
+     *
      * */
     protected function options(){
         if(isset($this->options['headers'])) $this->headers=array_merge($this->headers,$this->options['headers']);
@@ -140,11 +146,8 @@ class Request
 
                 $temp=json_decode($contents,true);
                 if(!empty($temp)) {
-                    $query='';
-                    if(!empty($this->data)) $query=http_build_query($this->data,'', '&');
-
                     $temp['_method']=$this->type;
-                    $temp['_url']=$this->host.$this->path.$query;
+                    $temp['_url']=$this->host.$this->path.'?'.$this->query;
                 }else{
                     $temp['_message']=$e->getMessage();
                 }
