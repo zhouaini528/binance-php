@@ -103,13 +103,14 @@ class User extends Request
         return $this->exec();
     }
 
+
     /**
      *充值历史 (USER_DATA)
      * GET /sapi/v1/capital/deposit/hisrec
      * */
     public function getCapitalDepositHisrec(array $data=[]){
         $this->type='GET';
-        $this->path='/api/'.$this->version.'/capital/deposit/hisrec';
+        $this->path='/sapi/'.$this->version.'/capital/deposit/hisrec';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -121,7 +122,7 @@ class User extends Request
      * */
     public function getCapitalWithdrawHistory(array $data=[]){
         $this->type='GET';
-        $this->path='/api/'.$this->version.'/capital/withdraw/history';
+        $this->path='/sapi/'.$this->version.'/capital/withdraw/history';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -133,7 +134,7 @@ class User extends Request
      * */
     public function getCapitalDepositAddress(array $data=[]){
         $this->type='GET';
-        $this->path='/api/'.$this->version.'/capital/deposit/address';
+        $this->path='/sapi/'.$this->version.'/capital/deposit/address';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -147,7 +148,7 @@ class User extends Request
     public function getAccountStatus(array $data=[]){
         $this->signature=false;
         $this->type='GET';
-        $this->path='/api/'.$this->version.'/account/status';
+        $this->path='/sapi/'.$this->version.'/account/status';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -159,7 +160,7 @@ class User extends Request
      * */
     public function getAssetDribblet(array $data=[]){
         $this->type='GET';
-        $this->path='/api/'.$this->version.'/asset/dribblet';
+        $this->path='/sapi/'.$this->version.'/asset/dribblet';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -171,7 +172,7 @@ class User extends Request
      * */
     public function getTradeFee(array $data=[]){
         $this->type='GET';
-        $this->path='/api/'.$this->version.'/asset/tradeFee';
+        $this->path='/sapi/'.$this->version.'/asset/tradeFee';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
@@ -183,7 +184,40 @@ class User extends Request
      * */
     public function getAssetDetail(array $data=[]){
         $this->type='GET';
-        $this->path='/api/'.$this->version.'/asset/assetDetail';
+        $this->path='/sapi/'.$this->version.'/asset/assetDetail';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     * POST /sapi/v1/asset/transfer (HMAC SHA256)
+     * */
+    public function getAssetTransfer(array $data=[]){
+        $this->type='POST';
+        $this->path='/sapi/'.$this->version.'/asset/transfer';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     * POST /sapi/v1/asset/get-funding-asset (HMAC SHA256)
+     * */
+    public function postAssetGetFundingAsset(array $data=[]){
+        $this->type='POST';
+        $this->path='/sapi/'.$this->version.'/asset/get-funding-asset';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
+
+    /**
+     * GET /sapi/v1/account/apiRestrictions (HMAC SHA256)
+     * */
+    public function getAccountApiRestrictions(array $data=[]){
+        $this->type='GET';
+        $this->path='/sapi/'.$this->version.'/account/apiRestrictions';
         $data['timestamp']=time().'000';
         $this->data=$data;
         return $this->exec();
