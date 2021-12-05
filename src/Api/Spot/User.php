@@ -127,6 +127,18 @@ class User extends Request
         $this->data=$data;
         return $this->exec();
     }
+    
+    /**
+     * 提币 (USER_DATA)
+     * POST /sapi/v1/capital/withdraw/apply (HMAC SHA256)
+     */
+    public function postCapitalWithdraw(array $data=[]) {
+        $this->type = 'POST';
+        $this->path='/sapi/v1/capital/withdraw/apply';
+        $data['timestamp']=time().'000';
+        $this->data=$data;
+        return $this->exec();
+    }
 
     /**
      *获取充值地址(USER_DATA)
