@@ -12,6 +12,9 @@ class User extends Request
     //Default required HMAC SHA256
     protected $signature=true;
 
+    //Default setting
+    protected $version='v1';
+
     function __construct(array $data)
     {
         parent::__construct($data);
