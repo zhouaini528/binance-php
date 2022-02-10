@@ -620,6 +620,13 @@ $binance->getSubscribe([//返回私有频道所有数据、返回部分公共频
 },true);
 ```
 
+重新链接websocket公共行情数据、私有数据
+```php
+$binance->reconPublic();//重新链接全部共行情
+
+$binance->reconPrivate($key);//重新订阅私有数据
+```
+
 [现货更多用例请查看](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_spot.php)
 
 [USDT期货更多用例请查看](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_usdt_future.php)

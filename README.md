@@ -698,6 +698,13 @@ $binance->getSubscribe([//Return all data of private channel and partial data of
 },true);
 ```
 
+Re link websocket public quotation data and private data
+```php
+$binance->reconPublic();
+
+$binance->reconPrivate($key);
+```
+
 [Spot Websocket More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_spot.php)
 
 [USDT Future Websocket More Test](https://github.com/zhouaini528/binance-php/tree/master/tests/websocket/client_usdt_future.php)
