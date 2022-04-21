@@ -1,5 +1,5 @@
 {
-    "name": "mhallaji/binance",
+    "name": "linwj/binance",
     "type": "library",
     "description": "Binance API Like the official document interface, Support for arbitrary extension.",
     "license": "MIT",
@@ -20,5 +20,11 @@
         "guzzlehttp/guzzle": "*",
         "workerman/workerman": "*",
         "workerman/globaldata": "*"
-    }
+    },
+     "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/MortezaHallaji/binance-php"
+        }
+],
 }
