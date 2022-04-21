@@ -20,11 +20,5 @@
         "guzzlehttp/guzzle": "*",
         "workerman/workerman": "*",
         "workerman/globaldata": "*"
-    },
-     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/MortezaHallaji/binance-php"
-        }
-],
+    }
 }
