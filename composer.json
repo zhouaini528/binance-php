@@ -1,5 +1,5 @@
 {
-    "name": "linwj/binance",
+    "name": "mhallaji/binance",
     "type": "library",
     "description": "Binance API Like the official document interface, Support for arbitrary extension.",
     "license": "MIT",
