@@ -1,13 +1,13 @@
 {
-    "name": "linwj/binancew",
+    "name": "mhallaji/binance",
     "type": "library",
     "description": "Binance API Like the official document interface, Support for arbitrary extension.",
     "license": "MIT",
     "keywords": ["bitmex", "binance", "okex", "huobi","kucoin","kumex"],
     "authors": [
         {
-            "name": "linwenjun",
-            "email": "465382251@qq.com"
+            "name": "Morteza Hallji , Kiarash rishehri",
+            "email": "mhallaji75@gmail.com"
         }
     ],
     "autoload": {
