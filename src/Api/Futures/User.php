@@ -31,6 +31,16 @@ class User extends Request
         $this->data=array_merge($this->data,$data);
         return $this->exec();
     }
+    
+    /**
+     *GET /fapi/v1/positionSide/dual (HMAC SHA256)  USER_DATA
+     * */
+    public function getPositionSideDual(array $data=[]){
+        $this->type='GET';
+        $this->path='/fapi/'.$this->version.'/positionSide/dual';
+        $this->data=array_merge($this->data,$data);
+        return $this->exec();
+    }
 
     /**
      *GET /fapi/v1/order (HMAC SHA256) USER_DATA
