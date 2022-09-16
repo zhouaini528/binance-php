@@ -13,11 +13,11 @@ class System extends Request
     protected $signature=false;
 
     //Default seting
-    protected $version='v1';
+    protected $version='v3';
 
     /**
      * 测试服务器连通性 PING
-    GET /api/v1/ping
+    GET /api/v3/ping
      * */
     public function getPing(array $data=[]){
         $this->type='GET';
@@ -28,7 +28,7 @@ class System extends Request
 
     /**
      *获取服务器时间
-    GET /api/v1/time
+    GET /api/v3/time
      * */
     public function getTime(array $data=[]){
         $this->type='GET';
@@ -39,7 +39,7 @@ class System extends Request
 
     /**
      *交易规范信息
-    GET /api/v1/exchangeInfo
+    GET /api/v3/exchangeInfo
      * */
     public function getExchangeInfo(array $data=[]){
         $this->type='GET';
@@ -50,7 +50,7 @@ class System extends Request
 
     /**
      *深度信息
-    GET /api/v1/depth
+    GET /api/v3/depth
 
     symbol	STRING	YES
     limit	INT	NO	默认 100; 最大 1000. 可选值:[5, 10, 20, 50, 100, 500, 1000]
@@ -64,7 +64,7 @@ class System extends Request
 
     /**
      *近期成交
-    GET /api/v1/trades
+    GET /api/v3/trades
 
     symbol	STRING	YES
     limit	INT	NO	Default 500; max 1000.
@@ -78,7 +78,7 @@ class System extends Request
 
     /**
      *查询历史成交(MARKET_DATA)
-    GET /api/v1/historicalTrades
+    GET /api/v3/historicalTrades
      * */
     public function getHistoricalTrades(array $data=[]){
         $this->type='GET';
@@ -89,7 +89,7 @@ class System extends Request
 
     /**
      *近期成交(归集)
-    GET /api/v1/aggTrades
+    GET /api/v3/aggTrades
 
     symbol	STRING	YES
     fromId	LONG	NO	从包含fromID的成交开始返回结果
@@ -106,7 +106,7 @@ class System extends Request
 
     /**
      *K线数据
-    GET /api/v1/klines
+    GET /api/v3/klines
      * */
     public function getKlines(array $data=[]){
         $this->type='GET';
@@ -130,7 +130,7 @@ class System extends Request
 
     /**
      *系统状态 (System)
-    GET /sapi/v1/system/status
+    GET /sapi/v3/system/status
      * */
     public function getSystemStatus(array $data=[]){
         $this->type='GET';
@@ -141,7 +141,7 @@ class System extends Request
 
     /**
      *24hr价格变动情况
-    GET /api/v1/ticker/24hr
+    GET /api/v3/ticker/24hr
      * */
     public function get24hr(array $data=[]){
         $this->type='GET';
