@@ -141,6 +141,8 @@ class Request
         try {
             return json_decode($this->send(),true);
         }catch (RequestException $e){
+            if(empty($e->getResponse()) || $e->getResponse()==null) throw new Exception(json_encode(['_message'=>'system error']));
+            
             if(method_exists($e->getResponse(),'getBody')){
                 $contents=$e->getResponse()->getBody()->getContents();
 
