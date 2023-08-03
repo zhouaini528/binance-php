@@ -92,6 +92,11 @@ try {
         'symbol'=>'BTCUSDT',
         'limit'=>'20',
     ]);
+    //You can set the version by passing parameters
+    $result=$binance->system()->getDepth([
+        'symbol'=>'BTCUSDT',
+        'limit'=>'20',
+    ],'v2');
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());

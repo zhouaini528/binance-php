@@ -96,6 +96,11 @@ try {
         'symbol'=>'BTCUSDT',
         'limit'=>'20',
     ]);
+    //也可以传参设置版本
+    $result=$binance->system()->getDepth([
+        'symbol'=>'BTCUSDT',
+        'limit'=>'20',
+    ],'v2');
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
