@@ -55,6 +55,26 @@ class Trade extends Request
         $this->data = array_merge($this->data, $data);
         return $this->exec();
     }
+    /*
+     *PUT /fapi/v1/order (HMAC SHA256)
+     */
+    public function putOrder(array $data = [], string $version = Version::V1)
+    {
+        $this->type = 'PUT';
+        $this->path = '/fapi/' . $version . '/order';
+        $this->data = array_merge($this->data, $data);
+        return $this->exec();
+    }
+    /*
+    *POST /fapi/v1/order/test (HMAC SHA256)
+    */
+    public function postTestOrder(array $data = [], string $version = Version::V1)
+    {
+        $this->type = 'POST';
+        $this->path = '/fapi/' . $version . '/order/test';
+        $this->data = array_merge($this->data, $data);
+        return $this->exec();
+    }
 
     /*
      *POST /fapi/v1/batchOrders (HMAC SHA256)
