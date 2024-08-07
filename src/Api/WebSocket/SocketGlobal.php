@@ -135,7 +135,7 @@ trait SocketGlobal
                             if(!isset($new_value[$k])) $new_value[$k]=$v;
                             else $new_value[$k]=array_unique(array_merge($new_value[$k],$v));
                         }else{
-                            $new_value[$k]=$v;
+                            array_push($new_value,$v);
                         }
                         break;
                     }
