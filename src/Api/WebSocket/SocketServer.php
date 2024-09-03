@@ -240,12 +240,14 @@ class SocketServer
 
         if($con->tag=='public') {
             //public
-            if(isset($debug['public']) && $debug['public'][$con->tag]=='close'){
+            //print_r($debug);
+            if(isset($debug['public']) && $debug['public']['market']=='close'){
                 $this->log($con->tag.' debug '.json_encode($debug));
 
-                $debug['public'][$con->tag]='recon';
+                $debug['public']['market']='recon';
                 $global->save('debug',$debug);
 
+                $con->debug=$debug;
                 $con->close();
             }
         }else{
@@ -295,8 +297,8 @@ class SocketServer
         $global->addSubUpdate();
 
         //*******订阅成功后 更改 all_sub  public 值
+        if(isset($con->debug) && $con->debug['public']['market']=='recon') return; //如果是测试BUG重连   不再加入
         $global->allSubUpdate($sub,'add');
-
         return;
     }
 
