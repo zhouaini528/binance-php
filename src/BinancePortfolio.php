@@ -6,6 +6,7 @@
 namespace Lin\Binance;
 
 
+use Lin\Binance\Api\Portfolio\Account;
 use Lin\Binance\Api\Portfolio\Trade;
 use Lin\Binance\Api\Portfolio\Websocket;
 
@@ -52,6 +53,10 @@ class BinancePortfolio
 
     public function websocket(){
         return new Websocket($this->init());
+    }
+
+    public function account(){
+        return new Account($this->init());
     }
 
     public function um(){
