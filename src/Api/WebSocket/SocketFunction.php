@@ -19,6 +19,7 @@ trait SocketFunction
         //'baseurl'=>'ws://stream.binance.com:9443',//default
         //'baseurl'=>'ws://fstream.binance.com',
         //'baseurl'=>'ws://dstream.binance.com',
+        //'baseurl'=>'ws://fstream.binance.com/pm',
 
         switch ($this->config['baseurl']){
             case 'ws://fstream.binance.com':{
@@ -29,6 +30,11 @@ trait SocketFunction
             case 'ws://dstream.binance.com':{
                 $binance=new \Lin\Binance\BinanceDelivery($key_secret['key'],$key_secret['secret']);
                 $listen_key=$binance->user()->postListenKey();
+                break;
+            }
+            case 'ws://fstream.binance.com/pm':{
+                $binance=new \Lin\Binance\BinancePortfolio($key_secret['key'],$key_secret['secret']);
+                $listen_key=$binance->websocket()->postListenKey();
                 break;
             }
             //ws://stream.binance.com:9443

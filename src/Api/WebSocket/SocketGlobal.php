@@ -23,6 +23,9 @@ trait SocketGlobal
             case 'ws://dstream.binance.com':{
                 return '2209';
             }
+            case 'ws://fstream.binance.com/pm':{
+                return '2213';
+            }
             //ws://stream.binance.com:9443
             default:{
                 return '2208';
