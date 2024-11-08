@@ -196,8 +196,6 @@ class SocketServer
 
             $this->account($con,$global);
 
-            $this->coinFutureSubscribe($con,$global);
-
             $this->debug($con,$global);
 
             //公共数据如果60秒内无数据更新，则断开连接重新订阅，重试次数不超过10次
@@ -393,25 +391,6 @@ class SocketServer
                 }
             }
 
-        }
-    }
-
-    /**
-     * @param $con
-     * @param $global
-     */
-    private function coinFutureSubscribe($con,$global){
-        if($con->tag!='public' && $this->config['baseurl']=='ws://dstream.binance.com'){
-            $data=[
-                "method"=>"REQUEST",
-                'params'=>[
-                    '@account',
-                    '@balance',
-                    '@position',
-                ],
-                'id'=>$this->getId()
-            ];
-            $con->send(json_encode($data));
         }
     }
 }
