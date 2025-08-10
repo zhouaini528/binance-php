@@ -7,7 +7,7 @@ namespace Lin\Binance\Api\WebSocket;
 
 use Lin\Binance\Api\WebSocket\SocketGlobal;
 use Lin\Binance\Api\WebSocket\SocketFunction;
-use Workerman\Lib\Timer;
+use Workerman\Timer;
 use Workerman\Worker;
 use Workerman\Connection\AsyncTcpConnection;
 
