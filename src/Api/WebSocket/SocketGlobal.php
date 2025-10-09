@@ -7,11 +7,14 @@ namespace Lin\Binance\Api\WebSocket;
 
 use GlobalData\Server;
 use GlobalData\Client;
+use Workerman\Worker;
 
 trait SocketGlobal
 {
     protected $server;
     protected $client;
+
+    protected $client_worker;
 
     private $config=[];
 
@@ -41,6 +44,7 @@ trait SocketGlobal
 
     protected function client(){
         $address=isset($this->config['global']) ? $this->config['global'] : '0.0.0.0:'.$this->port();
+        $this->client_worker=new Worker();
         $this->client=new Client($address);
         return $this;
     }
