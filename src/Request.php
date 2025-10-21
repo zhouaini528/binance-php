@@ -78,7 +78,7 @@ class Request
         if(!empty($this->data)){
             foreach ($this->data as $k1=>$v1){
                 if(is_array($v1)) $this->query.=$k1.'='.urlencode(json_encode($v1)).'&';
-                else $this->query.=$k1.'='.$v1.'&';
+                else $this->query.=$k1.'='.urlencode($v1).'&';
             }
             $this->query=substr($this->query,0,-1);
 
