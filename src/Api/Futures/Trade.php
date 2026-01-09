@@ -174,4 +174,61 @@ class Trade extends Request
         $this->data = array_merge($this->data, $data);
         return $this->exec();
     }
+
+
+
+    /*
+     *POST /fapi/v1/algoOrder
+     */
+    public function postAlgoOrder(array $data = [], string $version = Version::V1)
+    {
+        $this->type = 'POST';
+        $this->path = '/fapi/' . $version . '/algoOrder';
+        $this->data = array_merge($this->data, $data);
+        return $this->exec();
+    }
+
+    /*
+     *DELETE /fapi/v1/algoOrder
+     */
+    public function deleteAlgoOrder(array $data = [], string $version = Version::V1)
+    {
+        $this->type = 'DELETE';
+        $this->path = '/fapi/' . $version . '/algoOrder';
+        $this->data = array_merge($this->data, $data);
+        return $this->exec();
+    }
+
+    /*
+     *DELETE /fapi/v1/algoOpenOrders
+     */
+    public function deleteAlgoOpenOrders(array $data = [], string $version = Version::V1)
+    {
+        $this->type = 'DELETE';
+        $this->path = '/fapi/' . $version . '/algoOpenOrders';
+        $this->data = array_merge($this->data, $data);
+        return $this->exec();
+    }
+
+    /*
+     *GET /fapi/v1/openAlgoOrders
+     */
+    public function getOpenAlgoOrders(array $data = [], string $version = Version::V1)
+    {
+        $this->type = 'GET';
+        $this->path = '/fapi/' . $version . '/openAlgoOrders';
+        $this->data = array_merge($this->data, $data);
+        return $this->exec();
+    }
+
+    /*
+     *GET /fapi/v1/allAlgoOrders
+     */
+    public function getAllAlgoOrders(array $data = [], string $version = Version::V1)
+    {
+        $this->type = 'GET';
+        $this->path = '/fapi/' . $version . '/allAlgoOrders';
+        $this->data = array_merge($this->data, $data);
+        return $this->exec();
+    }
 }
