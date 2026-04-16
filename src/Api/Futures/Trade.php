@@ -189,6 +189,17 @@ class Trade extends Request
     }
 
     /*
+     *GET /fapi/v1/algoOrder
+     */
+    public function getAlgoOrder(array $data = [], string $version = Version::V1)
+    {
+        $this->type = 'GET';
+        $this->path = '/fapi/' . $version . '/algoOrder';
+        $this->data = array_merge($this->data, $data);
+        return $this->exec();
+    }
+
+    /*
      *DELETE /fapi/v1/algoOrder
      */
     public function deleteAlgoOrder(array $data = [], string $version = Version::V1)
